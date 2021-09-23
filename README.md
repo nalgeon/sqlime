@@ -1,6 +1,6 @@
 # SQLime
 
-SQLime is an online SQLite playground for debugging and sharing SQL snippets. Kinda like [JSFiddle](https://jsfiddle.net/), but for SQL instead of JavaScript.
+SQLime is an online **[SQLite playground](http://sqlime.org/)** for debugging and sharing SQL snippets. Kinda like [JSFiddle](https://jsfiddle.net/), but for SQL instead of JavaScript.
 
 Here are some notable features:
 
@@ -10,7 +10,7 @@ SQLime is backed by the latest version of SQLite, provided by an excellent [sql.
 
 ### 🔌 Connect any data source
 
-Connect any local or remote SQLite database. Both files and URLs are supported. For example, try loading the [Metro Database](https://sqlime.org/#https://raw.githubusercontent.com/nalgeon/metro/main/data/metro.en.db) from the GitHub repo.
+Connect any local or remote SQLite database. Both files and URLs are supported. For example, try loading the [Metro Database](http://sqlime.org/#https://raw.githubusercontent.com/nalgeon/metro/main/data/metro.en.db) from the GitHub repo.
 
 ### 🔗 Save and share with others
 
