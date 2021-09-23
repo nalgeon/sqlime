@@ -2,7 +2,7 @@
 
 SQLime is an online **[SQLite playground](http://sqlime.org/)** for debugging and sharing SQL snippets. Kinda like [JSFiddle](https://jsfiddle.net/), but for SQL instead of JavaScript.
 
-![SQLime screenshot](./img/sqlime.png)
+[![SQLime screenshot](./img/sqlime.png)](http://sqlime.org/)
 
 Here are some notable features:
 
