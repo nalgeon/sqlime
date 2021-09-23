@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLime</title>
+    <link rel="icon" href="favicon.svg">
+    <link rel="stylesheet" href="css/playground.css">
+</head>
+
+<body>
+    <div class="grid">
+        <header class="header">
+            <h1>
+                <a href="./" class="link-img">🍋</a>
+                <strong>SQLite Playground</strong> //
+                <strong id="db-name">loading...</strong>
+            </h1>
+            <div class="toolbar">
+                <button id="execute" class="button-small">run ►</button>
+                <button id="clear" class="button-small hidden">✘ clear</button>
+                <label class="button-small hidden-mobile">
+                    open file <input type="file" id="open-file">
+                </label>
+                <button id="open-url" class="button-small">open url</button>
+                <button id="save" class="button-small">☆ share</button>
+                <a href="settings.html" class="button-small">✎ settings</a>
+                <a href="about.html" class="button-round">?</a>
+            </div>
+        </header>
+        <section class="editor-section">
+            <sql-editor id="editor" class="sql-editor"></sql-editor>
+        </section>
+        <section class="result-section">
+            <sql-status id="status" class="sql-status"></sql-status>
+            <sql-result id="result" class="sql-result"></sql-result>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.js"></script>
+    <script type="module" src="js/components/copy-link.js"></script>
+    <script type="module" src="js/components/sql-editor.js"></script>
+    <script type="module" src="js/components/sql-status.js"></script>
+    <script type="module" src="js/components/sql-result.js"></script>
+    <script type="module" src="js/playground.js"></script>
+</body>
+
+</html>

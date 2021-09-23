@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLime — Settings</title>
+    <link rel="icon" href="favicon.svg">
+    <link rel="stylesheet" href="css/awsm.css">
+</head>
+
+<body>
+    <header>
+        <h1>Settings</h1>
+    </header>
+    <main>
+        <article>
+            <form id="settings">
+                <p>Provide your GitHub credentials to enable sharing.</p>
+                <fieldset>
+                    <legend>GitHub credentials</legend>
+                    <label for="username">Username</label>
+                    <input id="username" type="text">
+                    <label for="username">API token</label>
+                    <input id="token" type="text">
+                    <p>
+                        This is <strong>not</strong> you GitHub password.
+                        Generate an API token in
+                        <a href="https://github.com/settings/tokens" target="_blank">GitHub settings</a>
+                        with 'gist' scope.
+                    </p>
+                </fieldset>
+            </form>
+            <p><a href="javascript:history.go(-1)">← back</a></p>
+        </article>
+    </main>
+    <script type="module" src="js/settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLime — About</title>
+    <link rel="icon" href="favicon.svg">
+    <link rel="stylesheet" href="css/awsm.css">
+</head>
+
+<body>
+    <header>
+        <h1>About 🍋 SQLime</h1>
+    </header>
+    <main>
+        <article>
+            <p>SQLime is an online SQLite playground for debugging and sharing SQL snippets. 
+                Kinda like
+                <a href="https://jsfiddle.net/">JSFiddle</a>
+                or <a href="https://codepen.io/">CodePen</a>,
+                but for SQL instead of JavaScript.
+            </p>
+            <p>Here are some notable features:</p>
+
+            <h5>🔋 Full-blown database in the browser</h5>
+            <p>SQLime is backed by the latest version of SQLite, provided by an excellent
+                <a href="https://github.com/sql-js/sql.js/">sql.js</a> project.
+                It provides a full-featured SQL implementation, including indexes, triggers,
+                views, transactions, CTEs, window functions and execution plans.
+            </p>
+
+            <h5>🔌 Connect any data source</h5>
+            <p>Connect any local or remote SQLite database. Both files and URLs
+                are supported. For example, try loading the
+                <a href="./#https://raw.githubusercontent.com/nalgeon/metro/main/data/metro.en.db" target="_blank">
+                    Metro Database</a> from the GitHub repo.
+            </p>
+
+            <h5>🔗 Save and share with others</h5>
+            <p>SQLime saves both the database and the queries to GitHub
+                so that you can revisit them later or share them with a colleague.
+                The database is stored as a plain text SQL dump, so it's easy to
+                read the code or import data into PostgreSQL, MySQL,
+                or other databases.</p>
+
+            <h5>🔒 Secure and private</h5>
+            <p>There is no server. SQLime works completely in the browser.
+                The GitHub API token is also stored locally. Queries are
+                saved as private GitHub gists within your account.
+                Your data is yours only.</p>
+
+            <h5>⌨️ Dead simple</h5>
+            <p>SQLime has zero third-party dependencies other than SQLite (sql.js).
+                Good old HTML, CSS, and vanilla JS — that's all.
+                No frameworks, no heavy editors, no obsolete and vulnerable libraries.
+                Just some modular
+                <a href="https://github.com/nalgeon/sqlime">open-source code</a>,
+                which is easy to grasp and extend.
+            </p>
+
+            <h3>Keyboard shortcuts</h3>
+            <table>
+                <tr>
+                    <td><code>Ctrl / Cmd + Enter</code></td>
+                    <td>run query</td>
+                </tr>
+                <!-- <tr>
+                    <td><code>Ctrl / Cmd + O</code></td>
+                    <td>open file</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl / Cmd + U</code></td>
+                    <td>open url</td>
+                </tr>
+                <tr>
+                    <td><code>Ctrl / Cmd + S</code></td>
+                    <td>save and share</td>
+                </tr> -->
+            </table>
+
+            <p><a href="javascript:history.go(-1)">← back</a></p>
+        </article>
+    </main>
+</body>
+
+</html>
