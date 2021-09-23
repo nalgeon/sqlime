@@ -1,0 +1,2 @@
+# sqlime
+Online SQLite playground
