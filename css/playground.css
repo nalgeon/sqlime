@@ -54,6 +54,9 @@ body {
     height: 1.5rem;
     line-height: 1.25rem;
 }
+.toolbar .button-help {
+    font-weight: bold;
+}
 .toolbar a,
 .toolbar label {
     display: inline-block;
@@ -62,23 +65,6 @@ body {
 }
 .toolbar input[type="file"] {
     display: none;
-}
-.toolbar .button-round {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1.25rem;
-    height: 1.25rem;
-    line-height: 1.25rem;
-    border: 1px solid var(--color-blue);
-    border-radius: 50%;
-    text-align: center;
-    text-decoration: none;
-    color: var(--color-blue);
-    font-size: 80%;
-}
-.toolbar .button-round:hover {
-    background: var(--color-blue);
-    color: #fff;
 }
 
 .sql-actions {
