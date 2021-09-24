@@ -1,6 +1,6 @@
 # SQLime
 
-SQLime is an online **[SQLite playground](http://sqlime.org/)** for debugging and sharing SQL snippets. Kinda like [JSFiddle](https://jsfiddle.net/), but for SQL instead of JavaScript.
+**[SQLime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
 [![SQLime screenshot](./img/sqlime.png)](http://sqlime.org/)
 
@@ -25,3 +25,5 @@ There is no server. SQLime works completely in the browser. The GitHub API token
 ### ⌨️ Dead simple
 
 SQLime has zero third-party dependencies other than SQLite (sql.js). Good old HTML, CSS, and vanilla JS — that's all. No frameworks, no heavy editors, no obsolete and vulnerable libraries. Just some modular open-source code, which is easy to grasp and extend.
+
+_Follow [@ohmypy](https://twitter.com/ohmypy) on Twitter to keep up with new features 🚀_
