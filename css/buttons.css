@@ -1,0 +1,21 @@
+.button-small {
+    border: 1px solid var(--color-blue);
+    border-radius: 0.125rem;
+    background: #fff;
+    padding: 0.125em 0.5rem;
+    color: var(--color-blue);
+    cursor: pointer;
+    font-size: 80%;
+}
+.button-small:hover {
+    background: var(--color-blue);
+    color: #fff;
+}
+.button-small:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+.button-small:disabled:hover {
+    background: #fff;
+    color: #008bf5;
+}

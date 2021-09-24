@@ -8,23 +8,26 @@
     <meta property="og:site_name" content="SQLime" />
     <meta property="og:title" content="SQLime — Online SQL playground" />
     <meta property="og:description"
-        content="SQLime is an online SQLite playground for debugging and sharing SQL snippets" />
+        content="SQLime is an online SQLite playground for debugging and sharing SQL snippets." />
     <meta property="og:url" content="https://sqlime.org/" />
     <meta property="og:image" content="https://sqlime.org/img/cover.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>SQLime</title>
     <link rel="icon" href="favicon.svg">
-    <link rel="stylesheet" href="css/playground.css">
+    <link rel="stylesheet" href="css/core.css">
 </head>
 
 <body>
     <div class="grid">
+        <link rel="stylesheet" href="css/header.css">
         <header class="header">
             <h1>
-                <a href="./" class="link-img">🍋</a>
+                <a href="./" class="logo">🍋</a>
                 <strong>SQLite Playground</strong> //
                 <strong id="db-name">loading...</strong>
             </h1>
+            <link rel="stylesheet" href="css/buttons.css">
+            <link rel="stylesheet" href="css/toolbar.css">
             <div class="toolbar">
                 <button id="execute" title="Ctrl+enter" class="button-small">run ►</button>
                 <label title="Ctrl+o" class="button-small hidden-mobile">
@@ -33,18 +36,25 @@
                 <button id="open-url" title="Ctrl+u" class="button-small hidden-mobile">open url</button>
                 <button id="save" title="Ctrl+s" class="button-small">☆ share</button>
                 <a href="settings.html" class="button-small">✎ settings</a>
+                <link rel="stylesheet" href="css/actions.css">
                 <sql-actions id="actions" class="sql-actions"></sql-actions>
                 <a href="about.html" class="button-small button-help">?</a>
             </div>
         </header>
+
+        <link rel="stylesheet" href="css/editor.css">
         <section class="editor-section">
             <sql-editor id="editor" class="sql-editor"></sql-editor>
         </section>
+
+        <link rel="stylesheet" href="css/result.css">
+        <link rel="stylesheet" href="css/status.css">
         <section class="result-section">
             <sql-status id="status" class="sql-status"></sql-status>
             <sql-result id="result" class="sql-result"></sql-result>
         </section>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.js"></script>
     <script type="module" src="js/components/copy-link.js"></script>
     <script type="module" src="js/components/sql-editor.js"></script>

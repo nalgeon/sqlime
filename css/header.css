@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+.header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.header .logo {
+    text-decoration: none !important;
+}

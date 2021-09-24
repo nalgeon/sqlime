@@ -1,0 +1,47 @@
+:root {
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+        Courier, monospace;
+    --color-blue: #008bf5;
+    --color-dark-gray: #aaa;
+    --color-gray: #ccc;
+    --color-red: red;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 1rem;
+    font-family: var(--font-sans);
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    max-width: 80rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media only screen and (max-width: 40rem) {
+    .hidden-mobile {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    body {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .hidden-desktop {
+        display: none !important;
+    }
+}

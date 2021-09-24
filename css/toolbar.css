@@ -1,0 +1,41 @@
+.toolbar {
+    margin-top: 0.5rem;
+}
+
+.toolbar > * {
+    margin-right: 0.25rem;
+}
+.toolbar > *:last-child {
+    margin-right: 0;
+}
+
+.toolbar .button-small {
+    height: 1.5rem;
+    line-height: 1.25rem;
+}
+
+.toolbar .button-help {
+    font-weight: bold;
+}
+
+.toolbar a,
+.toolbar label {
+    display: inline-block;
+    height: 1.5rem;
+    text-decoration: none;
+}
+
+.toolbar input[type="file"] {
+    display: none;
+}
+
+@media only screen and (min-width: 40rem) {
+    .toolbar {
+        margin-top: 0;
+        margin-left: 1rem;
+    }
+
+    .toolbar .button-small {
+        border: none;
+    }
+}

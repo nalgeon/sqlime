@@ -1,0 +1,33 @@
+.editor-section {
+    flex-grow: 1;
+    padding-bottom: 0.5rem;
+}
+
+.sql-editor {
+    position: relative;
+    display: block;
+    resize: vertical;
+    width: 100%;
+    min-height: 5rem;
+    border: 1px solid var(--color-gray);
+    padding: 0.5rem;
+    white-space: pre-wrap;
+    font-family: var(--font-monospace);
+}
+.sql-editor:focus {
+    outline: none;
+}
+
+@media only screen and (min-width: 40rem) {
+    .sql-editor::after {
+        position: absolute;
+        right: -1px;
+        bottom: -1px;
+        display: inline-block;
+        border: 1px solid var(--color-gray);
+        padding: 0.125rem 0.25rem;
+        color: var(--color-dark-gray);
+        font-size: 80%;
+        content: "Ctrl+Enter";
+    }
+}

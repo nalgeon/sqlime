@@ -1,0 +1,31 @@
+.result-section {
+    flex-grow: 1;
+    padding-bottom: 0.5rem;
+}
+
+.sql-result {
+    display: block;
+}
+
+.sql-result table {
+    width: 100%;
+    border: 1px solid var(--color-gray);
+    border-collapse: collapse;
+    font-family: var(--font-monospace);
+}
+
+.sql-result table th {
+    border-bottom: 1px solid var(--color-gray);
+    padding: 0.25rem 0.5rem;
+    text-align: left;
+}
+
+.sql-result table td {
+    padding: 0.25rem 0.5rem;
+}
+
+@media only screen and (min-width: 40rem) {
+    .sql-result table {
+        width: auto;
+    }
+}

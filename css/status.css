@@ -1,0 +1,17 @@
+.sql-status {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.sql-status--success::before {
+    display: inline-block;
+    width: 1rem;
+    content: "✓";
+}
+
+.sql-status--error::before {
+    display: inline-block;
+    width: 1rem;
+    color: var(--color-red);
+    content: "✕";
+}
