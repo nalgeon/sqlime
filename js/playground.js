@@ -2,6 +2,7 @@
 
 import gister from "./gister.js";
 import { locator, DatabasePath } from "./locator.js";
+import shortcuts from "./shortcuts.js";
 import sqlite from "./sqlite.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
@@ -246,6 +247,13 @@ window.addEventListener("popstate", () => {
 ui.editor.addEventListener("execute", (event) => {
     execute(event.detail);
 });
+
+shortcuts.listen("o", () => {
+    ui.toolbar.openFile.click();
+});
+shortcuts.listen("u", openUrl);
+shortcuts.listen("s", save);
+shortcuts.listen("/", showTables);
 
 gister.loadCredentials();
 showToolbar();
