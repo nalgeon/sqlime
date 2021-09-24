@@ -34,6 +34,7 @@ async function create(name, path) {
     return new SQLite(name, path, db, QUERIES.version);
 }
 
+// loadArrayBuffer loads database from binary database file content
 async function loadArrayBuffer(name, path) {
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database(new Uint8Array(path.value));
@@ -45,12 +46,16 @@ async function loadArrayBuffer(name, path) {
 // loadUrl loads database from specified local or remote url
 async function loadUrl(name, path) {
     const sqlPromise = initSqlJs(CONFIG);
-    const dataPromise = fetch(path.value).then((response) => {
-        if (!response.ok) {
+    const dataPromise = fetch(path.value)
+        .then((response) => {
+            if (!response.ok) {
+                return null;
+            }
+            return response.arrayBuffer();
+        })
+        .catch((reason) => {
             return null;
-        }
-        return response.arrayBuffer();
-    });
+        });
     const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
     if (!buf) {
         return null;

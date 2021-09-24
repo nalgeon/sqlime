@@ -26,6 +26,7 @@ body {
 .header {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     padding-bottom: 0.5rem;
 }
 .editor-section {
@@ -227,7 +228,7 @@ summary::-webkit-details-marker {
 
 @media only screen and (min-width: 40rem) {
     .toolbar {
-        margin-top: 0.125rem;
+        margin-top: 0;
         margin-left: 1rem;
     }
     .toolbar .button-small {
