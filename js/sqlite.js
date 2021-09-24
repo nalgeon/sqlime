@@ -8,6 +8,11 @@ const CONFIG = {
     locateFile: (file) => WASM,
 };
 
+const QUERIES = {
+    version: "select sqlite_version() as version",
+    tables: "select name as \"table\" from sqlite_schema where type = 'table'",
+};
+
 // init loads database from specified path
 async function init(name, path) {
     if (path.type == "local" || path.type == "remote") {
@@ -26,7 +31,7 @@ async function init(name, path) {
 async function create(name, path) {
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database();
-    return new SQLite(name, path, db);
+    return new SQLite(name, path, db, QUERIES.version);
 }
 
 async function loadArrayBuffer(name, path) {
@@ -34,7 +39,7 @@ async function loadArrayBuffer(name, path) {
     const db = new SQL.Database(new Uint8Array(path.value));
     path.type = "empty";
     path.value = null;
-    return new SQLite(name, path, db);
+    return new SQLite(name, path, db, QUERIES.tables);
 }
 
 // loadUrl loads database from specified local or remote url
@@ -51,7 +56,7 @@ async function loadUrl(name, path) {
         return null;
     }
     const db = new SQL.Database(new Uint8Array(buf));
-    return new SQLite(name, path, db);
+    return new SQLite(name, path, db, QUERIES.tables);
 }
 
 // loadGist loads database from GitHub gist with specified id
@@ -108,14 +113,14 @@ async function save(database, query) {
 
 // SQLite database
 class SQLite {
-    constructor(name, path, db) {
+    constructor(name, path, db, query = "") {
         this.id = null;
         this.owner = null;
         this.hashcode = 0;
         this.name = name;
         this.path = path;
         this.db = db;
-        this.query = "";
+        this.query = query;
     }
 
     // execute runs one ore more sql queries

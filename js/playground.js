@@ -35,9 +35,10 @@ async function startFromCurrentUrl() {
     const path = locator.path();
     const name = locator.name(path) || "new.db";
     const success = await start(name, path);
-    if (success && path.type == "id") {
-        ui.editor.value = database.query;
+    if (!success) {
+        return;
     }
+    execute(database.query);
 }
 
 // startFromUrl loads existing database
@@ -50,6 +51,7 @@ async function startFromUrl(url) {
         return;
     }
     history.pushState(database.name, null, `#${database.path.value}`);
+    execute(database.query);
 }
 
 // startFromFile loads existing database
@@ -57,7 +59,11 @@ async function startFromUrl(url) {
 async function startFromFile(file, contents) {
     const path = new DatabasePath(contents);
     const name = file.name;
-    start(name, path);
+    const success = await start(name, path);
+    if (!success) {
+        return;
+    }
+    execute(database.query);
 }
 
 // start loads existing database or creates a new one
@@ -74,11 +80,11 @@ async function start(name, path) {
     }
 
     database = loadedDatabase;
+    database.query = storage.load(database.name) || database.query;
 
-    storage.load(database.name, ui.editor);
     document.title = database.name;
     ui.name.innerHTML = database.name;
-    ui.status.info(messages.invite);
+    ui.editor.value = database.query;
     ui.editor.focus();
 
     return true;
@@ -117,12 +123,16 @@ async function save() {
     showDatabase(database);
 }
 
-// clear swicthes to an empty database
+// clear switches to an empty database
 async function clear() {
     const name = "new.db";
     const path = new DatabasePath();
-    await start(name, path);
+    const success = await start(name, path);
+    if (!success) {
+        return;
+    }
     history.replaceState(name, null, "./");
+    execute(database.query);
 }
 
 // showToolbar shows the toolbar according to settings

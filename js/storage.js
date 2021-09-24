@@ -1,8 +1,6 @@
 // Stores various database information
 // in brower storage.
 
-const DEFAULT_QUERY = "select * from sqlite_schema";
-
 // save saves SQL query to the local storage
 function save(database, sql) {
     if (!sql) {
@@ -11,11 +9,9 @@ function save(database, sql) {
     localStorage.setItem(`${database}.sql`, sql);
 }
 
-// load loads SQL query from local storage
-// and sets it as a value for the specified element
-function load(database, el) {
-    const sql = localStorage.getItem(`${database}.sql`);
-    el.value = sql || DEFAULT_QUERY;
+// load loads SQL query from the local storage
+function load(database) {
+    return localStorage.getItem(`${database}.sql`);
 }
 
 const storage = { save, load };
