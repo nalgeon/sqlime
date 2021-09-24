@@ -148,5 +148,5 @@ class SQLite {
     }
 }
 
-const sqlite = { init, save };
+const sqlite = { init, save, QUERIES };
 export default sqlite;

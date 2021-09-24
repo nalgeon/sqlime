@@ -24,20 +24,20 @@ body {
     flex-direction: column;
 }
 .header {
-    padding: 0.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 0.5rem;
 }
 .editor-section {
     flex-grow: 1;
-    padding: 0.5rem 0;
+    padding-bottom: 0.5rem;
 }
 .result-section {
     flex-grow: 1;
-    padding: 0.5rem 0;
+    padding-bottom: 0.5rem;
 }
 
 .header h1 {
-    display: inline-block;
-    vertical-align: middle;
     margin: 0;
     padding: 0;
     font-size: 1rem;
@@ -49,16 +49,14 @@ body {
 .toolbar > * {
     margin-left: 0.25rem;
 }
-.toolbar button {
-    vertical-align: middle;
+.toolbar .button-small {
     height: 1.5rem;
+    line-height: 1.25rem;
 }
 .toolbar a,
 .toolbar label {
     display: inline-block;
-    vertical-align: middle;
     height: 1.5rem;
-    line-height: 1.25rem;
     text-decoration: none;
 }
 .toolbar input[type="file"] {
@@ -69,6 +67,7 @@ body {
     vertical-align: middle;
     width: 1.25rem;
     height: 1.25rem;
+    line-height: 1.25rem;
     border: 1px solid var(--color-blue);
     border-radius: 50%;
     text-align: center;
@@ -77,6 +76,58 @@ body {
     font-size: 80%;
 }
 .toolbar .button-round:hover {
+    background: var(--color-blue);
+    color: #fff;
+}
+
+.sql-actions {
+    position: relative;
+    font-size: 0.8rem;
+}
+.sql-actions details {
+    display: inline-block;
+    height: 1.5rem;
+    line-height: 1.25rem;
+    border: 1px solid var(--color-blue);
+    border-radius: 0.125rem;
+    cursor: default;
+    white-space: nowrap;
+    color: var(--color-blue);
+}
+.sql-actions details:hover {
+    background: var(--color-blue);
+    color: #fff;
+}
+.sql-actions details[open] {
+    position: absolute;
+    height: auto;
+    z-index: 2;
+    border: 1px solid var(--color-blue);
+    border-radius: 0.125rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    padding-bottom: 0.5rem;
+    color: var(--color-blue);
+}
+.sql-actions details > summary {
+    outline: none;
+    padding: 0.125em 0.5rem;
+}
+.sql-actions details > summary::after {
+    content: " ⤵";
+}
+.sql-actions button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0.25rem 2rem 0.25rem 0.5rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-blue);
+    font-size: 0.8rem;
+}
+.sql-actions button:hover {
     background: var(--color-blue);
     color: #fff;
 }
@@ -153,6 +204,13 @@ body {
     color: #008bf5;
 }
 
+details > summary {
+    list-style: none;
+}
+summary::-webkit-details-marker {
+    display: none;
+}
+
 .link-img {
     text-decoration: none !important;
 }
@@ -169,9 +227,14 @@ body {
 
 @media only screen and (min-width: 40rem) {
     .toolbar {
-        display: inline-block;
-        margin-top: 0;
+        margin-top: 0.125rem;
         margin-left: 1rem;
+    }
+    .toolbar .button-small {
+        border: none;
+    }
+    .sql-actions details {
+        border: none;
     }
 
     .sql-editor::after {
@@ -188,5 +251,9 @@ body {
 
     .sql-result table {
         width: auto;
+    }
+
+    .hidden-desktop {
+        display: none !important;
     }
 }

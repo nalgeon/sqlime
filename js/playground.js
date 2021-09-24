@@ -16,7 +16,6 @@ const messages = {
 const ui = {
     toolbar: {
         execute: document.querySelector("#execute"),
-        clear: document.querySelector("#clear"),
         openFile: document.querySelector("#open-file"),
         openUrl: document.querySelector("#open-url"),
         save: document.querySelector("#save"),
@@ -24,8 +23,11 @@ const ui = {
     name: document.querySelector("#db-name"),
     editor: document.querySelector("#editor"),
     status: document.querySelector("#status"),
+    actions: document.querySelector("#actions"),
     result: document.querySelector("#result"),
 };
+
+const DEMO_URL = "#https://antonz.org/sqliter/employees.en.db";
 
 let database;
 
@@ -92,14 +94,16 @@ async function start(name, path) {
 
 // execute runs SQL query on the database
 // and shows results
-function execute(sql) {
+function execute(sql, rememberQuery = true) {
     if (!sql) {
         ui.status.info(messages.invite);
         return;
     }
     try {
         ui.status.info(messages.executing);
-        storage.save(database.name, sql);
+        if (rememberQuery) {
+            storage.save(database.name, sql);
+        }
         timeit.start();
         const result = database.execute(sql);
         const elapsed = timeit.finish();
@@ -107,6 +111,15 @@ function execute(sql) {
     } catch (exc) {
         showError(exc);
     }
+}
+
+// openUrl loads database from local or remote url
+function openUrl() {
+    const url = prompt("Enter database file URL:", "https://path/to/database");
+    if (!url) {
+        return;
+    }
+    startFromUrl(url);
 }
 
 // save persists database state and current query
@@ -123,16 +136,19 @@ async function save() {
     showDatabase(database);
 }
 
-// clear switches to an empty database
-async function clear() {
-    const name = "new.db";
-    const path = new DatabasePath();
-    const success = await start(name, path);
-    if (!success) {
-        return;
-    }
-    history.replaceState(name, null, "./");
-    execute(database.query);
+// showTables shows all database tables
+function showTables() {
+    execute(sqlite.QUERIES.tables, false);
+}
+
+// showVersion shows sqlite version
+function showVersion() {
+    execute(sqlite.QUERIES.version, false);
+}
+
+// loadDemo loads demo database
+function loadDemo() {
+    window.location.assign(DEMO_URL);
 }
 
 // showToolbar shows the toolbar according to settings
@@ -183,11 +199,6 @@ ui.toolbar.execute.addEventListener("click", () => {
     execute(ui.editor.value);
 });
 
-// Toolbar 'clear' button click
-ui.toolbar.clear.addEventListener("click", () => {
-    clear();
-});
-
 // Toolbar 'open file' button click
 ui.toolbar.openFile.addEventListener("change", (event) => {
     if (!event.target.files.length) {
@@ -203,16 +214,27 @@ ui.toolbar.openFile.addEventListener("change", (event) => {
 
 // Toolbar 'open url' button click
 ui.toolbar.openUrl.addEventListener("click", () => {
-    const url = prompt("Enter database file URL:", "https://path/to/database");
-    if (!url) {
-        return;
-    }
-    startFromUrl(url);
+    openUrl();
 });
 
 // Toolbar 'save' button click
 ui.toolbar.save.addEventListener("click", () => {
     save();
+});
+
+// Action menu item click
+ui.actions.addEventListener("action", (event) => {
+    const actions = {
+        "open-url": openUrl,
+        "load-demo": loadDemo,
+        "show-tables": showTables,
+        "show-version": showVersion,
+    };
+    const action = actions[event.detail];
+    if (!action) {
+        return;
+    }
+    action();
 });
 
 // Navigate back to previous database

@@ -31,11 +31,13 @@
                 <label class="button-small hidden-mobile">
                     open file <input type="file" id="open-file">
                 </label>
-                <button id="open-url" class="button-small">open url</button>
+                <button id="open-url" class="button-small hidden-mobile">open url</button>
                 <button id="save" class="button-small">☆ share</button>
                 <a href="settings.html" class="button-small">✎ settings</a>
+                <sql-actions id="actions" class="sql-actions"></sql-actions>
                 <a href="about.html" class="button-round">?</a>
             </div>
+
         </header>
         <section class="editor-section">
             <sql-editor id="editor" class="sql-editor"></sql-editor>
@@ -49,6 +51,7 @@
     <script type="module" src="js/components/copy-link.js"></script>
     <script type="module" src="js/components/sql-editor.js"></script>
     <script type="module" src="js/components/sql-status.js"></script>
+    <script type="module" src="js/components/sql-actions.js"></script>
     <script type="module" src="js/components/sql-result.js"></script>
     <script type="module" src="js/playground.js"></script>
 </body>
