@@ -16,7 +16,7 @@
 
 body {
     margin: 0;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     font-family: var(--font-sans);
 }
 
@@ -51,7 +51,10 @@ body {
     margin-top: 0.5rem;
 }
 .toolbar > * {
-    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+.toolbar > *:last-child {
+    margin-right: 0;
 }
 .toolbar .button-small {
     height: 1.5rem;
@@ -220,6 +223,11 @@ summary::-webkit-details-marker {
 }
 
 @media only screen and (min-width: 40rem) {
+    body {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
     .toolbar {
         margin-top: 0;
         margin-left: 1rem;
