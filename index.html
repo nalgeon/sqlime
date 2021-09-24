@@ -26,18 +26,16 @@
                 <strong id="db-name">loading...</strong>
             </h1>
             <div class="toolbar">
-                <button id="execute" class="button-small">run ►</button>
-                <button id="clear" class="button-small hidden">✘ clear</button>
-                <label class="button-small hidden-mobile">
+                <button id="execute" title="Ctrl+enter" class="button-small">run ►</button>
+                <label title="Ctrl+o" class="button-small hidden-mobile">
                     open file <input type="file" id="open-file">
                 </label>
-                <button id="open-url" class="button-small hidden-mobile">open url</button>
-                <button id="save" class="button-small">☆ share</button>
+                <button id="open-url" title="Ctrl+u" class="button-small hidden-mobile">open url</button>
+                <button id="save" title="Ctrl+s" class="button-small">☆ share</button>
                 <a href="settings.html" class="button-small">✎ settings</a>
                 <sql-actions id="actions" class="sql-actions"></sql-actions>
                 <a href="about.html" class="button-small button-help">?</a>
             </div>
-
         </header>
         <section class="editor-section">
             <sql-editor id="editor" class="sql-editor"></sql-editor>

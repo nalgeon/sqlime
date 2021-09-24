@@ -162,7 +162,7 @@ function showToolbar() {
         );
     } else {
         ui.toolbar.save.removeAttribute("disabled");
-        ui.toolbar.save.removeAttribute("title");
+        ui.toolbar.save.setAttribute("title", "Ctrl+s");
     }
 }
 
