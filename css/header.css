@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 0.5rem;
+    padding: 1rem 1rem 0.75rem 1rem;
 }
 
 .header h1 {
@@ -14,4 +14,10 @@
 
 .header .logo {
     text-decoration: none !important;
+}
+
+@media only screen and (min-width: 40rem) {
+    .header {
+        padding: 0 0 0.5rem 0;
+    }
 }

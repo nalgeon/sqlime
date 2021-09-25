@@ -4,9 +4,11 @@
     --font-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
         Courier, monospace;
     --color-blue: #008bf5;
+    --color-light-gray: #fafafa;
     --color-dark-gray: #aaa;
     --color-gray: #ccc;
     --color-red: red;
+    --color-white: #fff;
 }
 *,
 *::before,
@@ -16,7 +18,8 @@
 
 body {
     margin: 0;
-    padding: 1rem;
+    padding: 0;
+    background: var(--color-light-gray);
     font-family: var(--font-sans);
 }
 
@@ -38,8 +41,7 @@ body {
 
 @media only screen and (min-width: 40rem) {
     body {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding: 1rem 1.5rem;
     }
     .hidden-desktop {
         display: none !important;

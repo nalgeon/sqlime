@@ -17,7 +17,7 @@
 }
 .sql-actions details:hover {
     background: var(--color-blue);
-    color: #fff;
+    color: var(--color-white);
 }
 
 .sql-actions details[open] {
@@ -29,7 +29,7 @@
     border: 1px solid var(--color-blue);
     border-radius: 0.125rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    background: #fff;
+    background: var(--color-light-gray);
     padding-bottom: 0.5rem;
     color: var(--color-blue);
 }
@@ -59,7 +59,7 @@
 }
 .sql-actions button:hover {
     background: var(--color-blue);
-    color: #fff;
+    color: var(--color-white);
 }
 
 @media only screen and (min-width: 40rem) {
