@@ -165,7 +165,7 @@ function showToolbar() {
         );
     } else {
         ui.toolbar.save.removeAttribute("disabled");
-        ui.toolbar.save.setAttribute("title", "Ctrl+s");
+        ui.toolbar.save.setAttribute("title", "⌃S or ⌘S");
     }
 }
 

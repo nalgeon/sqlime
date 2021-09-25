@@ -14,7 +14,7 @@ class SqlActions extends HTMLElement {
             <summary>more</summary>
             <button data-action="open-url" class="hidden-desktop">open url</button>
             <button data-action="load-demo">load demo</button>
-            <button data-action="show-tables">show tables</button>
+            <button data-action="show-tables" title="⌃/ or ⌘/">show tables</button>
             <button data-action="show-version">show version</button>
         `;
         this.appendChild(this.el);
