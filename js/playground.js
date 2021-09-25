@@ -126,6 +126,9 @@ function openUrl() {
 // save persists database state and current query
 // to remote storage
 async function save() {
+    if (!gister.hasCredentials()) {
+        return;
+    }
     ui.status.info("Saving...");
     ui.result.clear();
     const savedDatabase = await sqlite.save(database, ui.editor.value);
@@ -154,7 +157,7 @@ function loadDemo() {
 
 // showToolbar shows the toolbar according to settings
 function showToolbar() {
-    if (!gister.username || !gister.password) {
+    if (!gister.hasCredentials()) {
         ui.toolbar.save.setAttribute("disabled", "disabled");
         ui.toolbar.save.setAttribute(
             "title",

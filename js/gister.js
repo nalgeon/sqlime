@@ -19,6 +19,12 @@ class Gister {
         this.headers.Authorization = `Token ${this.password}`;
     }
 
+    // hasCredentials returns true if user has provided
+    // GitHub username and password, false otherwise
+    hasCredentials() {
+        return this.username && this.password;
+    }
+
     // getUrl returns gist url by its id
     getUrl(id) {
         return `https://gist.github.com/${this.username}/${id}`;
