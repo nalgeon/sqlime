@@ -46,8 +46,9 @@
             <h5>🔌 Connect any data source</h5>
             <p>Connect any local or remote SQLite database. Both files and URLs
                 are supported. For example, try loading the
-                <a href="./#https://raw.githubusercontent.com/nalgeon/sqliter/main/employees.en.db">Employees
-                    database</a> from the GitHub repo.
+                <a
+                    href="./#https://raw.githubusercontent.com/nalgeon/sqliter/main/employees.en.db">Employees database</a>
+                from the GitHub repo.
             </p>
 
             <h5>🔗 Save and share with others</h5>
@@ -56,10 +57,13 @@
                 The database is stored as a plain text SQL dump, so it's easy to
                 read the code or import data into PostgreSQL, MySQL,
                 or other databases.</p>
-            <p>For example, here is
-                <a href="https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046">the gist</a>
-                for the Employees database, and here is
-                <a href="./#gist:e012594111ce51f91590c4737e41a046">the sharing link</a> for it.
+            <p>For example, here is the
+                <a href="https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046">gist</a>
+                for the Employees database, and here is the
+                <a href="./#gist:e012594111ce51f91590c4737e41a046">sharing link</a> for it.
+            </p>
+            <p>Saving is disabled by default. Provide your GitHub credentials in
+                <a href="/settings.html">settings</a> to enable it.
             </p>
 
             <h5>🔒 Secure and private</h5>
@@ -115,9 +119,18 @@
                 </tr>
             </table>
 
-            <p><a href="javascript:history.go(-1)">← back</a></p>
+            <p><a href="javascript:back()">← back</a></p>
         </article>
     </main>
+    <script>
+        function back() {
+            if (document.referrer) {
+                history.go(-1);
+            } else {
+                location.assign("./");
+            }
+        }
+    </script>
 </body>
 
 </html>
