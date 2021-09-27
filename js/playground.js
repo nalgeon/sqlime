@@ -37,11 +37,7 @@ let database;
 async function startFromCurrentUrl() {
     const path = locator.path();
     const name = locator.name(path) || "new.db";
-    const success = await start(name, path);
-    if (!success) {
-        return;
-    }
-    execute(database.query);
+    start(name, path);
 }
 
 // startFromUrl loads existing database
@@ -54,7 +50,6 @@ async function startFromUrl(url) {
         return;
     }
     history.pushState(database.name, null, `#${database.path.value}`);
-    execute(database.query);
 }
 
 // startFromFile loads existing database
@@ -62,11 +57,7 @@ async function startFromUrl(url) {
 async function startFromFile(file, contents) {
     const path = new DatabasePath(contents);
     const name = file.name;
-    const success = await start(name, path);
-    if (!success) {
-        return;
-    }
-    execute(database.query);
+    start(name, path);
 }
 
 // start loads existing database or creates a new one
@@ -87,6 +78,7 @@ async function start(name, path) {
 
     document.title = database.name;
     ui.name.innerHTML = database.name;
+    ui.status.info(messages.invite);
     ui.editor.value = database.query;
     ui.editor.focus();
 

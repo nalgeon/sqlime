@@ -31,7 +31,7 @@ async function init(name, path) {
 async function create(name, path) {
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database();
-    return new SQLite(name, path, db, QUERIES.version);
+    return new SQLite(name, path, db);
 }
 
 // loadArrayBuffer loads database from binary database file content
@@ -40,7 +40,7 @@ async function loadArrayBuffer(name, path) {
     const db = new SQL.Database(new Uint8Array(path.value));
     path.type = "empty";
     path.value = null;
-    return new SQLite(name, path, db, QUERIES.tables);
+    return new SQLite(name, path, db);
 }
 
 // loadUrl loads database from specified local or remote url
@@ -61,7 +61,7 @@ async function loadUrl(name, path) {
         return null;
     }
     const db = new SQL.Database(new Uint8Array(buf));
-    return new SQLite(name, path, db, QUERIES.tables);
+    return new SQLite(name, path, db);
 }
 
 // loadGist loads database from GitHub gist with specified id
