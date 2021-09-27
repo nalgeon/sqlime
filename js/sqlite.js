@@ -155,7 +155,8 @@ async function save(database, query) {
         database.id = response.id;
         database.owner = response.owner.login;
         database.hashcode = hashcode;
-        database.path = new DatabasePath(database.id, "id");
+        database.path.type = "id";
+        database.path.value = database.id;
         return database;
     });
 }
