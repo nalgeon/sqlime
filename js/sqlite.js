@@ -1,6 +1,7 @@
 import dumper from "./dumper.js";
 import gister from "./gister.js";
 import hasher from "./hasher.js";
+import { DatabasePath } from "./locator.js";
 
 const WASM =
     "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.wasm";
@@ -13,14 +14,23 @@ const QUERIES = {
     tables: "select name as \"table\" from sqlite_schema where type = 'table'",
 };
 
+const CACHE_KEY = "database";
+let cache;
+
 // init loads database from specified path
 async function init(name, path) {
     if (path.type == "local" || path.type == "remote") {
         return await loadUrl(name, path);
-    } else if (path.type == "binary") {
+    }
+    if (path.type == "binary") {
         return await loadArrayBuffer(name, path);
-    } else if (path.type == "id") {
+    }
+    if (path.type == "id") {
         return await loadGist(path);
+    }
+    const response = await cache?.match(CACHE_KEY);
+    if (response) {
+        return await loadCache(response);
     } else {
         // empty
         return await create(name, path);
@@ -29,6 +39,7 @@ async function init(name, path) {
 
 // create creates an empty database
 async function create(name, path) {
+    console.debug(`Creating new ${name} database...`);
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database();
     return new SQLite(name, path, db);
@@ -36,6 +47,7 @@ async function create(name, path) {
 
 // loadArrayBuffer loads database from binary database file content
 async function loadArrayBuffer(name, path) {
+    console.debug(`Loading ${name} database from array buffer...`);
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database(new Uint8Array(path.value));
     path.value = null;
@@ -44,6 +56,7 @@ async function loadArrayBuffer(name, path) {
 
 // loadUrl loads database from specified local or remote url
 async function loadUrl(name, path) {
+    console.debug(`Loading ${name} database from url...`);
     const sqlPromise = initSqlJs(CONFIG);
     const dataPromise = fetch(path.value)
         .then((response) => {
@@ -65,6 +78,7 @@ async function loadUrl(name, path) {
 
 // loadGist loads database from GitHub gist with specified id
 async function loadGist(path) {
+    console.debug(`Loading database from gist ${path.value}...`);
     const gist = await gister.get(path.value);
     if (!gist) {
         return null;
@@ -80,8 +94,35 @@ async function loadGist(path) {
     return database;
 }
 
+// openCache opens app cache
+async function openCache() {
+    cache = await caches.open("app");
+}
+
+// loadCache loads database from local cache
+async function loadCache(response) {
+    console.debug(`Loading database from cache...`);
+    const name = response.headers.get("x-name") || "new.db";
+    const buffer = await response.arrayBuffer();
+    const path = new DatabasePath(buffer, "binary");
+    return await loadArrayBuffer(name, path);
+}
+
+// saveCache saves database to local cache
+async function saveCache(database) {
+    console.debug(`Saving database to cache...`);
+    const buffer = database.db.export();
+    const response = new Response(buffer, {
+        headers: {
+            "x-name": database.name,
+        },
+    });
+    await cache.put(CACHE_KEY, response);
+}
+
 // save saves database to GitHub gist
 async function save(database, query) {
+    console.debug(`Saving database to gist...`);
     const schema = dumper.toSql(database, query);
     database.query = query;
     const hashcode = database.calcHashcode();
@@ -109,8 +150,7 @@ async function save(database, query) {
         database.id = response.id;
         database.owner = response.owner.login;
         database.hashcode = hashcode;
-        database.path.type = "id";
-        database.path.value = database.id;
+        database.path = new DatabasePath(database.id, "id");
         return database;
     });
 }
@@ -152,5 +192,7 @@ class SQLite {
     }
 }
 
-const sqlite = { init, save, QUERIES };
+openCache();
+
+const sqlite = { init, save, saveCache, QUERIES };
 export default sqlite;

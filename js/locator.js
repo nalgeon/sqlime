@@ -9,9 +9,9 @@ const ID_PREFIX = "gist:";
 // - id (gist:02994fe7f2de0611726d61dbf26f46e4)
 // - empty
 class DatabasePath {
-    constructor(value) {
+    constructor(value, type = null) {
         this.value = value;
-        this.type = this.inferType(value);
+        this.type = type || this.inferType(value);
         this.clean();
     }
 

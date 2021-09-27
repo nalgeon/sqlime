@@ -66,6 +66,7 @@ async function startFromFile(file, contents) {
     if (!success) {
         return;
     }
+    history.pushState(database.name, null, "./");
     showStarted();
 }
 
@@ -230,6 +231,7 @@ ui.toolbar.openFile.addEventListener("change", (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = function () {
+        event.target.value = "";
         startFromFile(file, reader.result);
     };
     reader.readAsArrayBuffer(file);
@@ -263,6 +265,13 @@ ui.actions.addEventListener("action", (event) => {
 // Navigate back to previous database
 window.addEventListener("popstate", () => {
     startFromCurrentUrl();
+});
+
+// Save database locally before leaving the page
+window.addEventListener("beforeunload", () => {
+    ui.status.info("Saving...");
+    ui.result.clear();
+    sqlite.saveCache(database);
 });
 
 // SQL editor 'execute' event
