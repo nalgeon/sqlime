@@ -19,6 +19,11 @@
 .sql-editor:focus {
     outline: none;
 }
+.sql-editor:empty::before {
+    display: inline-block;
+    content: "select * from ...";
+    color: var(--color-dark-gray);
+}
 
 @media only screen and (min-width: 40rem) {
     .sql-editor {
