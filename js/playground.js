@@ -37,7 +37,11 @@ let database;
 async function startFromCurrentUrl() {
     const path = locator.path();
     const name = locator.name(path) || "new.db";
-    start(name, path);
+    const success = await start(name, path);
+    if (!success || database.path.type == "empty") {
+        return;
+    }
+    showTables();
 }
 
 // startFromUrl loads existing database
@@ -50,6 +54,7 @@ async function startFromUrl(url) {
         return;
     }
     history.pushState(database.name, null, `#${database.path.value}`);
+    showTables();
 }
 
 // startFromFile loads existing database
@@ -57,7 +62,11 @@ async function startFromUrl(url) {
 async function startFromFile(file, contents) {
     const path = new DatabasePath(contents);
     const name = file.name;
-    start(name, path);
+    const success = await start(name, path);
+    if (!success) {
+        return;
+    }
+    showTables();
 }
 
 // start loads existing database or creates a new one
@@ -87,16 +96,14 @@ async function start(name, path) {
 
 // execute runs SQL query on the database
 // and shows results
-function execute(sql, rememberQuery = true) {
+function execute(sql) {
     if (!sql) {
         ui.status.info(messages.invite);
         return;
     }
     try {
         ui.status.info(messages.executing);
-        if (rememberQuery) {
-            storage.save(database.name, sql);
-        }
+        storage.save(database.name, sql);
         timeit.start();
         const result = database.execute(sql);
         const elapsed = timeit.finish();
@@ -134,12 +141,20 @@ async function save() {
 
 // showTables shows all database tables
 function showTables() {
-    execute(sqlite.QUERIES.tables, false);
+    const result = database.execute(sqlite.QUERIES.tables);
+    if (!result || !result.values) {
+        ui.status.info("Database is empty");
+        return;
+    }
+    ui.status.info(`${result.values.length} tables:`);
+    ui.result.print(result);
 }
 
 // showVersion shows sqlite version
 function showVersion() {
-    execute(sqlite.QUERIES.version, false);
+    const result = database.execute(sqlite.QUERIES.version);
+    ui.status.info("SQLite version:");
+    ui.result.print(result);
 }
 
 // loadDemo loads demo database

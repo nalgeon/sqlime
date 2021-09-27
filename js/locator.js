@@ -51,7 +51,7 @@ class DatabasePath {
         if (this.type == "local" || this.type == "remote") {
             return `URL ${this.value}`;
         } else if (this.type == "binary") {
-            return `binary (${this.value.byteLength} bytes)`;
+            return "binary value";
         } else if (this.type == "id") {
             return `ID ${this.value}`;
         } else {

@@ -38,7 +38,6 @@ async function create(name, path) {
 async function loadArrayBuffer(name, path) {
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database(new Uint8Array(path.value));
-    path.type = "empty";
     path.value = null;
     return new SQLite(name, path, db);
 }
