@@ -14,9 +14,6 @@ const QUERIES = {
     tables: "select name as \"table\" from sqlite_schema where type = 'table'",
 };
 
-const CACHE_KEY = "database";
-let cache;
-
 // init loads database from specified path
 async function init(name, path) {
     if (path.type == "local" || path.type == "remote") {
@@ -28,7 +25,8 @@ async function init(name, path) {
     if (path.type == "id") {
         return await loadGist(path);
     }
-    const response = await cache?.match(CACHE_KEY);
+    const cache = await openCache();
+    const response = await cache?.match("database");
     if (response) {
         return await loadCache(response);
     } else {
@@ -95,8 +93,14 @@ async function loadGist(path) {
 }
 
 // openCache opens app cache
-async function openCache() {
-    cache = await caches.open("app");
+function openCache() {
+    const isAvailable = "caches" in self;
+    if (!isAvailable) {
+        return new Promise((resolve, reject) => {
+            resolve(null);
+        });
+    }
+    return caches.open("app");
 }
 
 // loadCache loads database from local cache
@@ -117,7 +121,8 @@ async function saveCache(database) {
             "x-name": database.name,
         },
     });
-    await cache.put(CACHE_KEY, response);
+    const cache = await openCache();
+    await cache.put("database", response);
 }
 
 // save saves database to GitHub gist
@@ -191,8 +196,6 @@ class SQLite {
         return dbHash & queryHash;
     }
 }
-
-openCache();
 
 const sqlite = { init, save, saveCache, QUERIES };
 export default sqlite;
