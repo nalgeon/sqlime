@@ -38,10 +38,10 @@ async function startFromCurrentUrl() {
     const path = locator.path();
     const name = locator.name(path) || "new.db";
     const success = await start(name, path);
-    if (!success || database.path.type == "empty") {
+    if (!success) {
         return;
     }
-    showTables();
+    showStarted();
 }
 
 // startFromUrl loads existing database
@@ -54,7 +54,7 @@ async function startFromUrl(url) {
         return;
     }
     history.pushState(database.name, null, `#${database.path.value}`);
-    showTables();
+    showStarted();
 }
 
 // startFromFile loads existing database
@@ -66,7 +66,7 @@ async function startFromFile(file, contents) {
     if (!success) {
         return;
     }
-    showTables();
+    showStarted();
 }
 
 // start loads existing database or creates a new one
@@ -137,6 +137,18 @@ async function save() {
     }
     database = savedDatabase;
     showDatabase(database);
+}
+
+// showStarted shows the result of successful database load
+function showStarted() {
+    if (database.path.type == "empty" && !database.query) {
+        return;
+    }
+    if (database.query) {
+        execute(database.query);
+    } else {
+        showTables();
+    }
 }
 
 // showTables shows all database tables
