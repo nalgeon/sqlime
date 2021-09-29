@@ -25,14 +25,8 @@ async function init(name, path) {
     if (path.type == "id") {
         return await loadGist(path);
     }
-    const cache = await openCache();
-    const response = await cache?.match("database");
-    if (response) {
-        return await loadCache(response);
-    } else {
-        // empty
-        return await create(name, path);
-    }
+    // empty
+    return await create(name, path);
 }
 
 // create creates an empty database
@@ -198,5 +192,5 @@ class SQLite {
     }
 }
 
-const sqlite = { init, save, saveCache, QUERIES };
+const sqlite = { init, save, QUERIES };
 export default sqlite;

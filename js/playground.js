@@ -267,13 +267,6 @@ window.addEventListener("popstate", () => {
     startFromCurrentUrl();
 });
 
-// Save database locally before leaving the page
-window.addEventListener("beforeunload", () => {
-    ui.status.info("Saving...");
-    ui.result.clear();
-    sqlite.saveCache(database);
-});
-
 // SQL editor 'execute' event
 ui.editor.addEventListener("execute", (event) => {
     execute(event.detail);
