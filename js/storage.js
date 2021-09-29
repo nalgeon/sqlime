@@ -9,14 +9,14 @@ function get(key) {
 // save saves SQL query to the local storage
 function set(key, sql) {
     if (!sql) {
-        return;
+        remove(key);
     }
     localStorage.setItem(`${key}.sql`, sql);
 }
 
 // remove deletes SQL query from the local storage
 function remove(key) {
-    return localStorage.removeItem(`${key}.sql`);
+    localStorage.removeItem(`${key}.sql`);
 }
 
 const storage = { get, set, remove };

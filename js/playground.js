@@ -98,13 +98,15 @@ async function start(name, path) {
 // execute runs SQL query on the database
 // and shows results
 function execute(sql) {
+    sql = sql.trim();
+    storage.set(database.name, sql);
     if (!sql) {
         ui.status.info(messages.invite);
+        ui.result.clear();
         return;
     }
     try {
         ui.status.info(messages.executing);
-        storage.set(database.name, sql);
         timeit.start();
         const result = database.execute(sql);
         const elapsed = timeit.finish();
