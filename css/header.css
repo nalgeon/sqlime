@@ -16,6 +16,23 @@
     text-decoration: none !important;
 }
 
+.db-name {
+    width: auto;
+    border: 1px solid transparent;
+    border-radius: 0.125rem;
+    background: inherit;
+    outline: none;
+    padding: 0.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+.db-name:hover {
+    cursor: pointer;
+}
+.db-name:focus {
+    border-color: var(--color-blue);
+}
+
 @media only screen and (min-width: 40rem) {
     .header {
         padding: 0 0 0.5rem 0;

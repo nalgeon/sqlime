@@ -87,7 +87,7 @@ async function start(name, path) {
     database.query = database.query || storage.get(database.name);
 
     document.title = database.name;
-    ui.name.innerText = database.name;
+    ui.name.value = database.name;
     ui.status.info(messages.invite);
     ui.editor.value = database.query;
     ui.editor.focus();
@@ -143,14 +143,13 @@ async function save() {
 
 // changeName changes database name
 function changeName(name) {
-    const oldName = ui.name.innerText;
-    if (name == oldName) {
+    if (name == ui.name.value && name == database.name) {
         return;
     }
+    storage.remove(database.name);
     database.name = name;
-    storage.remove(oldName);
     storage.set(name, database.query);
-    ui.name.innerText = name;
+    ui.name.value = name;
 }
 
 // showStarted shows the result of successful database load
@@ -230,6 +229,12 @@ function showDatabase(database) {
         copy share link</copy-on-click>`;
     ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
 }
+
+// User changed database name
+ui.name.addEventListener("change", (event) => {
+    changeName(event.target.value);
+    event.target.blur();
+});
 
 // Toolbar 'run sql' button click
 ui.toolbar.execute.addEventListener("click", () => {
