@@ -84,7 +84,7 @@ async function start(name, path) {
     }
 
     database = loadedDatabase;
-    database.query = storage.load(database.name) || database.query;
+    database.query = database.query || storage.load(database.name);
 
     document.title = database.name;
     ui.name.innerHTML = database.name;
