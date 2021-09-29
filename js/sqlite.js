@@ -1,13 +1,14 @@
 import dumper from "./dumper.js";
 import gister from "./gister.js";
 import hasher from "./hasher.js";
-import { DatabasePath } from "./locator.js";
 
 const WASM =
     "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.wasm";
 const CONFIG = {
     locateFile: (file) => WASM,
 };
+
+const DEFAULT_NAME = "new.db";
 
 const QUERIES = {
     version: "select sqlite_version() as version",
@@ -16,6 +17,7 @@ const QUERIES = {
 
 // init loads database from specified path
 async function init(name, path) {
+    name = name || DEFAULT_NAME;
     if (path.type == "local" || path.type == "remote") {
         return await loadUrl(name, path);
     }
@@ -82,7 +84,7 @@ async function loadGist(path) {
     database.owner = gist.owner.login;
     database.execute(gist.files["schema.sql"].content);
     database.query = gist.files["query.sql"].content;
-    database.hashcode = database.calcHashcode();
+    database.updateHashcode();
     return database;
 }
 
@@ -91,13 +93,14 @@ async function save(database, query) {
     console.debug(`Saving database to gist...`);
     const schema = dumper.toSql(database, query);
     database.query = query;
-    const hashcode = database.calcHashcode();
+    const oldHashcode = database.hashcode;
+    database.updateHashcode();
     let promise;
     if (!database.id || database.owner != gister.username) {
         promise = gister.create(database.name, schema, database.query);
     } else {
         // do not update gist if nothing has changed
-        if (hashcode == database.hashcode) {
+        if (database.hashcode == oldHashcode) {
             return new Promise((resolve, reject) => {
                 resolve(database);
             });
@@ -109,17 +112,23 @@ async function save(database, query) {
             database.query
         );
     }
-    return promise.then((response) => {
-        if (!response.id) {
-            return null;
-        }
-        database.id = response.id;
-        database.owner = response.owner.login;
-        database.hashcode = hashcode;
-        database.path.type = "id";
-        database.path.value = database.id;
-        return database;
-    });
+    return promise.then((response) => afterSave(database, response));
+}
+
+// afterSave updates database attributes
+// after successful save
+function afterSave(database, response) {
+    if (!response.id) {
+        return null;
+    }
+    database.id = response.id;
+    database.owner = response.owner.login;
+    database.path.type = "id";
+    database.path.value = database.id;
+    if (database.name == DEFAULT_NAME) {
+        database.name = database.id.substr(0, 6) + ".db";
+    }
+    return database;
 }
 
 // SQLite database
@@ -151,11 +160,13 @@ class SQLite {
         this.db.each(sql, [], callback);
     }
 
-    calcHashcode() {
+    updateHashcode() {
         const dbArr = this.db.export();
         const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);
-        return dbHash & queryHash;
+        const hash = dbHash & queryHash;
+        this.hashcode = hash;
+        return hash;
     }
 }
 

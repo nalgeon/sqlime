@@ -36,7 +36,7 @@ let database;
 // using current window location as database path
 async function startFromCurrentUrl() {
     const path = locator.path();
-    const name = locator.name(path) || "new.db";
+    const name = locator.name(path);
     const success = await start(name, path);
     if (!success) {
         return;
@@ -84,10 +84,10 @@ async function start(name, path) {
     }
 
     database = loadedDatabase;
-    database.query = database.query || storage.load(database.name);
+    database.query = database.query || storage.get(database.name);
 
     document.title = database.name;
-    ui.name.innerHTML = database.name;
+    ui.name.innerText = database.name;
     ui.status.info(messages.invite);
     ui.editor.value = database.query;
     ui.editor.focus();
@@ -104,7 +104,7 @@ function execute(sql) {
     }
     try {
         ui.status.info(messages.executing);
-        storage.save(database.name, sql);
+        storage.set(database.name, sql);
         timeit.start();
         const result = database.execute(sql);
         const elapsed = timeit.finish();
@@ -137,7 +137,20 @@ async function save() {
         return;
     }
     database = savedDatabase;
+    changeName(database.name);
     showDatabase(database);
+}
+
+// changeName changes database name
+function changeName(name) {
+    const oldName = ui.name.innerText;
+    if (name == oldName) {
+        return;
+    }
+    database.name = name;
+    storage.remove(oldName);
+    storage.set(name, database.query);
+    ui.name.innerText = name;
 }
 
 // showStarted shows the result of successful database load
