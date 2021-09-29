@@ -31,7 +31,7 @@ class SqlEditor extends HTMLElement {
         this.addEventListener("paste", function (event) {
             event.preventDefault();
             // get text representation of clipboard
-            var text = (event.originalEvent || event).clipboardData.getData(
+            const text = (event.originalEvent || event).clipboardData.getData(
                 "text/plain"
             );
             // insert text manually
@@ -55,7 +55,7 @@ class SqlEditor extends HTMLElement {
         return this.innerText;
     }
     set value(newValue) {
-        this.innerHTML = newValue;
+        this.innerText = newValue;
     }
 }
 

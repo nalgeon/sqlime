@@ -3,9 +3,9 @@
 // asTable converts SQL query result to HTML table
 function asTable(result) {
     const [columns, values] = [result.columns, result.values];
-    var html = "<thead>" + join(columns, "th") + "</thead>";
-    var rows = values.map(function (v) {
-        return join(v, "td");
+    let html = "<thead>" + join(columns, "th") + "</thead>";
+    const rows = values.map(function (v) {
+        return join(v.map(sanitize), "td");
     });
     html += "<tbody>" + join(rows, "tr") + "</tbody>";
     return html;
@@ -15,9 +15,15 @@ function join(values, tagName) {
     if (values.length === 0) {
         return "";
     }
-    var open = "<" + tagName + ">",
-        close = "</" + tagName + ">";
+    const open = "<" + tagName + ">";
+    const close = "</" + tagName + ">";
     return open + values.join(close + open) + close;
+}
+
+function sanitize(text) {
+    const div = document.createElement("div");
+    div.innerText = text;
+    return div.innerHTML;
 }
 
 const printer = { asTable };
