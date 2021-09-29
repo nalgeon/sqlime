@@ -19,3 +19,13 @@
     background: transparent;
     color: var(--color-blue);
 }
+
+.button-link {
+    display: inline;
+    border: none;
+    background: inherit;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-blue);
+    font-size: 1rem;
+}

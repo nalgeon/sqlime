@@ -28,6 +28,13 @@ const ui = {
     result: document.querySelector("#result"),
 };
 
+const actions = {
+    "open-url": openUrl,
+    "load-demo": loadDemo,
+    "show-tables": showTables,
+    "show-version": showVersion,
+};
+
 const DEMO_URL = "#https://antonz.org/sqliter/employees.en.db";
 
 let database;
@@ -157,9 +164,8 @@ function changeName(name) {
 // showStarted shows the result of successful database load
 function showStarted() {
     if (database.path.type == "empty" && !database.query) {
-        return;
-    }
-    if (database.query) {
+        showWelcome();
+    } else if (database.query) {
         execute(database.query);
     } else {
         showTables();
@@ -201,6 +207,13 @@ function showToolbar() {
         ui.toolbar.save.removeAttribute("disabled");
         ui.toolbar.save.setAttribute("title", "⌃S or ⌘S");
     }
+}
+
+// showWelcome show the welcome message
+function showWelcome() {
+    const message = `${messages.invite}<br>or load the
+    <button class="button-link" data-action="load-demo">demo database</button>`;
+    ui.status.info(message);
 }
 
 // showResult shows results and timing
@@ -269,12 +282,6 @@ ui.toolbar.save.addEventListener("click", () => {
 
 // Action menu item click
 ui.actions.addEventListener("action", (event) => {
-    const actions = {
-        "open-url": openUrl,
-        "load-demo": loadDemo,
-        "show-tables": showTables,
-        "show-version": showVersion,
-    };
     const action = actions[event.detail];
     if (!action) {
         return;
@@ -290,6 +297,18 @@ window.addEventListener("popstate", () => {
 // SQL editor 'execute' event
 ui.editor.addEventListener("execute", (event) => {
     execute(event.detail);
+});
+
+// User clicked a button in the status message
+ui.status.addEventListener("click", (event) => {
+    if (event.target.tagName != "BUTTON") {
+        return;
+    }
+    const action = actions[event.target.dataset.action];
+    if (!action) {
+        return;
+    }
+    action();
 });
 
 shortcuts.listen("o", () => {
