@@ -86,39 +86,6 @@ async function loadGist(path) {
     return database;
 }
 
-// openCache opens app cache
-function openCache() {
-    const isAvailable = "caches" in self;
-    if (!isAvailable) {
-        return new Promise((resolve, reject) => {
-            resolve(null);
-        });
-    }
-    return caches.open("app");
-}
-
-// loadCache loads database from local cache
-async function loadCache(response) {
-    console.debug(`Loading database from cache...`);
-    const name = response.headers.get("x-name") || "new.db";
-    const buffer = await response.arrayBuffer();
-    const path = new DatabasePath(buffer, "binary");
-    return await loadArrayBuffer(name, path);
-}
-
-// saveCache saves database to local cache
-async function saveCache(database) {
-    console.debug(`Saving database to cache...`);
-    const buffer = database.db.export();
-    const response = new Response(buffer, {
-        headers: {
-            "x-name": database.name,
-        },
-    });
-    const cache = await openCache();
-    await cache.put("database", response);
-}
-
 // save saves database to GitHub gist
 async function save(database, query) {
     console.debug(`Saving database to gist...`);
