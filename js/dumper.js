@@ -14,24 +14,30 @@ const CREATE_TABLE_PREFIX = "CREATE TABLE ";
 // as sql statements.
 // Adapted from https://github.com/simonw/sqlite-dump
 function toSql(database) {
+    const schema = schemaToSql(database);
+    if (!schema.length) {
+        return "";
+    }
+    const tables = tablesToSql(database);
     let script = [];
     script.push("BEGIN TRANSACTION;");
     script.push("PRAGMA writable_schema=ON;");
+    script.push(...schema);
+    script.push(...tables);
+    script.push("PRAGMA writable_schema=OFF;");
+    script.push("COMMIT;");
+    return script.join("\n");
+}
+
+function schemaToSql(database) {
+    let script = [];
     database.each(SCHEMA_SQL, (item) => {
         const sql = schemaItemToSql(item);
         if (sql) {
             script.push(sql);
         }
     });
-    database.each(SCHEMA_SQL, (item) => {
-        const sql = tableContentsToSql(database, item);
-        if (sql) {
-            script.push(sql);
-        }
-    });
-    script.push("PRAGMA writable_schema=OFF;");
-    script.push("COMMIT;");
-    return script.join("\n");
+    return script;
 }
 
 function schemaItemToSql(item) {
@@ -51,6 +57,17 @@ function schemaItemToSql(item) {
     } else {
         return `${item.sql};`;
     }
+}
+
+function tablesToSql(database) {
+    let script = [];
+    database.each(SCHEMA_SQL, (item) => {
+        const sql = tableContentsToSql(database, item);
+        if (sql) {
+            script.push(sql);
+        }
+    });
+    return script;
 }
 
 function tableContentsToSql(database, item) {

@@ -140,7 +140,7 @@ async function save() {
     }
     ui.status.info("Saving...");
     ui.result.clear();
-    const savedDatabase = await sqlite.save(database, ui.editor.value);
+    const savedDatabase = await sqlite.save(database, ui.editor.value.trim());
     if (!savedDatabase) {
         ui.status.error("Failed to save database");
         return;

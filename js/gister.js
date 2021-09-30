@@ -41,7 +41,7 @@ class Gister {
                 if (!response.files) {
                     return null;
                 }
-                return response;
+                return buildGist(response);
             });
         return promise;
     }
@@ -53,7 +53,9 @@ class Gister {
             method: "post",
             headers: this.headers,
             body: JSON.stringify(data),
-        }).then((response) => response.json());
+        })
+            .then((response) => response.json())
+            .then((response) => buildGist(response));
         return promise;
     }
 
@@ -64,7 +66,9 @@ class Gister {
             method: "post",
             headers: this.headers,
             body: JSON.stringify(data),
-        }).then((response) => response.json());
+        })
+            .then((response) => response.json())
+            .then((response) => buildGist(response));
         return promise;
     }
 }
@@ -74,13 +78,30 @@ function buildData(name, schema, query) {
         description: name,
         files: {
             "schema.sql": {
-                content: schema,
+                content: schema || "--",
             },
             "query.sql": {
-                content: query,
+                content: query || "--",
             },
         },
     };
+}
+
+function buildGist(response) {
+    const gist = {
+        id: response.id,
+        name: response.description,
+        owner: response.owner.login,
+        schema: response.files["schema.sql"].content,
+        query: response.files["query.sql"].content,
+    };
+    if (gist.schema == "--") {
+        gist.schema = "";
+    }
+    if (gist.query == "--") {
+        gist.query = "";
+    }
+    return gist;
 }
 
 const gister = new Gister();
