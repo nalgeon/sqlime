@@ -94,7 +94,7 @@ async function start(name, path) {
     database.query = database.query || storage.get(database.name);
 
     document.title = database.name;
-    ui.name.innerText = database.name;
+    ui.name.ready(database.name);
     ui.status.info(messages.invite);
     ui.editor.value = database.query;
     ui.editor.focus();
@@ -152,13 +152,14 @@ async function save() {
 
 // changeName changes database name
 function changeName(name) {
-    if (name == ui.name.innerText && name == database.name) {
+    if (name == ui.name.value && name == database.name) {
         return;
     }
     storage.remove(database.name);
     database.name = name;
     storage.set(name, database.query);
-    ui.name.innerText = name;
+    ui.name.value = name;
+    document.title = name;
 }
 
 // showStarted shows the result of successful database load
@@ -246,13 +247,8 @@ function showDatabase(database) {
 }
 
 // User changed database name
-ui.name.addEventListener("keydown", (event) => {
-    if (event.key != "Enter") {
-        return;
-    }
-    event.preventDefault();
-    changeName(event.target.innerText);
-    event.target.blur();
+ui.name.addEventListener("change", (event) => {
+    changeName(event.target.value);
 });
 
 // Toolbar 'run sql' button click

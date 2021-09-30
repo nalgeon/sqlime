@@ -17,11 +17,22 @@
 }
 
 .db-name {
+    outline: none;
+    border: 1px solid transparent;
     padding: 0.25rem;
     font-weight: bold;
 }
-.db-name:hover {
+.db-name.ready:hover {
     cursor: pointer;
+}
+.db-name.ready:focus {
+    border-color: var(--color-dark-gray);
+}
+.db-name.ready::after {
+    content: " ✎";
+}
+.db-name::after {
+    content: "loading...";
 }
 
 @media only screen and (min-width: 40rem) {
