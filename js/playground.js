@@ -212,7 +212,7 @@ function showToolbar() {
 // showWelcome show the welcome message
 function showWelcome() {
     const message = `${messages.invite}<br>or load the
-    <button class="button-link" data-action="load-demo">demo database</button>`;
+    <button class="button-link" data-action="load-demo" type="button">demo database</button>`;
     ui.status.info(message);
 }
 

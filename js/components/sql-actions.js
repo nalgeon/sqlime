@@ -12,10 +12,10 @@ class SqlActions extends HTMLElement {
         this.el = document.createElement("details");
         this.el.innerHTML = `
             <summary>more</summary>
-            <button data-action="open-url" class="hidden-desktop">open url</button>
-            <button data-action="load-demo">load demo</button>
-            <button data-action="show-tables" title="⌃/ or ⌘/">show tables</button>
-            <button data-action="show-version">show version</button>
+            <button data-action="open-url" class="hidden-desktop" type="button">open url</button>
+            <button data-action="load-demo" type="button">load demo</button>
+            <button data-action="show-tables" type="button" title="⌃/ or ⌘/">show tables</button>
+            <button data-action="show-version" type="button">show version</button>
         `;
         this.appendChild(this.el);
     }
