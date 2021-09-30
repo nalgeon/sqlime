@@ -212,8 +212,12 @@ function showToolbar() {
 
 // showWelcome show the welcome message
 function showWelcome() {
-    const message = `${messages.invite}<br>or load the
-    <button class="button-link" data-action="load-demo">demo database</button>`;
+    let message = `<p>${messages.invite}<br>or load the
+    <button class="button-link" data-action="load-demo">demo database</button>.</p>`;
+    if (!gister.hasCredentials()) {
+        message += `<p>Visit <a class="button-link" href="settings.html">settings</a>
+            to enable sharing.</p>`;
+    }
     ui.status.info(message);
 }
 

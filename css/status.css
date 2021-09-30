@@ -16,3 +16,8 @@
     color: var(--color-red);
     content: "✕";
 }
+
+.sql-status p {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+}

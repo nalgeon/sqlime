@@ -26,6 +26,7 @@
     background: inherit;
     padding: 0;
     cursor: pointer;
+    text-decoration: none;
     color: var(--color-blue);
     font-size: 1rem;
 }
