@@ -220,7 +220,7 @@ function showWelcome() {
 // of the SQL query execution
 function showResult(result, elapsed) {
     ui.result.print(result);
-    if (result?.values?.length) {
+    if (result && result.values.length) {
         ui.status.success(`${result.values.length} rows, took ${elapsed} ms`);
     } else {
         ui.status.success(`Took ${elapsed} ms`);
