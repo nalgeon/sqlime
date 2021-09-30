@@ -165,7 +165,7 @@ class SQLite {
         const dbArr = this.db.export();
         const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);
-        const hash = dbHash & queryHash;
+        const hash = dbHash & queryHash || dbHash || queryHash;
         this.hashcode = hash;
         return hash;
     }
