@@ -84,6 +84,9 @@ async function loadGist(path) {
     database.owner = gist.owner;
     database.execute(gist.schema);
     database.query = gist.query;
+    if (database.name == DEFAULT_NAME) {
+        database.name = extractName(database.id);
+    }
     database.updateHashcode();
     return database;
 }
@@ -127,9 +130,13 @@ function afterSave(database, gist) {
     database.path.type = "id";
     database.path.value = database.id;
     if (database.name == DEFAULT_NAME) {
-        database.name = database.id.substr(0, 6) + ".db";
+        database.name = extractName(database.id);
     }
     return database;
+}
+
+function extractName(id) {
+    return id.substr(0, 6) + ".db";
 }
 
 // SQLite database
