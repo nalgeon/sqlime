@@ -84,10 +84,8 @@ async function loadGist(path) {
     database.owner = gist.owner;
     database.execute(gist.schema);
     database.query = gist.query;
-    if (database.name == DEFAULT_NAME) {
-        database.name = extractName(database.id);
-    }
-    database.updateHashcode();
+    database.calcHashcode();
+    database.ensureName();
     return database;
 }
 
@@ -100,7 +98,9 @@ async function save(database, query) {
         return Promise.resolve(null);
     }
     const oldHashcode = database.hashcode;
-    database.updateHashcode();
+    database.calcHashcode();
+    database.gatherTables();
+    database.ensureName();
     let promise;
     if (!database.id || database.owner != gister.username) {
         promise = gister.create(database.name, schema, database.query);
@@ -129,14 +129,8 @@ function afterSave(database, gist) {
     database.owner = gist.owner;
     database.path.type = "id";
     database.path.value = database.id;
-    if (database.name == DEFAULT_NAME) {
-        database.name = extractName(database.id);
-    }
+    database.ensureName();
     return database;
-}
-
-function extractName(id) {
-    return id.substr(0, 6) + ".db";
 }
 
 // SQLite database
@@ -144,11 +138,12 @@ class SQLite {
     constructor(name, path, db, query = "") {
         this.id = null;
         this.owner = null;
-        this.hashcode = 0;
         this.name = name;
         this.path = path;
         this.db = db;
         this.query = query;
+        this.hashcode = 0;
+        this.tables = [];
     }
 
     // execute runs one ore more sql queries
@@ -168,7 +163,37 @@ class SQLite {
         this.db.each(sql, [], callback);
     }
 
-    updateHashcode() {
+    // ensureName changes default name to something more meaningful
+    ensureName() {
+        if (this.name != DEFAULT_NAME) {
+            return this.name;
+        }
+        if (this.tables.length) {
+            this.name = this.tables[0] + ".db";
+            return this.name;
+        }
+        if (this.id) {
+            this.name = this.id.substr(0, 6) + ".db";
+            return this.name;
+        }
+        return this.name;
+    }
+
+    // gatherTables fills .tables attribute with the array of database tables
+    // and returns it
+    gatherTables() {
+        const result = this.db.exec(QUERIES.tables);
+        if (!result.length) {
+            this.tables = [];
+            return this.tables;
+        }
+        this.tables = result[0].values.map((row) => row[0]);
+        return this.tables;
+    }
+
+    // calcHashcode fills .hashcode attribute with the database hashcode
+    // and returns it
+    calcHashcode() {
         const dbArr = this.db.export();
         const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);

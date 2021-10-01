@@ -177,12 +177,16 @@ function showStarted() {
 
 // showTables shows all database tables
 function showTables() {
-    const result = database.execute(sqlite.QUERIES.tables);
-    if (!result || !result.values) {
+    const tables = database.gatherTables();
+    if (!tables.length) {
         ui.status.info("Database is empty");
         return;
     }
-    ui.status.info(`${result.values.length} tables:`);
+    ui.status.info(`${tables.length} tables:`);
+    const result = {
+        columns: ["table"],
+        values: tables.map((table) => [table]),
+    };
     ui.result.print(result);
 }
 
