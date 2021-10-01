@@ -20,6 +20,7 @@ const ui = {
         openFile: document.querySelector("#open-file"),
         openUrl: document.querySelector("#open-url"),
         save: document.querySelector("#save"),
+        reset: document.querySelector("#reset"),
     },
     name: document.querySelector("#db-name"),
     editor: document.querySelector("#editor"),
@@ -295,6 +296,11 @@ ui.toolbar.openUrl.addEventListener("click", () => {
 // Toolbar 'save' button click
 ui.toolbar.save.addEventListener("click", () => {
     save();
+});
+
+// Toolbar 'reset' button click
+ui.toolbar.reset.addEventListener("click", () => {
+    storage.remove(sqlite.DEFAULT_NAME);
 });
 
 // Action menu item click
