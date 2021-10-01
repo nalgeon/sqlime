@@ -16,7 +16,9 @@ class Gister {
     loadCredentials() {
         this.username = localStorage.getItem("github.username");
         this.password = localStorage.getItem("github.token");
-        this.headers.Authorization = `Token ${this.password}`;
+        if (this.password) {
+            this.headers.Authorization = `Token ${this.password}`;
+        }
     }
 
     // hasCredentials returns true if user has provided
@@ -34,7 +36,7 @@ class Gister {
     get(id) {
         const promise = fetch(`${this.url}/${id}`, {
             method: "get",
-            headers: HEADERS,
+            headers: this.headers,
         })
             .then((response) => response.json())
             .then((response) => {
