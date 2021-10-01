@@ -166,12 +166,12 @@ function changeName(name) {
 
 // showStarted shows the result of successful database load
 function showStarted() {
-    if (database.path.type == "empty" && !database.query) {
-        showWelcome();
-    } else if (database.query) {
+    if (database.query) {
         execute(database.query);
+    } else if (database.tables.length) {
+        showTableContent(database.tables[0]);
     } else {
-        showTables();
+        showWelcome();
     }
 }
 
@@ -188,6 +188,13 @@ function showTables() {
         values: tables.map((table) => [table]),
     };
     ui.result.print(result);
+}
+
+// showTableContent select data from specified table
+function showTableContent(table) {
+    const query = `select * from ${table};`;
+    ui.editor.value = query;
+    execute(query);
 }
 
 // showVersion shows sqlite version
