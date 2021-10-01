@@ -12,8 +12,16 @@
     font-size: 1rem;
 }
 
-.header .logo {
+.header-logo {
+    display: inline-block;
+    width: 1rem;
+    vertical-align: middle;
     text-decoration: none !important;
+}
+.header-logo img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
 }
 
 .db-name {

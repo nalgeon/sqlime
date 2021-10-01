@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <title>SQLime</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +14,14 @@
     <meta property="og:url" content="https://sqlime.org/" />
     <meta property="og:image" content="https://sqlime.org/img/cover.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <title>SQLime</title>
-    <link rel="icon" href="favicon.svg">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5">
+
     <link rel="stylesheet" href="css/core.css">
 </head>
 
@@ -22,7 +30,9 @@
         <link rel="stylesheet" href="css/header.css">
         <header class="header">
             <h1>
-                <a id="reset" href="./" class="logo">🍋</a>
+                <a id="reset" href="./" class="header-logo">
+                    <img src="/img/favicon-32x32.png">
+                </a>
                 <span>SQLite Playground</span> &nbsp;//
                 <db-name id="db-name" class="db-name"></db-name>
             </h1>
