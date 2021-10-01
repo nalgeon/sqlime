@@ -5,6 +5,7 @@
 
 .sql-result {
     display: block;
+    overflow-x: auto;
 }
 
 .sql-result table {
@@ -27,8 +28,11 @@
 
 @media only screen and (min-width: 40rem) {
     .result-section {
-        flex-grow: 1;
         padding: 0 0 0.5rem 0;
+    }
+
+    .sql-result {
+        overflow-x: visible;
     }
 
     .sql-result table {
