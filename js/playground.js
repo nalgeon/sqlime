@@ -204,7 +204,7 @@ function showTable(table) {
 
 // showTableContent select data from specified table
 function showTableContent(table) {
-    const query = `select * from ${table};`;
+    const query = sqlite.QUERIES.tableContent.replace("{}", table);
     ui.editor.value = query;
     execute(query);
 }
