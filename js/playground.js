@@ -231,9 +231,9 @@ function showWelcome() {
 // showResult shows results and timing
 // of the SQL query execution
 function showResult(result, elapsed) {
-    ui.result.print(result);
     if (result && result.values.length) {
         ui.status.success(`${result.values.length} rows, took ${elapsed} ms`);
+        ui.result.print(result);
     } else {
         ui.status.success(`Took ${elapsed} ms`);
     }
