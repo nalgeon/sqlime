@@ -13,6 +13,9 @@ const DEFAULT_NAME = "new.db";
 const QUERIES = {
     version: "select sqlite_version() as version",
     tables: "select name as \"table\" from sqlite_schema where type = 'table'",
+    tableInfo: `select
+      iif(pk=1, '✓', '') as pk, name, type, iif("notnull"=0, '✓', '') as "null?"
+      from pragma_table_info('{}')`,
 };
 
 // init loads database from specified path
@@ -193,6 +196,11 @@ class SQLite {
         }
         this.tables = result[0].values.map((row) => row[0]);
         return this.tables;
+    }
+
+    getTableInfo(table) {
+        const sql = QUERIES.tableInfo.replace("{}", table);
+        return this.execute(sql);
     }
 
     // calcHashcode fills .hashcode attribute with the database hashcode

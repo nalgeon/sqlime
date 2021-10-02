@@ -33,7 +33,9 @@ const actions = {
     "open-url": openUrl,
     "load-demo": loadDemo,
     "show-tables": showTables,
+    "show-table": showTable,
     "show-version": showVersion,
+    "visit-settings": visitSettings,
 };
 
 const DEMO_URL = "#https://antonz.org/sqliter/employees.en.db";
@@ -184,10 +186,14 @@ function showTables() {
         return;
     }
     ui.status.info(`${tables.length} tables:`);
-    const result = {
-        columns: ["table"],
-        values: tables.map((table) => [table]),
-    };
+    ui.result.printTables(tables);
+}
+
+// showTable shows specific database table
+function showTable(table) {
+    const result = database.getTableInfo(table);
+    const all = action("show-tables", "tables");
+    ui.status.info(`${all} / ${table}:`);
     ui.result.print(result);
 }
 
@@ -226,11 +232,11 @@ function showToolbar() {
 
 // showWelcome show the welcome message
 function showWelcome() {
-    let message = `<p>${messages.invite}<br>or load the
-    <button class="button-link" data-action="load-demo">demo database</button>.</p>`;
+    const demo = action("load-demo", "demo database");
+    const settings = action("visit-settings", "settings");
+    let message = `<p>${messages.invite}<br>or load the ${demo}.</p>`;
     if (!gister.hasCredentials()) {
-        message += `<p>Visit <a class="button-link" href="settings.html">settings</a>
-            to enable sharing.</p>`;
+        message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
     ui.status.info(message);
 }
@@ -262,6 +268,21 @@ function showDatabase(database) {
     const shareUrl = `<copy-on-click href="${window.location}" class="button-small">
         copy share link</copy-on-click>`;
     ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
+}
+
+function visitSettings() {
+    window.location.assign("settings.html");
+}
+
+function action(name, text, arg = null) {
+    const btn = document.createElement("button");
+    btn.className = "button-link";
+    btn.dataset.action = name;
+    btn.innerHTML = text;
+    if (arg) {
+        btn.dataset.arg = arg;
+    }
+    return btn.outerHTML;
 }
 
 // User changed database name
@@ -323,15 +344,23 @@ ui.editor.addEventListener("execute", (event) => {
 });
 
 // User clicked a button in the status message
-ui.status.addEventListener("click", (event) => {
-    if (event.target.tagName != "BUTTON") {
-        return;
-    }
-    const action = actions[event.target.dataset.action];
-    if (!action) {
-        return;
-    }
-    action();
+// or in the result area
+[ui.status, ui.result].forEach((el) => {
+    el.addEventListener("click", (event) => {
+        if (event.target.tagName != "BUTTON") {
+            return;
+        }
+        const action = actions[event.target.dataset.action];
+        if (!action) {
+            return;
+        }
+        const arg = event.target.dataset.arg;
+        if (arg) {
+            action(arg);
+        } else {
+            action();
+        }
+    });
 });
 
 shortcuts.listen("o", () => {

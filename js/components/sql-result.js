@@ -16,13 +16,24 @@ class SqlResult extends HTMLElement {
         this.el = table;
     }
 
-    // print shows SQL query result as a table
+    // print prints SQL query result as a table
     print(result) {
+        this.applyPrinter(result, printer.printResult);
+    }
+
+    // printTables prints table list as a table
+    printTables(tables) {
+        this.applyPrinter(tables, printer.printTables);
+    }
+
+    // applyPrinter prints data structure
+    // with specified printer function
+    applyPrinter(data, printFunc) {
         if (!result) {
             this.clear();
             return;
         }
-        this.el.innerHTML = printer.asTable(result);
+        this.el.innerHTML = printFunc(data);
     }
 
     // clear hides the table
