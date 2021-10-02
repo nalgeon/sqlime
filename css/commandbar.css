@@ -11,6 +11,7 @@
     border-radius: 0.125rem;
     background: transparent;
     color: var(--color-blue);
+    line-height: 2rem;
     font-size: 1rem;
 }
 .commandbar > button:disabled {
@@ -19,11 +20,12 @@
 }
 
 .commandbar > button:first-child {
-    flex-grow: 3;
+    flex-grow: 4;
     background: var(--color-blue);
     color: var(--color-white);
 }
-.commandbar > button:last-child {
+.commandbar > button:nth-child(2),
+.commandbar > button:nth-child(3) {
     flex-grow: 1;
 }
 
@@ -47,7 +49,8 @@
         background: transparent;
         color: var(--color-blue);
     }
-    .commandbar > button:last-child {
+    .commandbar > button:nth-child(2),
+    .commandbar > button:nth-child(3) {
         flex-grow: 0;
     }
 }
