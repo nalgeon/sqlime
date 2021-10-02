@@ -15,17 +15,21 @@ const messages = {
 };
 
 const ui = {
-    toolbar: {
+    buttons: {
         openFile: document.querySelector("#open-file"),
         openUrl: document.querySelector("#open-url"),
         reset: document.querySelector("#reset"),
+        execute: document.querySelector("#execute"),
+        save: document.querySelector("#save"),
+        showTables: document.querySelector("#show-tables"),
     },
-    commandbar: document.querySelector("#commandbar"),
     name: document.querySelector("#db-name"),
+    commandbar: document.querySelector("#commandbar"),
     editor: document.querySelector("#editor"),
     status: document.querySelector("#status"),
     result: document.querySelector("#result"),
 };
+window.ui = ui;
 
 const actions = {
     "open-url": openUrl,
@@ -278,7 +282,7 @@ ui.name.addEventListener("change", (event) => {
 });
 
 // Toolbar 'open file' button click
-ui.toolbar.openFile.addEventListener("change", (event) => {
+ui.buttons.openFile.addEventListener("change", (event) => {
     if (!event.target.files.length) {
         return;
     }
@@ -292,12 +296,12 @@ ui.toolbar.openFile.addEventListener("change", (event) => {
 });
 
 // Toolbar 'open url' button click
-ui.toolbar.openUrl.addEventListener("click", () => {
+ui.buttons.openUrl.addEventListener("click", () => {
     openUrl();
 });
 
 // Toolbar 'reset' button click
-ui.toolbar.reset.addEventListener("click", () => {
+ui.buttons.reset.addEventListener("click", () => {
     storage.remove(sqlite.DEFAULT_NAME);
 });
 
@@ -335,7 +339,7 @@ function onActionClick(event) {
 }
 
 shortcuts.listen("o", () => {
-    ui.toolbar.openFile.click();
+    ui.buttons.openFile.click();
 });
 shortcuts.listen("u", openUrl);
 shortcuts.listen("s", save);
