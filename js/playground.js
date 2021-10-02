@@ -37,7 +37,7 @@ const actions = {
     visit: visit,
 };
 
-const DEMO_URL = "#https://antonz.org/sqliter/employees.en.db";
+const DEMO_URL = "#demo.db";
 
 let database;
 
