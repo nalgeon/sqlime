@@ -24,7 +24,6 @@ const ui = {
     name: document.querySelector("#db-name"),
     editor: document.querySelector("#editor"),
     status: document.querySelector("#status"),
-    actions: document.querySelector("#actions"),
     result: document.querySelector("#result"),
 };
 
