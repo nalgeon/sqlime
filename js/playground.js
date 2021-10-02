@@ -219,6 +219,7 @@ function showWelcome() {
     const demo = action("load-demo", "demo database");
     const settings = action("visit-settings", "settings");
     let message = `<p>${messages.invite}<br>or load the ${demo}.</p>`;
+    message += `<p>Click the logo anytime to start from scratch.</p>`;
     if (!gister.hasCredentials()) {
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }

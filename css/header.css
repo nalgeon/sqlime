@@ -12,16 +12,20 @@
     font-size: 1rem;
 }
 
+.header h1 > * {
+    vertical-align: middle;
+}
+
 .header-logo {
     display: inline-block;
-    width: 1rem;
-    vertical-align: middle;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.125rem;
     text-decoration: none !important;
 }
 .header-logo img {
     height: auto;
-    max-width: 100%;
-    width: auto;
+    width: 1.5rem;
 }
 
 .db-name {
