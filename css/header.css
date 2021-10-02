@@ -25,6 +25,7 @@
 }
 
 .db-name {
+    display: inline-block;
     outline: none;
     border: 1px solid transparent;
     padding: 0.25rem;

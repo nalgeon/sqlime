@@ -28,6 +28,8 @@
 <body>
     <div class="grid">
         <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="css/toolbar.css">
         <header class="header">
             <h1>
                 <a id="reset" href="./" class="header-logo">
@@ -36,25 +38,24 @@
                 <span>SQLite Playground</span> &nbsp;//
                 <db-name id="db-name" class="db-name"></db-name>
             </h1>
-            <link rel="stylesheet" href="css/buttons.css">
-            <link rel="stylesheet" href="css/toolbar.css">
-            <div class="toolbar">
-                <button id="execute" title="⌃↵ or ⌘↵" class="button-small">run ►</button>
-                <label title="⌃O or ⌘O" class="button-small hidden-mobile">
+            <div class="toolbar hidden-mobile">
+                <label title="⌃O or ⌘O" class="button-small">
                     open file <input type="file" id="open-file">
                 </label>
-                <button id="open-url" title="⌃U or ⌘U" class="button-small hidden-mobile">open url</button>
-                <button id="save" title="⌃S or ⌘S" class="button-small">☆ share</button>
+                <button id="open-url" title="⌃U or ⌘U" class="button-small">open url</button>
                 <a href="settings.html" class="button-small">✎ settings</a>
-                <link rel="stylesheet" href="css/actions.css">
-                <sql-actions id="actions" class="sql-actions"></sql-actions>
                 <a href="about.html" class="button-small button-help">?</a>
             </div>
         </header>
 
         <link rel="stylesheet" href="css/editor.css">
+        <link rel="stylesheet" href="css/commandbar.css">
         <section class="editor-section">
             <sql-editor id="editor" class="sql-editor"></sql-editor>
+            <div id="commandbar" class="commandbar">
+                <button id="command-execute" data-action="execute" title="⌃↵ or ⌘↵">run ►</button>
+                <button id="command-save" data-action="save" title="⌃S or ⌘S">☆ share</button>
+            </div>
         </section>
 
         <link rel="stylesheet" href="css/result.css">

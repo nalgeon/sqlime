@@ -1,0 +1,53 @@
+.commandbar {
+    display: flex;
+}
+
+.commandbar > button {
+    display: block;
+    margin: 0 0.125rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid var(--color-blue);
+    border-radius: 0.125rem;
+    background: transparent;
+    color: var(--color-blue);
+    font-size: 1rem;
+}
+.commandbar > button:disabled {
+    background: transparent !important;
+    color: var(--color-dark-gray) !important;
+}
+
+.commandbar > button:first-child {
+    flex-grow: 3;
+    background: var(--color-blue);
+    color: var(--color-white);
+}
+.commandbar > button:last-child {
+    flex-grow: 1;
+}
+
+@media only screen and (min-width: 40rem) {
+    .commandbar {
+        position: absolute;
+        bottom: 0.5rem;
+    }
+
+    .commandbar > button {
+        margin: 0;
+        border: none;
+    }
+    .commandbar > button:hover {
+        background: var(--color-blue) !important;
+        color: var(--color-white) !important;
+    }
+
+    .commandbar > button:first-child {
+        flex-grow: 0;
+        background: transparent;
+        color: var(--color-blue);
+    }
+    .commandbar > button:last-child {
+        flex-grow: 0;
+    }
+}

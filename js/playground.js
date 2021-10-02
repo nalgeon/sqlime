@@ -16,12 +16,11 @@ const messages = {
 
 const ui = {
     toolbar: {
-        execute: document.querySelector("#execute"),
         openFile: document.querySelector("#open-file"),
         openUrl: document.querySelector("#open-url"),
-        save: document.querySelector("#save"),
         reset: document.querySelector("#reset"),
     },
+    commandbar: document.querySelector("#commandbar"),
     name: document.querySelector("#db-name"),
     editor: document.querySelector("#editor"),
     status: document.querySelector("#status"),
@@ -32,9 +31,10 @@ const ui = {
 const actions = {
     "open-url": openUrl,
     "load-demo": loadDemo,
+    execute: executeCurrent,
+    save: save,
     "show-tables": showTables,
     "show-table": showTable,
-    "show-version": showVersion,
     "visit-settings": visitSettings,
 };
 
@@ -105,6 +105,11 @@ async function start(name, path) {
     return true;
 }
 
+// executeCurrent runs the current SQL query
+function executeCurrent() {
+    execute(ui.editor.value);
+}
+
 // execute runs SQL query on the database
 // and shows results
 function execute(sql) {
@@ -138,13 +143,14 @@ function openUrl() {
 // save persists database state and current query
 // to remote storage
 async function save() {
+    const query = ui.editor.value.trim();
+    storage.set(database.name, query);
     if (!gister.hasCredentials()) {
+        visitSettings();
         return;
     }
     ui.status.info("Saving...");
     ui.result.clear();
-    const query = ui.editor.value.trim();
-    storage.set(database.name, query);
     const savedDatabase = await sqlite.save(database, query);
     if (!savedDatabase) {
         ui.status.error("Failed to save database");
@@ -204,30 +210,9 @@ function showTableContent(table) {
     execute(query);
 }
 
-// showVersion shows sqlite version
-function showVersion() {
-    const result = database.execute(sqlite.QUERIES.version);
-    ui.status.info("SQLite version:");
-    ui.result.print(result);
-}
-
 // loadDemo loads demo database
 function loadDemo() {
     window.location.assign(DEMO_URL);
-}
-
-// showToolbar shows the toolbar according to settings
-function showToolbar() {
-    if (!gister.hasCredentials()) {
-        ui.toolbar.save.setAttribute("disabled", "disabled");
-        ui.toolbar.save.setAttribute(
-            "title",
-            "Provide GitHub credentials in settings to enable sharing"
-        );
-    } else {
-        ui.toolbar.save.removeAttribute("disabled");
-        ui.toolbar.save.setAttribute("title", "⌃S or ⌘S");
-    }
 }
 
 // showWelcome show the welcome message
@@ -290,11 +275,6 @@ ui.name.addEventListener("change", (event) => {
     changeName(event.target.value);
 });
 
-// Toolbar 'run sql' button click
-ui.toolbar.execute.addEventListener("click", () => {
-    execute(ui.editor.value);
-});
-
 // Toolbar 'open file' button click
 ui.toolbar.openFile.addEventListener("change", (event) => {
     if (!event.target.files.length) {
@@ -314,23 +294,9 @@ ui.toolbar.openUrl.addEventListener("click", () => {
     openUrl();
 });
 
-// Toolbar 'save' button click
-ui.toolbar.save.addEventListener("click", () => {
-    save();
-});
-
 // Toolbar 'reset' button click
 ui.toolbar.reset.addEventListener("click", () => {
     storage.remove(sqlite.DEFAULT_NAME);
-});
-
-// Action menu item click
-ui.actions.addEventListener("action", (event) => {
-    const action = actions[event.detail];
-    if (!action) {
-        return;
-    }
-    action();
 });
 
 // Navigate back to previous database
@@ -343,25 +309,28 @@ ui.editor.addEventListener("execute", (event) => {
     execute(event.detail);
 });
 
-// User clicked a button in the status message
-// or in the result area
-[ui.status, ui.result].forEach((el) => {
-    el.addEventListener("click", (event) => {
-        if (event.target.tagName != "BUTTON") {
-            return;
-        }
-        const action = actions[event.target.dataset.action];
-        if (!action) {
-            return;
-        }
-        const arg = event.target.dataset.arg;
-        if (arg) {
-            action(arg);
-        } else {
-            action();
-        }
-    });
+// User clicked an action button
+[ui.commandbar, ui.status, ui.result].forEach((el) => {
+    el.addEventListener("click", onActionClick);
 });
+
+// onActionClick executes an action
+// according to the button clicked
+function onActionClick(event) {
+    if (event.target.tagName != "BUTTON") {
+        return;
+    }
+    const action = actions[event.target.dataset.action];
+    if (!action) {
+        return;
+    }
+    const arg = event.target.dataset.arg;
+    if (arg) {
+        action(arg);
+    } else {
+        action();
+    }
+}
 
 shortcuts.listen("o", () => {
     ui.toolbar.openFile.click();
@@ -371,5 +340,4 @@ shortcuts.listen("s", save);
 shortcuts.listen("/", showTables);
 
 gister.loadCredentials();
-showToolbar();
 startFromCurrentUrl();
