@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:site_name" content="SQLime" />
     <meta property="og:title" content="SQLime — Online SQL playground" />
+    <meta name="description" content="SQLime is an online SQLite playground for debugging and sharing SQL snippets.">
     <meta property="og:description"
-        content="SQLime is an online SQLite playground for debugging and sharing SQL snippets" />
+        content="SQLime is an online SQLite playground for debugging and sharing SQL snippets." />
     <meta property="og:url" content="https://sqlime.org/about.html" />
     <meta property="og:image" content="https://sqlime.org/img/cover.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -26,6 +27,11 @@
     <style>
         .logo {
             display: inline-block;
+            vertical-align: middle;
+        }
+
+        .logo img {
+            display: inline-block;
             width: 1.5rem;
             height: auto;
         }
@@ -40,7 +46,9 @@
 <body>
     <header>
         <h1>
-            <a href="javascript:back()"><img class="logo" src="/img/favicon-64x64.png"></a>
+            <a class="logo" href="javascript:back()">
+                <img src="/img/favicon-64x64.png">
+            </a>
             About SQLime
         </h1>
     </header>

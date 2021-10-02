@@ -95,7 +95,7 @@ async function start(name, path) {
     database = loadedDatabase;
     database.query = database.query || storage.get(database.name);
 
-    document.title = database.name;
+    document.title = database.meaningfulName || document.title;
     ui.name.ready(database.name);
     ui.status.info(messages.invite);
     ui.editor.value = database.query;

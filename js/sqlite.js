@@ -154,6 +154,15 @@ class SQLite {
         this.tables = [];
     }
 
+    // meaningfulName returns database name
+    // if it differs from default one
+    get meaningfulName() {
+        if (this.name == DEFAULT_NAME) {
+            return "";
+        }
+        return this.name;
+    }
+
     // execute runs one ore more sql queries
     // and returns the last result
     execute(sql) {
@@ -173,8 +182,8 @@ class SQLite {
 
     // ensureName changes default name to something more meaningful
     ensureName() {
-        if (this.name != DEFAULT_NAME) {
-            return this.name;
+        if (this.meaningfulName) {
+            return this.meaningfulName;
         }
         if (this.tables.length) {
             this.name = this.tables[0] + ".db";
