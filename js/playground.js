@@ -34,7 +34,7 @@ const actions = {
     save: save,
     "show-tables": showTables,
     "show-table": showTable,
-    "visit-settings": visitSettings,
+    visit: visit,
 };
 
 const DEMO_URL = "#https://antonz.org/sqliter/employees.en.db";
@@ -145,7 +145,7 @@ async function save() {
     const query = ui.editor.value.trim();
     storage.set(database.name, query);
     if (!gister.hasCredentials()) {
-        visitSettings();
+        visit("settings");
         return;
     }
     ui.status.info("Saving...");
@@ -217,12 +217,14 @@ function loadDemo() {
 // showWelcome show the welcome message
 function showWelcome() {
     const demo = action("load-demo", "demo database");
-    const settings = action("visit-settings", "settings");
     let message = `<p>${messages.invite}<br>or load the ${demo}.</p>`;
     message += `<p>Click the logo anytime to start from scratch.</p>`;
     if (!gister.hasCredentials()) {
+        const settings = action("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
+    const about = action("visit", "About SQLime", "about");
+    message += `<p>${about}</p>`;
     ui.status.info(message);
 }
 
@@ -255,8 +257,8 @@ function showDatabase(database) {
     ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
 }
 
-function visitSettings() {
-    window.location.assign("settings.html");
+function visit(page) {
+    window.location.assign(`${page}.html`);
 }
 
 function action(name, text, arg = null) {
