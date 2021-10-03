@@ -2,7 +2,7 @@
 
 **[SQLime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
-[![SQLime screenshot](./img/sqlime.png)](http://sqlime.org/)
+[![SQLime](./img/sqlime.png)](http://sqlime.org/)
 
 Here are some notable features:
 
@@ -19,6 +19,12 @@ Connect any local or remote SQLite database. Both files and URLs are supported. 
 SQLime saves both the database and the queries to GitHub so that you can revisit them later or share them with a colleague. The database is stored as a plain text SQL dump, so it's easy to read the code or import data into PostgreSQL, MySQL, or other databases.
 
 For example, here is the [gist](https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046) for the Employees database, and here is the [sharing link](https://sqlime.org/#gist:e012594111ce51f91590c4737e41a046) for it.
+
+### 📱 Mobile friendly
+
+Most playgrounds are not meant for small screens. SQLime was specifically designed and tested on mobile devices. No need to zoom or aim at tiny buttons — everything looks and works just fine.
+
+![SQLime on mobile](./img/sqlime-mobile.png)
 
 ### 🔒 Secure and private
 

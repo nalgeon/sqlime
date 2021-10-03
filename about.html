@@ -40,6 +40,10 @@
             border-right: 0;
             font-weight: normal;
         }
+
+        figcaption {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -55,8 +59,8 @@
     <main>
         <article>
             <p><strong><a href="/">SQLime</a></strong> is an online SQLite playground
-                for debugging and sharing SQL snippets. Kinda like
-                JSFiddle or CodePen, but for SQL instead of JavaScript.
+                for debugging and sharing SQL snippets. Kinda like JSFiddle,
+                but for SQL instead of JavaScript.
             </p>
             <p><img src="img/sqlime.png"></p>
             <p>Here are some notable features:</p>
@@ -87,9 +91,15 @@
                 for the Employees database, and here is the
                 <a href="./#gist:e012594111ce51f91590c4737e41a046">sharing link</a> for it.
             </p>
-            <p>Saving is disabled by default. Provide your GitHub credentials in
-                <a href="/settings.html">settings</a> to enable it.
-            </p>
+
+            <h5>📱 Mobile friendly</h5>
+            <p>Most playgrounds are not meant for small screens. SQLime
+                was specifically designed and tested on mobile devices.</p>
+            <figure>
+                <img src="img/sqlime-mobile.png">
+                <figcaption>No need to zoom or aim at tiny buttons — everything
+                    looks and works just fine.</figcaption>
+            </figure>
 
             <h5>🔒 Secure and private</h5>
             <p>There is no server. SQLime works completely in the browser.
