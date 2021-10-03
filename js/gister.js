@@ -40,7 +40,7 @@ class Gister {
         })
             .then((response) => response.json())
             .then((response) => {
-                if (!response.files) {
+                if (!response.files || !("query.sql" in response.files)) {
                     return null;
                 }
                 return buildGist(response);
