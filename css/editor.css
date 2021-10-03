@@ -35,13 +35,12 @@
     }
     .sql-editor::after {
         position: absolute;
-        right: -1px;
-        bottom: -1px;
+        right: 0;
+        bottom: 0;
         display: inline-block;
-        border: 1px solid var(--color-gray);
-        padding: 0.25rem;
+        padding: 0.5rem;
         color: var(--color-dark-gray);
-        font-size: 80%;
-        content: "Ctrl+Enter";
+        font-family: var(--font-sans);
+        content: "sqlite 3.35.0";
     }
 }
