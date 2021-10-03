@@ -8,7 +8,7 @@ function printResult(result) {
         return join(v.map(sanitize), "td");
     });
     html += "<tbody>" + join(rows, "tr") + "</tbody>";
-    return html;
+    return `<table>${html}</table>`;
 }
 
 function printTables(tables) {
@@ -23,7 +23,7 @@ function printTables(tables) {
         </tr>`;
     });
     html += "<tbody>" + rows.join("\n") + "</tbody>";
-    return html;
+    return `<table>${html}</table>`;
 }
 
 function join(values, tagName) {
