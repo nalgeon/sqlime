@@ -27,6 +27,13 @@ class SqlEditor extends HTMLElement {
             return true;
         });
 
+        // first input event
+        const onInput = (event) => {
+            this.dispatchEvent(new Event("start"));
+            this.removeEventListener("input", onInput);
+        };
+        this.addEventListener("input", onInput);
+
         // always paste as plain text
         this.addEventListener("paste", function (event) {
             event.preventDefault();

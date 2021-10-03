@@ -11,12 +11,8 @@
     border-radius: 0.125rem;
     background: transparent;
     color: var(--color-blue);
-    line-height: 2rem;
+    line-height: 1rem;
     font-size: 1rem;
-}
-.commandbar > button:disabled {
-    background: transparent !important;
-    color: var(--color-dark-gray) !important;
 }
 
 .commandbar > button:first-child {

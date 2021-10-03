@@ -180,8 +180,10 @@ function changeName(name) {
 function showStarted() {
     if (database.query) {
         execute(database.query);
+        enableCommandBar();
     } else if (database.tables.length) {
         showTableContent(database.tables[0]);
+        enableCommandBar();
     } else {
         showWelcome();
     }
@@ -261,6 +263,12 @@ function showDatabase(database) {
     ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
 }
 
+// enableCommandBar enables all buttons
+// in the command bar
+function enableCommandBar() {
+    ui.commandbar.classList.remove("disabled");
+}
+
 function visit(page) {
     window.location.assign(`${page}.html`);
 }
@@ -313,6 +321,11 @@ window.addEventListener("popstate", () => {
 // SQL editor 'execute' event
 ui.editor.addEventListener("execute", (event) => {
     execute(event.detail);
+});
+
+// SQL editor 'started typing' event
+ui.editor.addEventListener("start", (event) => {
+    enableCommandBar();
 });
 
 // User clicked an action button

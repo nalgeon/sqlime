@@ -33,6 +33,12 @@ body {
     display: none !important;
 }
 
+.disabled {
+    pointer-events: none;
+    filter: grayscale();
+    opacity: 0.625;
+}
+
 @media only screen and (max-width: 40rem) {
     .hidden-mobile {
         display: none !important;

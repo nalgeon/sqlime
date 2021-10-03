@@ -24,6 +24,10 @@ async function testNewDatabase() {
         h1.innerText.trim() == "SQLite Playground  // new.db"
     );
     assert("editor is empty", app.ui.editor.value == "");
+    assert(
+        "command bar is disabled",
+        app.ui.commandbar.classList.contains("disabled")
+    );
     assert("shows welcome text", app.ui.status.value.includes("demo database"));
     assert("result is empty", app.ui.result.innerText == "");
 }
@@ -32,6 +36,8 @@ async function testExecuteQuery() {
     log("Execute query...");
     const app = await loadApp();
     const sql = "select 'hello' as message";
+    // activate buttons
+    app.ui.editor.dispatchEvent(new Event("input"));
     app.ui.editor.value = sql;
     app.ui.buttons.execute.click();
     await wait(MEDIUM_DELAY);
