@@ -1,6 +1,7 @@
 const engine = {
     errorCount: 0,
     console: document.querySelector("#console"),
+    mocked: {},
 };
 
 function assert(desc, condition) {
@@ -34,4 +35,14 @@ function wait(ms) {
     });
 }
 
-export { assert, log, summary, wait };
+function mock(obj, property, repacement) {
+    obj[`${property}.mocked`] = obj[property];
+    obj[property] = repacement;
+}
+
+function unmock(obj, property) {
+    obj[property] = obj[`${property}.mocked`];
+    delete obj[`${property}.mocked`];
+}
+
+export { assert, log, mock, unmock, summary, wait };

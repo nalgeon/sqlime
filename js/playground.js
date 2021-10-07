@@ -29,7 +29,6 @@ const ui = {
     status: document.querySelector("#status"),
     result: document.querySelector("#result"),
 };
-window.ui = ui;
 
 const actions = {
     "open-url": openUrl,
@@ -44,6 +43,13 @@ const actions = {
 const DEMO_URL = "#demo.db";
 
 let database;
+
+// for testing purposes
+window.app = {
+    actions: actions,
+    gister: gister,
+    ui: ui,
+};
 
 // startFromCurrentUrl loads existing database or creates a new one
 // using current window location as database path
