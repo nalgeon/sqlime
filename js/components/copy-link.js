@@ -9,16 +9,32 @@ class CopyOnClick extends HTMLElement {
 
     render() {
         this.addEventListener("click", () => {
-            document.execCommand("copy");
-        });
-        this.addEventListener("copy", (event) => {
-            event.preventDefault();
-            if (!event.clipboardData) {
+            if (!navigator.clipboard) {
+                this.legacyCopy();
+                this.markSuccess();
                 return;
             }
-            event.clipboardData.setData("text/plain", this.href);
-            this.markSuccess();
+            navigator.clipboard.writeText(this.href).then(() => {
+                this.markSuccess();
+            });
         });
+    }
+
+    legacyCopy() {
+        const txt = document.createElement("textarea");
+        txt.value = this.href;
+
+        // Avoid scrolling to bottom
+        txt.style.top = "0";
+        txt.style.left = "0";
+        txt.style.position = "fixed";
+
+        document.body.appendChild(txt);
+        txt.focus();
+        txt.select();
+
+        document.execCommand("copy");
+        document.body.removeChild(txt);
     }
 
     markSuccess() {
