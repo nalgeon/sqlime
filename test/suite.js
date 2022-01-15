@@ -165,7 +165,7 @@ async function save() {
     );
     assert(
         "after save: shows successful status",
-        app.ui.status.value == "Saved as gist copy share link"
+        app.ui.status.value.includes("Saved as gist")
     );
 
     unmock(app.gister, "create");
@@ -209,7 +209,7 @@ async function update() {
 
     assert(
         "after save: shows successful status",
-        app.ui.status.value == "Saved as gist copy share link"
+        app.ui.status.value.includes("Saved as gist")
     );
 
     unmock(app.gister, "create");
