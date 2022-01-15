@@ -1,5 +1,5 @@
 import dumper from "./dumper.js";
-import gister from "./gister.js";
+import gister from "./cloud.js";
 import hasher from "./hasher.js";
 
 const WASM = "https://unpkg.com/@antonz/sql.js@3.37.2/dist/sql-wasm.wasm";
@@ -136,7 +136,7 @@ function afterSave(database, gist) {
     database.id = gist.id;
     database.owner = gist.owner;
     database.path.type = "id";
-    database.path.value = database.id;
+    database.path.value = `${gist.prefix}:${database.id}`;
     database.ensureName();
     return database;
 }

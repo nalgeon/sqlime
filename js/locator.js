@@ -1,18 +1,16 @@
 // Helper for working with window.location
 
-const ID_PREFIX = "gist:";
-
 // Database path, could be:
 // - local (../data.db),
 // - remote (https://domain.com/data.db)
 // - binary (binary database content)
 // - id (gist:02994fe7f2de0611726d61dbf26f46e4)
+//      (deta:yuiqairmb558)
 // - empty
 class DatabasePath {
     constructor(value, type = null) {
         this.value = value;
         this.type = type || this.inferType(value);
-        this.clean();
     }
 
     inferType(value) {
@@ -25,23 +23,19 @@ class DatabasePath {
         if (value.startsWith("http://") || value.startsWith("https://")) {
             return "remote";
         }
-        if (value.startsWith(ID_PREFIX)) {
+        if (value.includes(":")) {
             return "id";
         }
         return "local";
     }
 
-    clean() {
-        if (this.type == "id") {
-            this.value = this.value.substr(ID_PREFIX.length);
-        }
-    }
-
     toHash() {
-        if (this.type == "local" || this.type == "remote") {
+        if (
+            this.type == "local" ||
+            this.type == "remote" ||
+            this.type == "id"
+        ) {
             return `#${this.value}`;
-        } else if (this.type == "id") {
-            return `#${ID_PREFIX}${this.value}`;
         } else {
             return "";
         }

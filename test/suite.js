@@ -126,28 +126,9 @@ async function showTables() {
     );
 }
 
-async function saveAnonymous() {
-    log("Save anonymous snippet...");
-    const app = await loadApp();
-    const sql = "select 'hello' as message";
-    // activate buttons
-    app.ui.editor.dispatchEvent(new Event("input"));
-    app.ui.editor.value = sql;
-    app.ui.buttons.save.click();
-    await wait(MEDIUM_DELAY);
-    assert(
-        "save redirects to settings",
-        app.window.location.pathname == "/settings.html"
-    );
-}
-
 async function saveEmpty() {
     log("Save empty snippet...");
     const app = await loadApp();
-
-    // set github credentials to enable saving
-    app.gister.username = "test";
-    app.gister.password = "test";
 
     // activate buttons
     app.ui.editor.dispatchEvent(new Event("input"));
@@ -158,19 +139,11 @@ async function saveEmpty() {
         "fails to save empty snippet",
         app.ui.status.value.startsWith("Failed to save")
     );
-
-    // remove github credentials
-    app.gister.username = null;
-    app.gister.password = null;
 }
 
 async function save() {
     log("Save snippet...");
     const app = await loadApp();
-
-    // set github credentials to enable saving
-    app.gister.username = "test";
-    app.gister.password = "test";
 
     mock(app.gister, "create", (name, schema, query) => {
         assert("before save: database name is not set", name == "new.db");
@@ -196,19 +169,11 @@ async function save() {
     );
 
     unmock(app.gister, "create");
-
-    // remove github credentials
-    app.gister.username = null;
-    app.gister.password = null;
 }
 
 async function update() {
     log("Update snippet...");
     const app = await loadApp();
-
-    // set github credentials to enable saving
-    app.gister.username = "test";
-    app.gister.password = "test";
 
     const sql1 = "select 'created' as message";
     const sql2 = "select 'updated' as message";
@@ -248,10 +213,6 @@ async function update() {
     );
 
     unmock(app.gister, "create");
-
-    // remove github credentials
-    app.gister.username = null;
-    app.gister.password = null;
 }
 
 async function changeName() {
@@ -274,7 +235,6 @@ async function runTests() {
     await loadGist();
     await loadGistInvalid();
     await showTables();
-    await saveAnonymous();
     await saveEmpty();
     await save();
     await update();

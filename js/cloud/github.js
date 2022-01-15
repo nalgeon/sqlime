@@ -1,12 +1,15 @@
 // Github Gist API client
 
+const ID_PREFIX = "gist";
+
 const HEADERS = {
     Accept: "application/json",
     "Content-Type": "application/json",
 };
 
-class Gister {
+class Github {
     constructor() {
+        this.prefix = ID_PREFIX;
         this.url = "https://api.github.com/gists";
         this.headers = Object.assign({}, HEADERS);
     }
@@ -92,6 +95,7 @@ function buildData(name, schema, query) {
 function buildGist(response) {
     const gist = {
         id: response.id,
+        prefix: ID_PREFIX,
         name: response.description,
         owner: response.owner.login,
         schema: response.files["schema.sql"].content,
@@ -106,5 +110,5 @@ function buildGist(response) {
     return gist;
 }
 
-const gister = new Gister();
-export default gister;
+const github = new Github();
+export default github;

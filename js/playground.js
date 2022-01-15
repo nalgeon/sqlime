@@ -1,6 +1,6 @@
 // SQL Playground page
 
-import gister from "./gister.js";
+import gister from "./cloud.js";
 import { locator, DatabasePath } from "./locator.js";
 import shortcuts from "./shortcuts.js";
 import sqlite from "./sqlite.js";
@@ -154,7 +154,7 @@ function openUrl() {
 async function save() {
     const query = ui.editor.value.trim();
     storage.set(database.name, query);
-    gister.loadCredentials();
+    gister.reload();
     if (!gister.hasCredentials()) {
         visit("settings");
         return;
@@ -262,12 +262,16 @@ function showError(exc) {
 
 // showDatabase shows saved database information
 function showDatabase(database) {
-    const url = gister.getUrl(database.id);
-    const gistUrl = `<a href="${url}" target="_blank">gist</a>`;
     history.pushState(database.id, null, database.path.toHash());
     const shareUrl = `<copy-on-click href="${window.location}" class="button-small">
         copy share link</copy-on-click>`;
-    ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
+    const url = gister.getUrl(database.id);
+    if (url) {
+        const gistUrl = `<a href="${url}" target="_blank">gist</a>`;
+        ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
+    } else {
+        ui.status.success(`Saved ${shareUrl}`);
+    }
 }
 
 // enableCommandBar enables all buttons
