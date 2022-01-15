@@ -2,8 +2,7 @@ import dumper from "./dumper.js";
 import gister from "./gister.js";
 import hasher from "./hasher.js";
 
-const WASM =
-    "https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.wasm";
+const WASM = "https://unpkg.com/@antonz/sql.js@3.37.2/dist/sql-wasm.wasm";
 const CONFIG = {
     locateFile: (file) => WASM,
 };

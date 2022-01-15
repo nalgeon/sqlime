@@ -41,6 +41,6 @@
         padding: 0.5rem;
         color: var(--color-dark-gray);
         font-family: var(--font-sans);
-        content: "sqlite 3.35.0";
+        content: "sqlite 3.37.2";
     }
 }
