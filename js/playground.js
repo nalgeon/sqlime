@@ -154,6 +154,7 @@ function openUrl() {
 async function save() {
     const query = ui.editor.value.trim();
     storage.set(database.name, query);
+    gister.loadCredentials();
     if (!gister.hasCredentials()) {
         visit("settings");
         return;
