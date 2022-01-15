@@ -168,7 +168,7 @@ async function save() {
     }
     database = savedDatabase;
     changeName(database.name);
-    showDatabase(database);
+    showSaved(database);
 }
 
 // changeName changes database name
@@ -260,17 +260,23 @@ function showError(exc) {
     ui.status.error(err);
 }
 
-// showDatabase shows saved database information
-function showDatabase(database) {
+// showSaved shows saved database information
+function showSaved(database) {
     history.pushState(database.id, null, database.path.toHash());
-    const shareUrl = `<copy-on-click href="${window.location}" class="button-small">
+    const shareUrl = `<copy-on-click href="${window.location}" class="button">
         copy share link</copy-on-click>`;
+
     const url = gister.getUrl(database.id);
     if (url) {
         const gistUrl = `<a href="${url}" target="_blank">gist</a>`;
-        ui.status.success(`Saved as ${gistUrl} ${shareUrl}`);
+        let message = `<p>✓ Saved as ${gistUrl}</p>`;
+        message += `<p>${shareUrl}</p>`;
+        ui.status.info(message);
     } else {
-        ui.status.success(`Saved ${shareUrl}`);
+        const settings = action("visit", "settings", "settings");
+        let message = `<p>✓ Saved to the public cloud. Visit ${settings} for private sharing.</p>`;
+        message += `<p> ${shareUrl}</p>`;
+        ui.status.info(message);
     }
 }
 

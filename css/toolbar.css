@@ -9,7 +9,7 @@
     margin-right: 0;
 }
 
-.toolbar .button-small {
+.toolbar .button--small {
     height: 1.5rem;
     line-height: 1.25rem;
 }
@@ -35,7 +35,7 @@
         margin-left: 1rem;
     }
 
-    .toolbar .button-small {
+    .toolbar .button--small {
         border: none;
     }
 }
