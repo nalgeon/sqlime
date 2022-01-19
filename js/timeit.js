@@ -1,11 +1,10 @@
 // Measures operation execution time
 
 let started;
-const perf = window.performance || { now: Date.now };
 
 // start starts measuring the execution time
 function start() {
-    started = perf.now();
+    started = performance.now();
 }
 
 // finish stops measuring the execution time
