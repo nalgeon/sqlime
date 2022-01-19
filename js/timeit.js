@@ -11,7 +11,7 @@ function start() {
 // finish stops measuring the execution time
 // and returns elasped time in ms
 function finish() {
-    var elapsed = performance.now() - started;
+    var elapsed = perf.now() - started;
     return Math.round(elapsed);
 }
 
