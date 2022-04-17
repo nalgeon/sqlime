@@ -88,7 +88,7 @@ async function loadGist(path) {
     const SQL = await initSqlJs(CONFIG);
     const db = new SQL.Database();
     const database = new SQLite(gist.name, path, db);
-    database.id = path.value;
+    database.id = gist.id;
     database.owner = gist.owner;
     database.execute(gist.schema);
     database.query = gist.query;
