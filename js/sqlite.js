@@ -2,9 +2,11 @@ import dumper from "./dumper.js";
 import gister from "./cloud.js";
 import hasher from "./hasher.js";
 
-const WASM = "https://unpkg.com/@antonz/sql.js@3.38.2/dist/sql-wasm.wasm";
+let sqlite3;
+
 const CONFIG = {
-    locateFile: (file) => WASM,
+    print: console.log,
+    printErr: console.error,
 };
 
 const DEFAULT_NAME = "new.db";
@@ -21,6 +23,11 @@ const QUERIES = {
 
 // init loads database from specified path
 async function init(name, path) {
+    if (sqlite3 === undefined) {
+        sqlite3 = await sqlite3InitModule(CONFIG);
+        const version = sqlite3.capi.sqlite3_libversion();
+        console.log(`Loaded SQLite ${version}`);
+    }
     name = name || DEFAULT_NAME;
     if (path.type == "local" || path.type == "remote") {
         return await loadUrl(name, path);
@@ -38,16 +45,14 @@ async function init(name, path) {
 // create creates an empty database
 async function create(name, path) {
     console.debug(`Creating new ${name} database...`);
-    const SQL = await initSqlJs(CONFIG);
-    const db = new SQL.Database();
+    const db = new sqlite3.oo1.DB();
     return new SQLite(name, path, db);
 }
 
 // loadArrayBuffer loads database from binary database file content
 async function loadArrayBuffer(name, path) {
     console.debug(`Loading ${name} database from array buffer...`);
-    const SQL = await initSqlJs(CONFIG);
-    const db = new SQL.Database(new Uint8Array(path.value));
+    const db = loadDbFromArrayBuffer(path.value);
     path.value = null;
     const database = new SQLite(name, path, db);
     database.gatherTables();
@@ -57,7 +62,6 @@ async function loadArrayBuffer(name, path) {
 // loadUrl loads database from specified local or remote url
 async function loadUrl(name, path) {
     console.debug(`Loading ${name} database from url...`);
-    const sqlPromise = initSqlJs(CONFIG);
     const dataPromise = fetch(path.value)
         .then((response) => {
             if (!response.ok) {
@@ -68,11 +72,12 @@ async function loadUrl(name, path) {
         .catch((reason) => {
             return null;
         });
-    const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
+    const buf = await dataPromise;
     if (!buf) {
         return null;
     }
-    const db = new SQL.Database(new Uint8Array(buf));
+
+    const db = loadDbFromArrayBuffer(buf);
     const database = new SQLite(name, path, db);
     database.gatherTables();
     return database;
@@ -85,8 +90,7 @@ async function loadGist(path) {
     if (!gist) {
         return null;
     }
-    const SQL = await initSqlJs(CONFIG);
-    const db = new SQL.Database();
+    const db = new sqlite3.oo1.DB();
     const database = new SQLite(gist.name, path, db);
     database.id = gist.id;
     database.owner = gist.owner;
@@ -141,6 +145,21 @@ function afterSave(database, gist) {
     return database;
 }
 
+function loadDbFromArrayBuffer(buf) {
+    const bytes = new Uint8Array(buf);
+    const p = sqlite3.wasm.allocFromTypedArray(bytes);
+    const db = new sqlite3.oo1.DB();
+    sqlite3.capi.sqlite3_deserialize(
+        db.pointer,
+        "main",
+        p,
+        bytes.length,
+        bytes.length,
+        sqlite3.capi.SQLITE_DESERIALIZE_FREEONCLOSE
+    );
+    return db;
+}
+
 // SQLite database
 class SQLite {
     constructor(name, path, db, query = "") {
@@ -167,17 +186,33 @@ class SQLite {
     // and returns the last result
     execute(sql) {
         this.query = sql;
-        const result = this.db.exec(sql);
-        if (!result.length) {
+        let rows = [];
+        this.db.exec({
+            sql: sql,
+            rowMode: "object",
+            resultRows: rows,
+        });
+        if (!rows.length) {
             return null;
         }
-        return result[result.length - 1];
+        const result = {
+            columns: Object.getOwnPropertyNames(rows[0]),
+            values: [],
+        };
+        for (let row of rows) {
+            result.values.push(Object.values(row));
+        }
+        return result;
     }
 
     // each runs the query
     // and invokes callback on each of the resulting rows
     each(sql, callback) {
-        this.db.each(sql, [], callback);
+        this.db.exec({
+            sql: sql,
+            rowMode: "object",
+            callback: callback,
+        });
     }
 
     // ensureName changes default name to something more meaningful
@@ -199,12 +234,17 @@ class SQLite {
     // gatherTables fills .tables attribute with the array of database tables
     // and returns it
     gatherTables() {
-        const result = this.db.exec(QUERIES.tables);
-        if (!result.length) {
+        let rows = [];
+        const result = this.db.exec({
+            sql: QUERIES.tables,
+            rowMode: "array",
+            resultRows: rows,
+        });
+        if (!rows.length) {
             this.tables = [];
             return this.tables;
         }
-        this.tables = result[0].values.map((row) => row[0]);
+        this.tables = rows.map((row) => row[0]);
         return this.tables;
     }
 
@@ -216,7 +256,7 @@ class SQLite {
     // calcHashcode fills .hashcode attribute with the database hashcode
     // and returns it
     calcHashcode() {
-        const dbArr = this.db.export();
+        const dbArr = sqlite3.capi.sqlite3_js_db_export(this.db.pointer);
         const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);
         const hash = dbHash & queryHash || dbHash || queryHash;
