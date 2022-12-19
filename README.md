@@ -8,7 +8,7 @@ Here are some notable features:
 
 ### 🔋 Full-blown database in the browser
 
-SQLime is backed by the latest version of SQLite, provided by an excellent [WASM](https://sqlite.org/wasm/doc/trunk/index.md) subproject. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
+SQLime is backed by the latest version of SQLite via the [WASM](https://sqlite.org/wasm) subproject. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
 
 ### 🔌 Connect any data source
 
@@ -32,6 +32,6 @@ There is no server. SQLime works completely in the browser. The GitHub API token
 
 ### ⌨️ Dead simple
 
-SQLime has zero third-party dependencies other than SQLite (sql.js). Good old HTML, CSS, and vanilla JS — that's all. No frameworks, no heavy editors, no obsolete and vulnerable libraries. Just some modular open-source code, which is easy to grasp and extend.
+SQLime has zero third-party dependencies other than SQLite. Good old HTML, CSS, and vanilla JS — that's all. No frameworks, no heavy editors, no obsolete and vulnerable libraries. Just some modular open-source code, which is easy to grasp and extend.
 
 _Follow [@ohmypy](https://twitter.com/ohmypy) on Twitter to keep up with new features 🚀_
