@@ -8,7 +8,7 @@ Here are some notable features:
 
 ### 🔋 Full-blown database in the browser
 
-SQLime is backed by the latest version of SQLite, provided by an excellent [sql.js](https://github.com/sql-js/sql.js/) project. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
+SQLime is backed by the latest version of SQLite, provided by an excellent [WASM](https://sqlite.org/wasm/doc/trunk/index.md) subproject. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
 
 ### 🔌 Connect any data source
 
