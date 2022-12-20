@@ -3,9 +3,11 @@
 import gister from "./cloud.js";
 import { locator, DatabasePath } from "./locator.js";
 import shortcuts from "./shortcuts.js";
-import sqlite from "./sqlite.js";
+import sqlite from "./sqlite-manager.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
+
+import { DEFAULT_NAME, QUERIES } from "./sqlite-db.js";
 
 const messages = {
     empty: "The query returned nothing",
@@ -217,7 +219,7 @@ function showTable(table) {
 
 // showTableContent select data from specified table
 function showTableContent(table) {
-    const query = sqlite.QUERIES.tableContent.replace("{}", table);
+    const query = QUERIES.tableContent.replace("{}", table);
     ui.editor.value = query;
     execute(query);
 }
@@ -327,7 +329,7 @@ ui.buttons.openUrl.addEventListener("click", () => {
 
 // Toolbar 'reset' button click
 ui.buttons.reset.addEventListener("click", () => {
-    storage.remove(sqlite.DEFAULT_NAME);
+    storage.remove(DEFAULT_NAME);
 });
 
 // Navigate back to previous database
