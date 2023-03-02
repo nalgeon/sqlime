@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--sqlime-light-gray);
+    font-family: var(--sqlime-sans);
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    max-width: 80rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media only screen and (max-width: 40rem) {
+    .hidden-mobile {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 40rem) {
+    body {
+        padding: 1rem 1.5rem;
+    }
+    .hidden-desktop {
+        display: none !important;
+    }
+}

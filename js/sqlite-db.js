@@ -12,6 +12,12 @@ const QUERIES = {
       iif(pk=1, '✓', '') as pk, name, type, iif("notnull"=0, '✓', '') as "null?"
       from pragma_table_info('{}')`,
 };
+const MESSAGES = {
+    empty: "The query returned nothing",
+    executing: "Executing query...",
+    invite: "Run SQL query to see the results",
+    loading: "Loading database...",
+};
 
 // SQLite database
 // Interfaces to SQLite WASM API in the following methods:
@@ -36,6 +42,10 @@ class SQLite {
     // execute runs one ore more sql queries
     // and returns the last result
     execute(sql) {
+        if (!sql) {
+            // sqlite api fails when trying to execute an empty query
+            return null;
+        }
         this.query = sql;
         let rows = [];
         this.db.exec({
@@ -92,6 +102,11 @@ class SQLite {
     // calcHashcode fills .hashcode attribute with the database hashcode
     // and returns it
     calcHashcode() {
+        if (!this.tables.length) {
+            // sqlite api fails when trying to export an empty database
+            this.hashcode = 0;
+            return 0;
+        }
         const dbArr = this.capi.sqlite3_js_db_export(this.db.pointer);
         const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);
@@ -126,4 +141,4 @@ class SQLite {
     }
 }
 
-export { DEFAULT_NAME, QUERIES, SQLite };
+export { DEFAULT_NAME, MESSAGES, QUERIES, SQLite };

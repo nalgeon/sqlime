@@ -1,14 +1,15 @@
 :root {
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    --font-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
+    --sqlime-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+        Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    --sqlime-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
         Courier, monospace;
-    --color-blue: #008bf5;
-    --color-light-gray: #fafafa;
-    --color-dark-gray: #aaa;
-    --color-gray: #ccc;
-    --color-red: red;
-    --color-white: #fff;
+    --sqlime-blue: #008bf5;
+    --sqlime-light-gray: #fafafa;
+    --sqlime-dark-gray: #aaa;
+    --sqlime-gray: #ccc;
+    --sqlime-red: red;
+    --sqlime-white: #fff;
 }
 *,
 *::before,
@@ -16,40 +17,8 @@
     box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    background: var(--color-light-gray);
-    font-family: var(--font-sans);
-}
-
-.grid {
-    display: flex;
-    flex-direction: column;
-    max-width: 80rem;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.disabled {
+.sqlime-disabled {
     pointer-events: none;
     filter: grayscale();
     opacity: 0.625;
-}
-
-@media only screen and (max-width: 40rem) {
-    .hidden-mobile {
-        display: none !important;
-    }
-}
-
-@media only screen and (min-width: 40rem) {
-    body {
-        padding: 1rem 1.5rem;
-    }
-    .hidden-desktop {
-        display: none !important;
-    }
 }

@@ -2,7 +2,7 @@ import printer from "../printer.js";
 
 // SQL result component
 // shows the result of the SQL query as a table
-class SqlResult extends HTMLElement {
+class SqlimeResult extends HTMLElement {
     // print prints SQL query result as a table
     print(result) {
         this.applyPrinter(result, printer.printResult);
@@ -16,7 +16,7 @@ class SqlResult extends HTMLElement {
     // applyPrinter prints data structure
     // with specified printer function
     applyPrinter(data, printFunc) {
-        if (!result) {
+        if (!data) {
             this.clear();
             return;
         }
@@ -29,4 +29,7 @@ class SqlResult extends HTMLElement {
     }
 }
 
-customElements.define("sql-result", SqlResult);
+if (!window.customElements.get("sqlime-result")) {
+    window.SqlimeResult = SqlimeResult;
+    customElements.define("sqlime-result", SqlimeResult);
+}

@@ -1,5 +1,5 @@
 // SQL editor component
-class SqlEditor extends HTMLElement {
+class SqlimeEditor extends HTMLElement {
     connectedCallback() {
         if (!this.rendered) {
             this.render();
@@ -66,4 +66,7 @@ class SqlEditor extends HTMLElement {
     }
 }
 
-customElements.define("sql-editor", SqlEditor);
+if (!window.customElements.get("sqlime-editor")) {
+    window.SqlimeEditor = SqlimeEditor;
+    customElements.define("sqlime-editor", SqlimeEditor);
+}

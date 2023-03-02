@@ -24,6 +24,7 @@
     <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5">
 
     <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/layout.css">
 </head>
 
 <body>
@@ -51,30 +52,30 @@
 
         <link rel="stylesheet" href="css/editor.css">
         <link rel="stylesheet" href="css/commandbar.css">
-        <section class="editor-section">
-            <sql-editor id="editor" class="sql-editor"></sql-editor>
-            <div id="commandbar" class="commandbar disabled">
-                <button id="execute" data-action="execute" title="⌃↵ or ⌘↵">run ►</button>
+        <section class="sqlime-editor-section">
+            <sqlime-editor id="editor" class="sqlime-editor"></sqlime-editor>
+            <div id="commandbar" class="sqlime-commandbar sqlime-disabled">
+                <button id="execute" data-action="executeCurrent" title="⌃↵ or ⌘↵">run ►</button>
                 <button id="save" data-action="save" title="⌃S or ⌘S">☆ share</button>
-                <button id="show-tables" data-action="show-tables" title="⌃/ or ⌘/">○ tables</button>
+                <button id="show-tables" data-action="showTables" title="⌃/ or ⌘/">○ tables</button>
             </div>
         </section>
 
         <link rel="stylesheet" href="css/result.css">
         <link rel="stylesheet" href="css/status.css">
-        <section class="result-section">
-            <sql-status id="status" class="sql-status"></sql-status>
-            <sql-result id="result" class="sql-result"></sql-result>
+        <section class="sqlime-result-section">
+            <sqlime-status id="status" class="sqlime-status"></sqlime-status>
+            <sqlime-result id="result" class="sqlime-result"></sqlime-result>
         </section>
     </div>
 
     <script src="./js/sqlite/sqlite3.js"></script>
     <script type="module" src="js/components/copy-link.js"></script>
     <script type="module" src="js/components/db-name.js"></script>
-    <script type="module" src="js/components/sql-editor.js"></script>
-    <script type="module" src="js/components/sql-result.js"></script>
-    <script type="module" src="js/components/sql-status.js"></script>
-    <script type="module" src="js/playground.js"></script>
+    <script type="module" src="js/components/sqlime-editor.js"></script>
+    <script type="module" src="js/components/sqlime-result.js"></script>
+    <script type="module" src="js/components/sqlime-status.js"></script>
+    <script type="module" src="js/index.js"></script>
 </body>
 
 </html>

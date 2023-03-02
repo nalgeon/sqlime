@@ -1,20 +1,15 @@
 // SQL Playground page
 
 import gister from "./cloud.js";
-import { locator, DatabasePath } from "./locator.js";
+import locator from "./locator.js";
 import shortcuts from "./shortcuts.js";
 import sqlite from "./sqlite-manager.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
 
-import { DEFAULT_NAME, QUERIES } from "./sqlite-db.js";
-
-const messages = {
-    empty: "The query returned nothing",
-    executing: "Executing query...",
-    invite: "Run SQL query to see the results",
-    loading: "Loading database...",
-};
+import { actionButton } from "./components/action-button.js";
+import { DatabasePath } from "./db-path.js";
+import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite-db.js";
 
 const ui = {
     buttons: {
@@ -33,12 +28,11 @@ const ui = {
 };
 
 const actions = {
-    "open-url": openUrl,
-    "load-demo": loadDemo,
-    execute: executeCurrent,
+    executeCurrent: executeCurrent,
+    loadDemo: loadDemo,
     save: save,
-    "show-tables": showTables,
-    "show-table": showTable,
+    showTables: showTables,
+    showTable: showTable,
     visit: visit,
 };
 
@@ -95,7 +89,7 @@ async function startFromFile(file, contents) {
 // using specified database path
 async function start(name, path) {
     ui.result.clear();
-    ui.status.info(messages.loading);
+    ui.status.info(MESSAGES.loading);
 
     const loadedDatabase = await sqlite.init(name, path);
     console.debug(loadedDatabase);
@@ -109,7 +103,7 @@ async function start(name, path) {
 
     document.title = database.meaningfulName || document.title;
     ui.name.ready(database.name);
-    ui.status.info(messages.invite);
+    ui.status.info(MESSAGES.invite);
     ui.editor.value = database.query;
     ui.editor.focus();
 
@@ -127,12 +121,12 @@ function execute(sql) {
     sql = sql.trim();
     storage.set(database.name, sql);
     if (!sql) {
-        ui.status.info(messages.invite);
+        ui.status.info(MESSAGES.invite);
         ui.result.clear();
         return;
     }
     try {
-        ui.status.info(messages.executing);
+        ui.status.info(MESSAGES.executing);
         timeit.start();
         const result = database.execute(sql);
         const elapsed = timeit.finish();
@@ -212,7 +206,7 @@ function showTables() {
 // showTable shows specific database table
 function showTable(table) {
     const result = database.getTableInfo(table);
-    const all = action("show-tables", "tables");
+    const all = actionButton("showTables", "tables");
     ui.status.info(`${all} / ${table}:`);
     ui.result.print(result);
 }
@@ -231,14 +225,14 @@ function loadDemo() {
 
 // showWelcome show the welcome message
 function showWelcome() {
-    const demo = action("load-demo", "demo database");
-    let message = `<p>${messages.invite}<br>or load the ${demo}.</p>`;
+    const demo = actionButton("loadDemo", "demo database");
+    let message = `<p>${MESSAGES.invite}<br>or load the ${demo}.</p>`;
     message += `<p>Click the logo anytime to start from scratch.</p>`;
     if (!gister.hasCredentials()) {
-        const settings = action("visit", "settings", "settings");
+        const settings = actionButton("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
-    const about = action("visit", "About SQLime", "about");
+    const about = actionButton("visit", "About SQLime", "about");
     message += `<p>${about}</p>`;
     ui.status.info(message);
 }
@@ -275,7 +269,7 @@ function showSaved(database) {
         message += `<p>${shareUrl}</p>`;
         ui.status.info(message);
     } else {
-        const settings = action("visit", "settings", "settings");
+        const settings = actionButton("visit", "settings", "settings");
         let message = `<p>✓ Saved to the public cloud. Visit ${settings} for private sharing.</p>`;
         message += `<p> ${shareUrl}</p>`;
         ui.status.info(message);
@@ -285,22 +279,11 @@ function showSaved(database) {
 // enableCommandBar enables all buttons
 // in the command bar
 function enableCommandBar() {
-    ui.commandbar.classList.remove("disabled");
+    ui.commandbar.classList.remove("sqlime-disabled");
 }
 
 function visit(page) {
     window.location.assign(`${page}.html`);
-}
-
-function action(name, text, arg = null) {
-    const btn = document.createElement("button");
-    btn.className = "button-link";
-    btn.dataset.action = name;
-    btn.innerHTML = text;
-    if (arg) {
-        btn.dataset.arg = arg;
-    }
-    return btn.outerHTML;
 }
 
 // User changed database name

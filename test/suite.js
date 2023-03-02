@@ -5,7 +5,7 @@ const MEDIUM_DELAY = 500;
 const SMALL_DELAY = 100;
 
 async function loadApp(timeout = LONG_DELAY) {
-    localStorage.removeItem("new.db.sql");
+    localStorage.removeItem("sqlime.query.new.db");
     const app = {};
     app.frame = document.querySelector("#app");
     app.frame.src = "../index.html";
@@ -29,7 +29,7 @@ async function testNewDatabase() {
     assert("editor is empty", app.ui.editor.value == "");
     assert(
         "command bar is disabled",
-        app.ui.commandbar.classList.contains("disabled")
+        app.ui.commandbar.classList.contains("sqlime-disabled")
     );
     assert("shows welcome text", app.ui.status.value.includes("demo database"));
     assert("result is empty", app.ui.result.innerText == "");
@@ -48,7 +48,7 @@ async function testExecuteQuery() {
     assert("shows query in editor", app.ui.editor.value == sql);
     assert(
         "caches query in local storage",
-        localStorage.getItem("new.db.sql") == sql
+        localStorage.getItem("sqlime.query.new.db") == sql
     );
 }
 
@@ -56,7 +56,7 @@ async function loadDemo() {
     log("Load demo...");
     const app = await loadApp();
     const sql = "select * from employees";
-    const btn = app.ui.status.querySelector('[data-action="load-demo"]');
+    const btn = app.ui.status.querySelector('[data-action="loadDemo"]');
     btn.click();
     await wait(MEDIUM_DELAY);
     assert("shows query in editor", app.ui.editor.value.startsWith(sql));
@@ -116,7 +116,7 @@ async function showTables() {
     await wait(MEDIUM_DELAY);
     assert("shows table count", app.ui.status.value == "2 tables:");
     assert("shows table list", app.ui.result.innerText.includes("employees"));
-    const btn = app.ui.result.querySelector('[data-action="show-table"]');
+    const btn = app.ui.result.querySelector('[data-action="showTable"]');
     btn.click();
     await wait(MEDIUM_DELAY);
     assert("shows table navbar", app.ui.status.value == "tables / employees:");
@@ -165,7 +165,7 @@ async function save() {
     );
     assert(
         "after save: shows successful status",
-        app.ui.status.value.includes("Saved as gist")
+        app.ui.status.value.includes("✓ Saved")
     );
 
     unmock(app.gister, "create");
@@ -209,7 +209,7 @@ async function update() {
 
     assert(
         "after save: shows successful status",
-        app.ui.status.value.includes("Saved as gist")
+        app.ui.status.value.includes("✓ Saved")
     );
 
     unmock(app.gister, "create");

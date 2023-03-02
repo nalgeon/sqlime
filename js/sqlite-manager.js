@@ -19,7 +19,10 @@ async function init(name, path) {
         console.log(`Loaded SQLite ${version}`);
     }
     if (path.type == "local" || path.type == "remote") {
-        return await loadUrl(name, path);
+        if (path.value.endsWith(".sql")) {
+            return await loadSql(name, path);
+        }
+        return await loadFile(name, path);
     }
     if (path.type == "binary") {
         return await loadArrayBuffer(name, path);
@@ -48,8 +51,8 @@ async function loadArrayBuffer(name, path) {
     return database;
 }
 
-// loadUrl loads database from specified local or remote url
-async function loadUrl(name, path) {
+// loadFile loads database from specified local or remote binary file
+async function loadFile(name, path) {
     console.debug(`Loading database from url ${path.value}...`);
     const promise = fetch(path.value)
         .then((response) => {
@@ -69,6 +72,31 @@ async function loadUrl(name, path) {
     const db = loadDbFromArrayBuffer(buf);
     const database = new SQLite(name, path, sqlite3.capi, db);
     database.gatherTables();
+    return database;
+}
+
+// loadSql loads database from specified local or remote SQL file
+async function loadSql(name, path) {
+    console.debug(`Loading SQL from url ${path.value}...`);
+    const promise = fetch(path.value)
+        .then((response) => {
+            if (!response.ok) {
+                return null;
+            }
+            return response.text();
+        })
+        .catch((reason) => {
+            return null;
+        });
+    const sql = await promise;
+    if (!sql) {
+        return null;
+    }
+
+    const db = new sqlite3.oo1.DB();
+    const database = new SQLite(name, path, sqlite3.capi, db);
+    database.execute(sql);
+    database.query = "";
     return database;
 }
 
@@ -99,8 +127,8 @@ async function save(database, query) {
         return Promise.resolve(null);
     }
     const oldHashcode = database.hashcode;
-    database.calcHashcode();
     database.gatherTables();
+    database.calcHashcode();
     database.ensureName();
     let promise;
     if (!database.id || database.owner != gister.username) {

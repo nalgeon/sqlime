@@ -1,52 +1,52 @@
-.commandbar {
+.sqlime-commandbar {
     display: flex;
 }
 
-.commandbar > button {
+.sqlime-commandbar > button {
     display: block;
     margin: 0 0.125rem;
     height: 2rem;
     padding: 0 0.5rem;
-    border: 1px solid var(--color-blue);
+    border: 1px solid var(--sqlime-blue);
     border-radius: 0.125rem;
     background: transparent;
-    color: var(--color-blue);
+    color: var(--sqlime-blue);
     line-height: 1rem;
     font-size: 1rem;
 }
 
-.commandbar > button:first-child {
+.sqlime-commandbar > button:first-child {
     flex-grow: 4;
-    background: var(--color-blue);
-    color: var(--color-white);
+    background: var(--sqlime-blue);
+    color: var(--sqlime-white);
 }
-.commandbar > button:nth-child(2),
-.commandbar > button:nth-child(3) {
+.sqlime-commandbar > button:nth-child(2),
+.sqlime-commandbar > button:nth-child(3) {
     flex-grow: 1;
 }
 
 @media only screen and (min-width: 40rem) {
-    .commandbar {
+    .sqlime-commandbar {
         position: absolute;
         bottom: 0.5rem;
     }
 
-    .commandbar > button {
+    .sqlime-commandbar > button {
         margin: 0;
         border: none;
     }
-    .commandbar > button:hover {
-        background: var(--color-blue) !important;
-        color: var(--color-white) !important;
+    .sqlime-commandbar > button:hover {
+        background: var(--sqlime-blue) !important;
+        color: var(--sqlime-white) !important;
     }
 
-    .commandbar > button:first-child {
+    .sqlime-commandbar > button:first-child {
         flex-grow: 0;
         background: transparent;
-        color: var(--color-blue);
+        color: var(--sqlime-blue);
     }
-    .commandbar > button:nth-child(2),
-    .commandbar > button:nth-child(3) {
+    .sqlime-commandbar > button:nth-child(2),
+    .sqlime-commandbar > button:nth-child(3) {
         flex-grow: 0;
     }
 }

@@ -39,7 +39,7 @@
     cursor: pointer;
 }
 .db-name.ready:focus {
-    border-color: var(--color-dark-gray);
+    border-color: var(--sqlime-dark-gray);
 }
 .db-name.ready::after {
     content: " ✎";

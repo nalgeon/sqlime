@@ -1,6 +1,6 @@
 // SQL query status component
 // shows the state of the SQL query execution
-class SqlStatus extends HTMLElement {
+class SqlimeStatus extends HTMLElement {
     connectedCallback() {
         if (!this.rendered) {
             this.render();
@@ -40,4 +40,7 @@ class SqlStatus extends HTMLElement {
     }
 }
 
-customElements.define("sql-status", SqlStatus);
+if (!window.customElements.get("sqlime-status")) {
+    window.SqlimeStatus = SqlimeStatus;
+    customElements.define("sqlime-status", SqlimeStatus);
+}

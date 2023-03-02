@@ -1,41 +1,41 @@
-.result-section {
+.sqlime-result-section {
     flex-grow: 1;
     padding: 0 1rem 0.5rem 1rem;
 }
 
-.sql-result {
+.sqlime-result {
     display: block;
     overflow-x: auto;
 }
 
-.sql-result table {
+.sqlime-result table {
     width: 100%;
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--sqlime-gray);
     border-collapse: collapse;
-    background: var(--color-white);
-    font-family: var(--font-monospace);
+    background: var(--sqlime-white);
+    font-family: var(--sqlime-monospace);
 }
 
-.sql-result table th {
-    border-bottom: 1px solid var(--color-gray);
+.sqlime-result table th {
+    border-bottom: 1px solid var(--sqlime-gray);
     padding: 0.25rem 0.5rem;
     text-align: left;
 }
 
-.sql-result table td {
+.sqlime-result table td {
     padding: 0.25rem 0.5rem;
 }
 
 @media only screen and (min-width: 40rem) {
-    .result-section {
+    .sqlime-result-section {
         padding: 0 0 0.5rem 0;
     }
 
-    .sql-result {
+    .sqlime-result {
         overflow-x: visible;
     }
 
-    .sql-result table {
+    .sqlime-result table {
         width: auto;
     }
 }

@@ -1,46 +1,46 @@
-.editor-section {
+.sqlime-editor-section {
     position: relative;
     flex-grow: 1;
     padding: 0 0 0.5rem 0;
 }
 
-.sql-editor {
+.sqlime-editor {
     position: relative;
     display: block;
     resize: vertical;
     width: 100%;
     min-height: 5rem;
-    border-top: 1px solid var(--color-gray);
-    background: var(--color-white);
+    border-top: 1px solid var(--sqlime-gray);
+    background: var(--sqlime-white);
     padding: 0.5rem 1rem;
     white-space: pre-wrap;
-    font-family: var(--font-monospace);
+    font-family: var(--sqlime-monospace);
 }
-.sql-editor:focus {
+.sqlime-editor:focus {
     outline: none;
 }
-.sql-editor:empty::before {
+.sqlime-editor:empty::before {
     display: inline-block;
     content: "select * from ...";
-    color: var(--color-dark-gray);
+    color: var(--sqlime-dark-gray);
 }
 
 @media only screen and (min-width: 40rem) {
-    .sql-editor {
+    .sqlime-editor {
         min-height: 8rem;
-        border-left: 1px solid var(--color-gray);
-        border-right: 1px solid var(--color-gray);
-        border-bottom: 1px solid var(--color-gray);
+        border-left: 1px solid var(--sqlime-gray);
+        border-right: 1px solid var(--sqlime-gray);
+        border-bottom: 1px solid var(--sqlime-gray);
         padding: 0.5rem 0.5rem 2.125rem 0.5rem;
     }
-    .sql-editor::after {
+    .sqlime-editor::after {
         position: absolute;
         right: 0;
         bottom: 0;
         display: inline-block;
         padding: 0.5rem;
-        color: var(--color-dark-gray);
-        font-family: var(--font-sans);
+        color: var(--sqlime-dark-gray);
+        font-family: var(--sqlime-sans);
         content: "sqlite 3.40.0";
     }
 }
