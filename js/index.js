@@ -232,7 +232,7 @@ function showWelcome() {
         const settings = actionButton("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
-    const about = actionButton("visit", "About SQLime", "about");
+    const about = actionButton("visit", "About Sqlime", "about");
     message += `<p>${about}</p>`;
     ui.status.info(message);
 }
