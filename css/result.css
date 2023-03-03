@@ -34,7 +34,7 @@
     cursor: pointer;
     text-decoration: none;
     color: var(--sqlime-blue);
-    font-size: 1rem;
+    font-size: 1em;
 }
 
 @media only screen and (min-width: 40rem) {

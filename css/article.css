@@ -1,12 +1,6 @@
-.logo {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.logo img {
-    display: inline-block;
-    width: 1.5rem;
-    height: auto;
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -20,16 +14,28 @@ pre {
 }
 
 pre > code {
+    display: inline;
     border-left: none;
     border-right: none;
 }
 
 code {
-    font-size: 0.8em;
+    font-size: 0.85em;
 }
 
 figcaption {
     text-align: center;
+}
+
+.logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo img {
+    display: inline-block;
+    width: 1.5rem;
+    height: auto;
 }
 
 .bordered {
