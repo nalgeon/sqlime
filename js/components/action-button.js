@@ -1,6 +1,6 @@
 function actionButton(name, text, arg = null) {
     const btn = document.createElement("button");
-    btn.className = "button-link";
+    btn.className = "sqlime-link";
     btn.dataset.action = name;
     btn.innerHTML = text;
     if (arg) {

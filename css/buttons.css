@@ -24,14 +24,3 @@
     padding: 0.125rem 0.5rem;
     font-size: 80%;
 }
-
-.button-link {
-    display: inline;
-    border: none;
-    background: inherit;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--sqlime-blue);
-    font-size: 1rem;
-}

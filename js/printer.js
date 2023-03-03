@@ -16,7 +16,7 @@ function printTables(tables) {
     const rows = tables.map(function (table) {
         return `<tr>
             <td>
-                <button class="button-link" data-action="showTable" data-arg="${table}">
+                <button class="sqlime-link" data-action="showTable" data-arg="${table}">
                     ${table}
                 </button>
             </td>

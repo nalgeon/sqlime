@@ -26,6 +26,17 @@
     padding: 0.25rem 0.5rem;
 }
 
+.sqlime-link {
+    display: inline;
+    border: none;
+    background: inherit;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--sqlime-blue);
+    font-size: 1rem;
+}
+
 @media only screen and (min-width: 40rem) {
     .sqlime-result-section {
         padding: 0 0 0.5rem 0;
