@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/favicon.ico" sizes="any">
+    <title>Sqlime / Employees Database</title>
+
+    <link rel="stylesheet" href="css/awsm.css">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <a class="logo" href="/">
+                <img src="/img/favicon-64x64.png">
+            </a>
+            Employees Database
+        </h1>
+    </header>
+    <main>
+        <article>
+            <sqlime-db name="employees" path="./employees.sql"></sqlime-db>
+            <sqlime-example db="employees" selector="pre" editable></sqlime-example>
+
+            <p>
+                Reading about SQL is fun, but trying out live examples is even better!
+                With Sqlime JavaScript widgets, you can turn static SQL code in your articles
+                or blog posts into executable examples.
+            </p>
+
+            <p>Here is a working example. Give it a try:</p>
+            <pre><code>select * from employees
+limit 5;</code></pre>
+
+            <p>See <a href="https://github.com/nalgeon/sqlime/blob/main/examples.md">documentation</a> for details.</p>
+
+            <script src="js/sqlite/sqlite3.js"></script>
+            <script src="js/components/sqlime-db.js" type="module"></script>
+            <script src="js/components/sqlime-example.js" type="module"></script>
+        </article>
+    </main>
+</body>
+
+</html>
