@@ -1,17 +1,20 @@
-// SQLite database manager
+// SQLite database manager.
 
 import dumper from "./dumper.js";
 import gister from "./cloud.js";
 import { SQLite } from "./sqlite-db.js";
 
+// global SQLite WASM API object.
 let sqlite3;
 
+// required by the SQLite WASM API.
 const CONFIG = {
     print: console.log,
     printErr: console.error,
 };
 
-// init loads database from specified path
+// init loads a database from the specified path
+// using the SQLite WASM API.
 async function init(name, path) {
     if (sqlite3 === undefined) {
         sqlite3 = await sqlite3InitModule(CONFIG);
@@ -34,14 +37,14 @@ async function init(name, path) {
     return await create(name, path);
 }
 
-// create creates an empty database
+// create creates an empty database.
 async function create(name, path) {
     console.debug("Creating new database...");
     const db = new sqlite3.oo1.DB();
     return new SQLite(name, path, sqlite3.capi, db);
 }
 
-// loadArrayBuffer loads database from binary database file content
+// loadArrayBuffer loads a database from the binary database file content.
 async function loadArrayBuffer(name, path) {
     console.debug("Loading database from array buffer...");
     const db = loadDbFromArrayBuffer(path.value);
@@ -51,7 +54,7 @@ async function loadArrayBuffer(name, path) {
     return database;
 }
 
-// loadFile loads database from specified local or remote binary file
+// loadFile loads a database from the specified local or remote binary file.
 async function loadFile(name, path) {
     console.debug(`Loading database from url ${path.value}...`);
     const promise = fetch(path.value)
@@ -75,7 +78,7 @@ async function loadFile(name, path) {
     return database;
 }
 
-// loadSql loads database from specified local or remote SQL file
+// loadSql loads a database from the specified local or remote SQL file.
 async function loadSql(name, path) {
     console.debug(`Loading SQL from url ${path.value}...`);
     const promise = fetch(path.value)
@@ -100,7 +103,7 @@ async function loadSql(name, path) {
     return database;
 }
 
-// loadGist loads database from GitHub gist with specified id
+// loadGist loads a database from the GitHub gist with the specified id.
 async function loadGist(path) {
     console.debug(`Loading database from gist ${path.value}...`);
     const gist = await gister.get(path.value);
@@ -118,7 +121,7 @@ async function loadGist(path) {
     return database;
 }
 
-// save saves database to GitHub gist
+// save saves the database as a GitHub gist.
 async function save(database, query) {
     console.debug(`Saving database to gist...`);
     const schema = dumper.toSql(database, query);
@@ -148,8 +151,7 @@ async function save(database, query) {
     return promise.then((gist) => afterSave(database, gist));
 }
 
-// afterSave updates database attributes
-// after successful save
+// afterSave updates database attributes after a successful save.
 function afterSave(database, gist) {
     if (!gist.id) {
         return null;
@@ -162,8 +164,7 @@ function afterSave(database, gist) {
     return database;
 }
 
-// loadDbFromArrayBuffer loads an SQLite database
-// from the array buffer
+// loadDbFromArrayBuffer loads an SQLite database from the array buffer.
 function loadDbFromArrayBuffer(buf) {
     const bytes = new Uint8Array(buf);
     const p = sqlite3.wasm.allocFromTypedArray(bytes);

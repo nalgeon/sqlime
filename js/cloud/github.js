@@ -1,4 +1,4 @@
-// Github Gist API client
+// Github Gist API client.
 
 const ID_PREFIX = "gist";
 
@@ -15,7 +15,7 @@ class Github {
     }
 
     // loadCredentials loads GitHub credentials
-    // from local storage
+    // from the local storage.
     loadCredentials() {
         this.username = localStorage.getItem("github.username");
         this.password = localStorage.getItem("github.token");
@@ -24,18 +24,18 @@ class Github {
         }
     }
 
-    // hasCredentials returns true if user has provided
-    // GitHub username and password, false otherwise
+    // hasCredentials returns `true` if the user has provided
+    // GitHub username and password, `false` otherwise.
     hasCredentials() {
         return this.username && this.password;
     }
 
-    // getUrl returns gist url by its id
+    // getUrl returns a gist url by its id.
     getUrl(id) {
         return `https://gist.github.com/${this.username}/${id}`;
     }
 
-    // get returns gist by id
+    // get returns a gist by its id.
     get(id) {
         const promise = fetch(`${this.url}/${id}`, {
             method: "get",
@@ -51,7 +51,7 @@ class Github {
         return promise;
     }
 
-    // create creates new gist
+    // create creates a new gist.
     create(name, schema, query) {
         const data = buildData(name, schema, query);
         const promise = fetch(this.url, {
@@ -64,7 +64,7 @@ class Github {
         return promise;
     }
 
-    // update updates existing gist
+    // update updates an existing gist.
     update(id, name, schema, query) {
         const data = buildData(name, schema, query);
         const promise = fetch(`${this.url}/${id}`, {
@@ -78,6 +78,7 @@ class Github {
     }
 }
 
+// buildData creates an object for the GitHub request.
 function buildData(name, schema, query) {
     return {
         description: name,
@@ -92,6 +93,7 @@ function buildData(name, schema, query) {
     };
 }
 
+// buildGist creates a gist from the GitHub response.
 function buildGist(response) {
     const gist = {
         id: response.id,

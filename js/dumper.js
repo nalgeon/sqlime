@@ -1,4 +1,4 @@
-// Dumps database schema and contents to plain text formats
+// Dumps database schema and contents into plain text formats.
 
 const SCHEMA_SQL = `
 select "name", "type", "sql"
@@ -10,8 +10,7 @@ order by "name"
 
 const CREATE_TABLE_PREFIX = "CREATE TABLE ";
 
-// toSql dumps database schema and contents
-// as sql statements.
+// toSql dumps database schema and contents as SQL statements.
 // Adapted from https://github.com/simonw/sqlite-dump
 function toSql(database) {
     const schema = schemaToSql(database);
@@ -29,6 +28,7 @@ function toSql(database) {
     return script.join("\n");
 }
 
+// schemaToSql returns the database schema as SQL statements.
 function schemaToSql(database) {
     let script = [];
     database.each(SCHEMA_SQL, (item) => {
@@ -40,6 +40,8 @@ function schemaToSql(database) {
     return script;
 }
 
+// schemaItemToSql returns an SQL schema statement
+// for the database object.
 function schemaItemToSql(item) {
     if (item.name == "sqlite_sequence") {
         return 'DELETE FROM "sqlite_sequence";';
@@ -59,6 +61,7 @@ function schemaItemToSql(item) {
     }
 }
 
+// tablesToSql returns database contents as SQL statements.
 function tablesToSql(database) {
     let script = [];
     database.each(SCHEMA_SQL, (item) => {
@@ -70,6 +73,7 @@ function tablesToSql(database) {
     return script;
 }
 
+// tableContentsToSql returns table contents as SQL statements.
 function tableContentsToSql(database, item) {
     if (
         item.name.startsWith("sqlite_") ||

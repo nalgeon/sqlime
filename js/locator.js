@@ -1,17 +1,11 @@
-// Helper for working with window.location
+// Helper for working with window.location.
+
 import { DatabasePath } from "./db-path.js";
 
-function name(path) {
-    if (["binary", "id", "empty"].includes(path.type)) {
-        return "";
-    }
-    const parts = path.value.split("/");
-    return parts[parts.length - 1];
-}
-
+// path creates a database path from the window location.
 function path() {
     return new DatabasePath(window.location.hash.slice(1));
 }
 
-const locator = { name, path };
+const locator = { path };
 export default locator;

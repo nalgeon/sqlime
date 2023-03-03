@@ -1,4 +1,4 @@
-// Deta Base API client
+// Deta Base API client.
 
 const ID_PREFIX = "deta";
 
@@ -15,7 +15,7 @@ class Deta {
         this.headers = Object.assign({}, HEADERS);
     }
 
-    // loadCredentials generates a random username
+    // loadCredentials generates a random username.
     loadCredentials() {
         if (this.username) {
             return;
@@ -23,18 +23,18 @@ class Deta {
         this.username = randomUsername();
     }
 
-    // hasCredentials always returns true
+    // hasCredentials always returns true.
     hasCredentials() {
         return this.username;
     }
 
     // getUrl returns an empty string,
-    // because there is no public url to view
+    // because there is no public url to view.
     getUrl(id) {
         return "";
     }
 
-    // get returns gist by id
+    // get returns a gist by its id.
     get(id) {
         const promise = fetch(`${this.url}/${id}`, {
             method: "get",
@@ -50,7 +50,7 @@ class Deta {
         return promise;
     }
 
-    // create creates new gist
+    // create creates a new gist.
     create(name, schema, query) {
         const body = {
             item: buildData(name, this.username, schema, query),
@@ -65,7 +65,7 @@ class Deta {
         return promise;
     }
 
-    // update updates existing gist
+    // update updates an existing gist.
     update(id, name, schema, query) {
         const data = buildData(name, this.username, schema, query);
         data.key = id;
@@ -84,6 +84,8 @@ class Deta {
     }
 }
 
+// randomUsername generates a username
+// with a random 6-digit suffix.
 function randomUsername() {
     const min = 100000;
     const max = 999999;
@@ -91,6 +93,7 @@ function randomUsername() {
     return `user${n}`;
 }
 
+// buildData creates an object for the Deta request.
 function buildData(name, owner, schema, query) {
     return {
         name: name,
@@ -100,6 +103,7 @@ function buildData(name, owner, schema, query) {
     };
 }
 
+// buildGist creates a gist from the Deta response.
 function buildGist(response) {
     const gist = {
         id: response.key,

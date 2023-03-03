@@ -1,6 +1,6 @@
-// Prints SQL query result as text
+// Prints SQL query results as text.
 
-// printResult converts SQL query result to HTML table
+// printResult converts SQL query results to an HTML table.
 function printResult(result) {
     const [columns, values] = [result.columns, result.values];
     let html = "<thead>" + join(columns, "th") + "</thead>";
@@ -11,6 +11,7 @@ function printResult(result) {
     return `<table>${html}</table>`;
 }
 
+// printTables prints the specified database tables.
 function printTables(tables) {
     let html = "<thead><tr><th>table</th></tr></thead>";
     const rows = tables.map(function (table) {
@@ -26,6 +27,7 @@ function printTables(tables) {
     return `<table>${html}</table>`;
 }
 
+// join joins the values, wrapping each one into a tag.
 function join(values, tagName) {
     if (values.length === 0) {
         return "";
@@ -35,6 +37,7 @@ function join(values, tagName) {
     return open + values.join(close + open) + close;
 }
 
+// sanitize strips HTML from the text.
 function sanitize(text) {
     const div = document.createElement("div");
     div.innerText = text;

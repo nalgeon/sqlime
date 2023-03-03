@@ -1,6 +1,6 @@
-// Simple 32-bit integer hashcode implementation
+// Simple 32-bit integer hashcode implementation.
 
-// string calculates hashcode for String value
+// string calculates a hashcode for the String value.
 function string(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -11,7 +11,7 @@ function string(str) {
     return hash;
 }
 
-// uint8Array calculates hashcode for Uint8Array value
+// uint8Array calculates a hashcode for the Uint8Array value.
 function uint8Array(arr) {
     let hash = 0;
     for (let i = 0; i < arr.length; i++) {

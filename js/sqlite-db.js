@@ -1,8 +1,11 @@
-// SQLite database wrapper and metadata
+// SQLite database wrapper and metadata.
 
 import hasher from "./hasher.js";
 
+// default database name
 const DEFAULT_NAME = "new.db";
+
+// system queries
 const QUERIES = {
     version: "select sqlite_version() as version",
     tables: `select name as "table" from sqlite_schema
@@ -12,6 +15,8 @@ const QUERIES = {
       iif(pk=1, '✓', '') as pk, name, type, iif("notnull"=0, '✓', '') as "null?"
       from pragma_table_info('{}')`,
 };
+
+// database messages
 const MESSAGES = {
     empty: "The query returned nothing",
     executing: "Executing query...",
@@ -19,8 +24,8 @@ const MESSAGES = {
     loading: "Loading database...",
 };
 
-// SQLite database
-// Interfaces to SQLite WASM API in the following methods:
+// SQLite database wrapper.
+// Wraps SQLite WASM API and calls it in the following methods:
 //   - execute()
 //   - each()
 //   - gatherTables()
@@ -40,7 +45,7 @@ class SQLite {
     }
 
     // execute runs one ore more sql queries
-    // and returns the last result
+    // and returns the last result.
     execute(sql) {
         if (!sql) {
             // sqlite api fails when trying to execute an empty query
@@ -66,8 +71,8 @@ class SQLite {
         return result;
     }
 
-    // each runs the query
-    // and invokes callback on each of the resulting rows
+    // each runs the query and invokes the callback
+    // on each of the resulting rows.
     each(sql, callback) {
         this.db.exec({
             sql: sql,
@@ -76,8 +81,8 @@ class SQLite {
         });
     }
 
-    // gatherTables fills .tables attribute with the array of database tables
-    // and returns it
+    // gatherTables fills the `.tables` attribute
+    // with an array of database tables and returns it.
     gatherTables() {
         let rows = [];
         this.db.exec({
@@ -93,14 +98,14 @@ class SQLite {
         return this.tables;
     }
 
-    // getTableInfo returns the table schema
+    // getTableInfo returns the table schema.
     getTableInfo(table) {
         const sql = QUERIES.tableInfo.replace("{}", table);
         return this.execute(sql);
     }
 
-    // calcHashcode fills .hashcode attribute with the database hashcode
-    // and returns it
+    // calcHashcode fills the `.hashcode` attribute
+    // with the database hashcode and returns it.
     calcHashcode() {
         if (!this.tables.length) {
             // sqlite api fails when trying to export an empty database
@@ -115,8 +120,8 @@ class SQLite {
         return hash;
     }
 
-    // meaningfulName returns database name
-    // if it differs from default one
+    // meaningfulName returns the database name
+    // if it differs from default one.
     get meaningfulName() {
         if (this.name == DEFAULT_NAME) {
             return "";
@@ -124,7 +129,7 @@ class SQLite {
         return this.name;
     }
 
-    // ensureName changes default name to something more meaningful
+    // ensureName changes the default name to something more meaningful.
     ensureName() {
         if (this.meaningfulName) {
             return this.meaningfulName;

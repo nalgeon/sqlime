@@ -51,7 +51,7 @@ window.app = {
 // using current window location as database path
 async function startFromCurrentUrl() {
     const path = locator.path();
-    const name = locator.name(path);
+    const name = path.extractName();
     const success = await start(name, path);
     if (!success) {
         return;
@@ -63,7 +63,7 @@ async function startFromCurrentUrl() {
 // from specified url
 async function startFromUrl(url) {
     const path = new DatabasePath(url);
-    const name = locator.name(path);
+    const name = path.extractName();
     const success = await start(name, path);
     if (!success) {
         return;
