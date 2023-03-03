@@ -1,0 +1,38 @@
+.logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo img {
+    display: inline-block;
+    width: 1.5rem;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+pre {
+    padding: 0.5rem 1rem;
+    font-size: 1em;
+    background: #eaeaea;
+}
+
+pre > code {
+    border-left: none;
+    border-right: none;
+}
+
+code {
+    font-size: 0.8em;
+}
+
+figcaption {
+    text-align: center;
+}
+
+.bordered {
+    border: 1px solid #aaa;
+    padding: 1rem 2rem;
+}
