@@ -28,18 +28,17 @@
 
 <body>
     <header>
-        <h1>
+        <h3>
             <a class="logo" href="/">
                 <img src="/img/favicon-64x64.png">
+                sqlime
             </a>
-            Executable SQL Examples in JavaScript
-        </h1>
+        </h3>
+        <p>an online SQL playground</p>
     </header>
     <main>
         <article>
-            <sqlime-db name="employees" path="./employees.sql"></sqlime-db>
-            <sqlime-example db="employees" selector="pre.example" editable></sqlime-example>
-
+            <h1>Executable SQL Examples in JavaScript</h1>
             <p>
                 Reading about SQL is fun, but trying out live examples is even better!
                 With Sqlime JavaScript widgets, you can turn static SQL code in your articles
@@ -171,11 +170,17 @@ order by "rank", id;</code></pre>
                 to debug and share SQL snippets
             </p>
 
+            <sqlime-db name="employees" path="./employees.sql"></sqlime-db>
+            <sqlime-example db="employees" selector="pre.example" editable></sqlime-example>
+
             <script src="js/sqlite/sqlite3.js"></script>
             <script src="js/components/sqlime-db.js" type="module"></script>
             <script src="js/components/sqlime-example.js" type="module"></script>
         </article>
     </main>
+    <footer>
+        SQL for the win!
+    </footer>
 </body>
 
 </html>

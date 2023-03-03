@@ -3,6 +3,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+h1 {
+    margin-bottom: 1rem;
+}
+
 a {
     text-decoration: none;
 }
@@ -29,11 +33,11 @@ figcaption {
 
 .logo {
     display: inline-block;
-    vertical-align: middle;
 }
 
 .logo img {
     display: inline-block;
+    vertical-align: middle;
     width: 1.5rem;
     height: auto;
 }
