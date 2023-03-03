@@ -34,4 +34,15 @@ There is no server. Sqlime works completely in the browser. The GitHub API token
 
 Sqlime has zero third-party dependencies other than SQLite. Good old HTML, CSS, and vanilla JS — that's all. No frameworks, no heavy editors, no obsolete and vulnerable libraries. Just some modular open-source code, which is easy to grasp and extend.
 
-_Follow [@ohmypy](https://twitter.com/ohmypy) on Twitter to keep up with new features 🚀_
+### 🌟 New! Executable examples
+
+With Sqlime JavaScript widgets, you can turn static SQL code in your articles or blog posts into
+[executable examples](./examples.md).
+
+## Last but not least
+
+**⭐️ Star the project** if you like it
+
+[**🚀 Follow @ohmypy**](https://twitter.com/ohmypy) on Twitter to keep up with new features
+
+[**🍋 Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets
