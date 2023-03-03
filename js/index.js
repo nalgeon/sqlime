@@ -3,13 +3,13 @@
 import gister from "./cloud.js";
 import locator from "./locator.js";
 import shortcuts from "./shortcuts.js";
-import sqlite from "./sqlite-manager.js";
+import manager from "./sqlite/manager.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
 
 import { actionButton } from "./components/action-button.js";
 import { DatabasePath } from "./db-path.js";
-import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite-db.js";
+import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite/db.js";
 
 const ui = {
     buttons: {
@@ -91,14 +91,19 @@ async function start(name, path) {
     ui.result.clear();
     ui.status.info(MESSAGES.loading);
 
-    const loadedDatabase = await sqlite.init(name, path);
-    console.debug(loadedDatabase);
-    if (!loadedDatabase) {
-        ui.status.error(`Failed to load database from ${path}`);
+    try {
+        const loadedDatabase = await manager.init(gister, name, path);
+        console.debug(loadedDatabase);
+        database = loadedDatabase;
+        if (!loadedDatabase) {
+            ui.status.error(`Failed to load database from ${path}`);
+            return false;
+        }
+    } catch (exc) {
+        ui.status.error(`Failed to load database from ${path}: ${exc}`);
         return false;
     }
 
-    database = loadedDatabase;
     database.query = database.query || storage.get(database.name);
 
     document.title = database.meaningfulName || document.title;
@@ -157,7 +162,7 @@ async function save() {
     }
     ui.status.info("Saving...");
     ui.result.clear();
-    const savedDatabase = await sqlite.save(database, query);
+    const savedDatabase = await manager.save(gister, database, query);
     if (!savedDatabase) {
         ui.status.error("Failed to save database");
         return;

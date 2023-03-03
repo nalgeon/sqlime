@@ -1,8 +1,7 @@
 // SQLite database manager.
 
 import dumper from "./dumper.js";
-import gister from "./cloud.js";
-import { SQLite } from "./sqlite-db.js";
+import { SQLite } from "./db.js";
 
 // global SQLite WASM API object.
 let sqlite3;
@@ -15,7 +14,7 @@ const CONFIG = {
 
 // init loads a database from the specified path
 // using the SQLite WASM API.
-async function init(name, path) {
+async function init(gister, name, path) {
     if (sqlite3 === undefined) {
         sqlite3 = await sqlite3InitModule(CONFIG);
         const version = sqlite3.capi.sqlite3_libversion();
@@ -31,7 +30,7 @@ async function init(name, path) {
         return await loadArrayBuffer(name, path);
     }
     if (path.type == "id") {
-        return await loadGist(path);
+        return await loadGist(gister, path);
     }
     // empty
     return await create(name, path);
@@ -103,8 +102,11 @@ async function loadSql(name, path) {
     return database;
 }
 
-// loadGist loads a database from the GitHub gist with the specified id.
-async function loadGist(path) {
+// loadGist loads a database from the cloud with the specified id.
+async function loadGist(gister, path) {
+    if (!gister) {
+        return Promise.reject("Saving to the cloud is not supported");
+    }
     console.debug(`Loading database from gist ${path.value}...`);
     const gist = await gister.get(path.value);
     if (!gist) {
@@ -121,8 +123,11 @@ async function loadGist(path) {
     return database;
 }
 
-// save saves the database as a GitHub gist.
-async function save(database, query) {
+// save saves the database to the cloud.
+async function save(gister, database, query) {
+    if (!gister) {
+        return Promise.reject("Saving to the cloud is not supported");
+    }
     console.debug(`Saving database to gist...`);
     const schema = dumper.toSql(database, query);
     database.query = query;
