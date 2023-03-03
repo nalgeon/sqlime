@@ -38,16 +38,16 @@ You'll need three JavaScript files:
 Include them from CDN or (better) download and host locally:
 
 ```
-<script src="https://unpkg.com/sqlime@latest/dist/sqlite3.js"></script>
-<script src="https://unpkg.com/sqlime@latest/dist/sqlime-db.js"></script>
-<script src="https://unpkg.com/sqlime@latest/dist/sqlime-example.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlite3.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-db.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-example.js"></script>
 ```
 
 **Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally. It is used internally by the `sqlite3.js`
 script:
 
 ```
-https://unpkg.com/sqlime@latest/dist/sqlite3.wasm
+https://unpkg.com/sqlime@0.1.0/dist/sqlite3.wasm
 ```
 
 You can install all of these using `npm`:
