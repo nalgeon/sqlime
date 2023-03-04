@@ -1,0 +1,61 @@
+.sqlime-example {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+        monospace;
+    font-size: 0.85em;
+    line-height: 1;
+}
+
+.sqlime-example div:nth-child(1) {
+    margin: 1em 0;
+}
+
+.sqlime-example div:nth-child(2) {
+    margin: 1em 0;
+    padding: 1em 1.5em;
+    background-color: #f5f5f5;
+}
+
+.sqlime-example table {
+    border: 1px solid #000;
+    line-height: 1;
+}
+
+.sqlime-example table th {
+    vertical-align: top;
+    padding: 0.5em;
+    border-top: none;
+    border-right: none;
+    border-bottom: 1px solid #000;
+    border-left: none;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.sqlime-example table th:first-child {
+    padding-left: 1em;
+}
+.sqlime-example table th:last-child {
+    padding-right: 1em;
+}
+
+.sqlime-example table td {
+    vertical-align: top;
+    padding: 0.3em 0.5em;
+    border: none;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.sqlime-example table td:first-child {
+    padding-left: 1em;
+}
+.sqlime-example table td:last-child {
+    padding-right: 1em;
+}
+
+.sqlime-example table tr:first-child td {
+    padding-top: 0.8em;
+}
+.sqlime-example table tr:last-child td {
+    padding-bottom: 0.8em;
+}

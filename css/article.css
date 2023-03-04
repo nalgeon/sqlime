@@ -14,7 +14,7 @@ a {
 pre {
     padding: 0.5rem 1rem;
     font-size: 1em;
-    background: #eaeaea;
+    background: #f5f5f5;
 }
 
 pre > code {
@@ -29,6 +29,11 @@ code {
 
 figcaption {
     text-align: center;
+}
+
+table td,
+table th {
+    background-image: none !important;
 }
 
 .logo {

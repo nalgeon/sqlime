@@ -33,21 +33,26 @@ class SqlimeExample extends HTMLElement {
 
     // init converts the specified element into an executable example.
     init(el) {
+        const resultsEl = document.createElement("div");
+        resultsEl.style.display = "none";
+
         const runEl = document.createElement("button");
         runEl.innerHTML = "Run";
         runEl.addEventListener("click", (e) => {
-            this.execute(el.innerText, targetEl);
+            this.execute(el.innerText, resultsEl);
         });
 
         const commandsEl = document.createElement("div");
         commandsEl.appendChild(runEl);
-        commandsEl.style.marginBottom = "0.5rem";
-        el.insertAdjacentElement("afterend", commandsEl);
 
-        const targetEl = document.createElement("div");
-        commandsEl.insertAdjacentElement("afterend", targetEl);
+        const exampleEl = document.createElement("div");
+        exampleEl.className = "sqlime-example";
+        exampleEl.appendChild(commandsEl);
+        exampleEl.appendChild(resultsEl);
 
-        const example = { commandsEl, targetEl };
+        el.insertAdjacentElement("afterend", exampleEl);
+
+        const example = { commandsEl, resultsEl };
         this.examples.push(example);
         return example;
     }
@@ -62,7 +67,7 @@ class SqlimeExample extends HTMLElement {
                 return true;
             }
             if (event.keyCode == 10 || event.keyCode == 13) {
-                this.execute(el.innerText, example.targetEl);
+                this.execute(el.innerText, example.resultsEl);
                 return false;
             }
             return true;
@@ -70,10 +75,10 @@ class SqlimeExample extends HTMLElement {
 
         // add an 'edit' link
         const editEl = document.createElement("a");
-        editEl.innerHTML = "<a>Edit</a>";
+        editEl.innerHTML = "Edit";
         editEl.style.cursor = "pointer";
         editEl.style.display = "inline-block";
-        editEl.style.marginLeft = "1rem";
+        editEl.style.marginLeft = "1em";
         example.commandsEl.appendChild(editEl);
 
         editEl.addEventListener("click", (e) => {
@@ -129,11 +134,13 @@ class SqlimeExample extends HTMLElement {
 
     // showResult renders the results of the SQL query inside the target element.
     showResult(targetEl, result) {
+        targetEl.style.display = "";
         targetEl.innerHTML = printer.printResult(result);
     }
 
     // showMessage shows the message inside the target element.
     showMessage(targetEl, msg) {
+        targetEl.style.display = "";
         targetEl.innerHTML = msg;
     }
 }
