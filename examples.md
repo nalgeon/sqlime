@@ -38,23 +38,29 @@ You'll need three JavaScript files:
 Include them from CDN or (better) download and host locally:
 
 ```
-<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlite3.js"></script>
+<script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"></script>
 <script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-db.js"></script>
 <script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-example.js"></script>
 ```
 
-**Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally. It is used internally by the `sqlite3.js`
-script:
+**Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally:
 
 ```
-https://unpkg.com/sqlime@0.1.0/dist/sqlite3.wasm
+https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.wasm
 ```
+
+`sqlite3.wasm` is used internally by the `sqlite3.js` script, so place them in the same folder.
+
+I suggest you host SQLite locally because it weighs ≈1Mb, and CDNs tend to be quite slow with such large files.
 
 You can install all of these using `npm`:
 
 ```
+npm install @antonz/sqlite
 npm install sqlime
 ```
+
+**Note**. `@antonz/sqlite` is a copy of the official [SQLite WASM](https://sqlite.org/wasm) build, provided as an NPM package for convenience. You can download and use the build from the SQLite website if you prefer.
 
 ## 2. Write an article as usual
 
