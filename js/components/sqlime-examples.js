@@ -107,7 +107,8 @@ class SqlimeExamples extends HTMLElement {
     // getDatabase returns an SQLite database,
     // previously loaded using the 'sqlime-db' component
     getDatabase() {
-        if (this.database == null) {
+        if (this.database == null || !this.database.db) {
+            // the database is not initialized at all or is still loading
             this.database = this.loadDatabase();
         }
         return this.database;
