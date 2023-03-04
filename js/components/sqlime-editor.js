@@ -15,12 +15,12 @@ class SqlimeEditor extends HTMLElement {
     listen() {
         // Ctrl+Enter or Cmd+Enter shortcut
         this.addEventListener("keydown", (event) => {
-            if (
-                (event.keyCode == 10 || event.keyCode == 13) &&
-                (event.ctrlKey || event.metaKey)
-            ) {
+            if (!event.ctrlKey && !event.metaKey) {
+                return true;
+            }
+            if (event.keyCode == 10 || event.keyCode == 13) {
                 this.dispatchEvent(
-                    new CustomEvent("execute", { detail: this.value })
+                    new CustomEvent("execute", { detail: this.query })
                 );
                 return false;
             }
@@ -63,6 +63,11 @@ class SqlimeEditor extends HTMLElement {
     }
     set value(newValue) {
         this.innerText = newValue;
+    }
+
+    get query() {
+        const selectedQuery = window.getSelection().toString().trim();
+        return selectedQuery || this.innerText;
     }
 }
 

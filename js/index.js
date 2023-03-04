@@ -117,7 +117,7 @@ async function start(name, path) {
 
 // executeCurrent runs the current SQL query
 function executeCurrent() {
-    execute(ui.editor.value);
+    execute(ui.editor.query);
 }
 
 // execute runs SQL query on the database

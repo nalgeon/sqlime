@@ -4,20 +4,6 @@ const LONG_DELAY = 1000;
 const MEDIUM_DELAY = 500;
 const SMALL_DELAY = 100;
 
-async function loadApp(timeout = LONG_DELAY) {
-    localStorage.removeItem("sqlime.query.new.db");
-    const app = {};
-    app.frame = document.querySelector("#app");
-    app.frame.src = "../index.html";
-    await wait(timeout);
-    app.window = app.frame.contentWindow;
-    app.document = app.window.document;
-    app.actions = app.window.app.actions;
-    app.gister = app.window.app.gister;
-    app.ui = app.window.app.ui;
-    return app;
-}
-
 async function testNewDatabase() {
     log("New database...");
     const app = await loadApp();
@@ -52,7 +38,25 @@ async function testExecuteQuery() {
     );
 }
 
-async function loadDemo() {
+async function testExecuteSelection() {
+    log("Execute selection...");
+    const app = await loadApp();
+    const sql = "select 54321, 17423";
+    // activate buttons
+    app.ui.editor.dispatchEvent(new Event("input"));
+    app.ui.editor.value = sql;
+    selectText(app, app.ui.editor, 0, 12);
+    app.ui.buttons.execute.click();
+    await wait(MEDIUM_DELAY);
+    assert("executes selected part", app.ui.result.innerText.includes("54321"));
+    assert("ignores other parts", !app.ui.result.innerText.includes("17423"));
+    assert(
+        "caches query in local storage",
+        localStorage.getItem("sqlime.query.new.db") == sql.substring(0, 12)
+    );
+}
+
+async function testLoadDemo() {
     log("Load demo...");
     const app = await loadApp();
     const sql = "select * from employees";
@@ -64,7 +68,7 @@ async function loadDemo() {
     assert("shows employees", app.ui.result.innerText.includes("Diane"));
 }
 
-async function loadUrl() {
+async function testLoadUrl() {
     log("Load url...");
     const app = await loadApp();
     app.window.location.assign("../index.html#demo.db");
@@ -75,7 +79,7 @@ async function loadUrl() {
     assert("shows tables", app.ui.status.value == "2 tables:");
 }
 
-async function loadUrlInvalid() {
+async function testLoadUrlInvalid() {
     log("Load invalid url...");
     const app = await loadApp();
     app.window.location.assign("../index.html#whatever");
@@ -85,7 +89,7 @@ async function loadUrlInvalid() {
     assert("result is empty", app.ui.result.innerText == "");
 }
 
-async function loadGist() {
+async function testLoadGist() {
     log("Load gist...");
     const app = await loadApp();
     app.window.location.assign(
@@ -97,7 +101,7 @@ async function loadGist() {
     assert("shows result", app.ui.result.innerText.includes("Diane"));
 }
 
-async function loadGistInvalid() {
+async function testLoadGistInvalid() {
     log("Load invalid gist...");
     const app = await loadApp();
     app.window.location.assign("../index.html#gist:42");
@@ -107,7 +111,7 @@ async function loadGistInvalid() {
     assert("result is empty", app.ui.result.innerText == "");
 }
 
-async function showTables() {
+async function testShowTables() {
     log("Show tables...");
     const app = await loadApp();
     app.window.location.assign("../index.html#demo.db");
@@ -126,7 +130,7 @@ async function showTables() {
     );
 }
 
-async function saveEmpty() {
+async function testSaveEmpty() {
     log("Save empty snippet...");
     const app = await loadApp();
 
@@ -141,7 +145,7 @@ async function saveEmpty() {
     );
 }
 
-async function save() {
+async function testSave() {
     log("Save snippet...");
     const app = await loadApp();
 
@@ -171,7 +175,7 @@ async function save() {
     unmock(app.gister, "create");
 }
 
-async function update() {
+async function testUpdate() {
     log("Update snippet...");
     const app = await loadApp();
 
@@ -215,7 +219,7 @@ async function update() {
     unmock(app.gister, "create");
 }
 
-async function changeName() {
+async function testChangeName() {
     log("Change database name...");
     const app = await loadApp();
     const name = "my.db";
@@ -229,17 +233,41 @@ async function runTests() {
     log("Running tests...");
     await testNewDatabase();
     await testExecuteQuery();
-    await loadDemo();
-    await loadUrl();
-    await loadUrlInvalid();
-    await loadGist();
-    await loadGistInvalid();
-    await showTables();
-    await saveEmpty();
-    await save();
-    await update();
-    await changeName();
+    await testExecuteSelection();
+    await testLoadDemo();
+    await testLoadUrl();
+    await testLoadUrlInvalid();
+    await testLoadGist();
+    await testLoadGistInvalid();
+    await testShowTables();
+    await testSaveEmpty();
+    await testSave();
+    await testUpdate();
+    await testChangeName();
     summary();
+}
+
+async function loadApp(timeout = LONG_DELAY) {
+    localStorage.removeItem("sqlime.query.new.db");
+    const app = {};
+    app.frame = document.querySelector("#app");
+    app.frame.src = "../index.html";
+    await wait(timeout);
+    app.window = app.frame.contentWindow;
+    app.document = app.window.document;
+    app.actions = app.window.app.actions;
+    app.gister = app.window.app.gister;
+    app.ui = app.window.app.ui;
+    return app;
+}
+
+function selectText(app, el, start, end) {
+    const range = app.document.createRange();
+    range.setStart(el.firstChild, start);
+    range.setEnd(el.firstChild, end);
+    const selection = app.window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
 }
 
 function buildGist(name, schema = "", query = "") {
