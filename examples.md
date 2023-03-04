@@ -33,14 +33,14 @@ You'll need three JavaScript files:
 
 -   `sqlite3.js` — SQLite compiled for the browser.
 -   `sqlime-db.js` — the database web component.
--   `sqlime-example.js` — the executable example web component.
+-   `sqlime-examples.js` — the executable example web component.
 
 Include them from CDN or (better) download and host locally:
 
 ```
 <script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"></script>
 <script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-db.js"></script>
-<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-example.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-examples.js"></script>
 ```
 
 **Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally:
@@ -114,10 +114,10 @@ Load the database using the `sqlime-db` web component:
 
 ## 4. Init the examples
 
-The only thing left is to convert your HTML `pre` code snippets into executable examples. Use the `sqlime-example` web component to do this:
+The only thing left is to convert your HTML `pre` code snippets into executable examples. Use the `sqlime-examples` web component to do this:
 
 ```
-<sqlime-example db="employees" selector="pre.example" editable></sqlime-example>
+<sqlime-examples db="employees" selector="pre.example" editable></sqlime-examples>
 ```
 
 -   `db` is the name of the database we defined earlier.
@@ -126,9 +126,7 @@ The only thing left is to convert your HTML `pre` code snippets into executable 
 
 And that's it!
 
-`sqlime-example` converts all the snippets with the specified selector,
-so you only need to include it once (unless you have multiple databases
-to run your examples on).
+`sqlime-examples` converts all the snippets with the specified selector, so you only need to include it once (unless you have multiple databases to run your examples on).
 
 ## Last but not least
 

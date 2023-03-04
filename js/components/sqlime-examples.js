@@ -4,7 +4,7 @@
 
 import printer from "../printer.js";
 
-class SqlimeExample extends HTMLElement {
+class SqlimeExamples extends HTMLElement {
     constructor() {
         super();
         this.database = null;
@@ -145,7 +145,7 @@ class SqlimeExample extends HTMLElement {
     }
 }
 
-if (!window.customElements.get("sqlime-example")) {
-    window.SqlimeExample = SqlimeExample;
-    customElements.define("sqlime-example", SqlimeExample);
+if (!window.customElements.get("sqlime-examples")) {
+    window.SqlimeExamples = SqlimeExamples;
+    customElements.define("sqlime-examples", SqlimeExamples);
 }

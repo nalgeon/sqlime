@@ -60,13 +60,13 @@ limit 5;</code></pre>
             <ol>
                 <li><code>sqlite3.js</code> — SQLite compiled for the browser.</li>
                 <li><code>sqlime-db.js</code> — the database web component.</li>
-                <li><code>sqlime-example.js</code> — the executable example web component.</li>
+                <li><code>sqlime-examples.js</code> — the executable examples web component.</li>
             </ol>
 
             <p>Include them from CDN or (better) download and host locally:</p>
             <pre><code>&lt;script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"&gt;&lt;/script&gt;
 &lt;script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-db.js"&gt;&lt;/script&gt;
-&lt;script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-example.js"&gt;&lt;/script&gt;</code></pre>
+&lt;script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-examples.js"&gt;&lt;/script&gt;</code></pre>
 
             <p>
                 <strong>Note</strong>. You'll also need to download and serve the SQLite WASM file
@@ -141,10 +141,10 @@ order by "rank", id;</code></pre>
             <h3>4. Init the examples</h3>
             <p>
                 The only thing left is to convert your HTML <code>pre</code>
-                code snippets into executable examples. Use the <code>sqlime-example</code>
+                code snippets into executable examples. Use the <code>sqlime-examples</code>
                 web component to do this:
             </p>
-            <pre><code>&lt;sqlime-example db=&quot;employees&quot; selector=&quot;pre.example&quot; editable&gt;&lt;/sqlime-example&gt;</code></pre>
+            <pre><code>&lt;sqlime-examples db=&quot;employees&quot; selector=&quot;pre.example&quot; editable&gt;&lt;/sqlime-examples&gt;</code></pre>
 
             <ul>
                 <li><code>db</code> is the name of the database we defined earlier.</li>
@@ -166,7 +166,7 @@ order by "rank", id;</code></pre>
             </div>
 
             <p>
-                <code>sqlime-example</code> converts all the snippets with the specified selector,
+                <code>sqlime-examples</code> converts all the snippets with the specified selector,
                 so you only need to include it once (unless you have multiple databases
                 to run your examples on).
             </p>
@@ -188,11 +188,11 @@ order by "rank", id;</code></pre>
             </p>
 
             <sqlime-db name="employees" path="./employees.sql"></sqlime-db>
-            <sqlime-example db="employees" selector="pre.example" editable></sqlime-example>
+            <sqlime-examples db="employees" selector="pre.example" editable></sqlime-examples>
 
             <script src="js/sqlite/sqlite3.js"></script>
             <script src="js/components/sqlime-db.js" type="module"></script>
-            <script src="js/components/sqlime-example.js" type="module"></script>
+            <script src="js/components/sqlime-examples.js" type="module"></script>
         </article>
     </main>
     <footer>
