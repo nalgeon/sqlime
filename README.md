@@ -20,6 +20,11 @@ Sqlime saves both the database and the queries to GitHub so that you can revisit
 
 For example, here is the [gist](https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046) for the Employees database, and here is the [sharing link](https://sqlime.org/#gist:e012594111ce51f91590c4737e41a046) for it.
 
+### ✨ Executable examples
+
+With Sqlime JavaScript widgets, you can turn static SQL code in your articles or blog posts into
+[executable examples](./examples.md).
+
 ### 📱 Mobile friendly
 
 Most playgrounds are not meant for small screens. Sqlime was specifically designed and tested on mobile devices. No need to zoom or aim at tiny buttons — everything looks and works just fine.
@@ -33,11 +38,6 @@ There is no server. Sqlime works completely in the browser. The GitHub API token
 ### ⌨️ Dead simple
 
 Sqlime has zero third-party dependencies other than SQLite. Good old HTML, CSS, and vanilla JS — that's all. No frameworks, no heavy editors, no obsolete and vulnerable libraries. Just some modular open-source code, which is easy to grasp and extend.
-
-### 🌟 New! Executable examples
-
-With Sqlime JavaScript widgets, you can turn static SQL code in your articles or blog posts into
-[executable examples](./examples.md).
 
 ## Last but not least
 
