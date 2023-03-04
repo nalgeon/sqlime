@@ -31,9 +31,24 @@ figcaption {
     text-align: center;
 }
 
+table {
+    background: none !important;
+    border-top: 1px solid #f2f2f2;
+    border-right: 1px solid #f2f2f2;
+    border-left: 1px solid #f2f2f2;
+}
 table td,
 table th {
-    background-image: none !important;
+    background: none !important;
+}
+
+table td:first-child,
+table th:first-child {
+    padding-left: 0.75em;
+}
+table td:last-child,
+table th:last-child {
+    padding-right: 0.75em;
 }
 
 .logo {

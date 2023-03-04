@@ -1,6 +1,5 @@
 .sqlime-example {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
-        monospace;
+    font-family: Consolas, "Lucida Console", Monaco, monospace;
     font-size: 0.85em;
     line-height: 1;
 }
@@ -11,7 +10,7 @@
 
 .sqlime-example div:nth-child(2) {
     margin: 1em 0;
-    padding: 1em 1.5em;
+    padding: 1rem;
     background-color: #f5f5f5;
 }
 
