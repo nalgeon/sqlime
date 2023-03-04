@@ -39,8 +39,8 @@ Include them from CDN or (better) download and host locally:
 
 ```
 <script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"></script>
-<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-db.js"></script>
-<script src="https://unpkg.com/sqlime@0.1.0/dist/sqlime-examples.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.1/dist/sqlime-db.js"></script>
+<script src="https://unpkg.com/sqlime@0.1.1/dist/sqlime-examples.js"></script>
 ```
 
 **Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally:
