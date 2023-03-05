@@ -2,6 +2,8 @@
 
 Reading about SQL is fun, but trying out live examples is even better! With Sqlime JavaScript widgets, you can turn static SQL code in your articles into interactive examples.
 
+Widgets are an independent part of the Sqlime project — they have zero dependencies on the Sqlime itself.
+
 It looks something like this:
 
 ```

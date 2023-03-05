@@ -2,6 +2,8 @@
 
 **[Sqlime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
+🌟 **New!** Turn static SQL code in your articles into [interactive examples](./examples.md).
+
 [![Sqlime](./img/sqlime.jpg)](http://sqlime.org/)
 
 Here are some notable features:
@@ -20,10 +22,10 @@ Sqlime saves both the database and the queries to GitHub so that you can revisit
 
 For example, here is the [gist](https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046) for the Employees database, and here is the [sharing link](https://sqlime.org/#gist:e012594111ce51f91590c4737e41a046) for it.
 
-### ✨ Executable examples
+### ✨ Interactive examples
 
-With Sqlime JavaScript widgets, you can turn static SQL code in your articles or blog posts into
-[executable examples](./examples.md).
+With Sqlime JavaScript widgets, you can turn static SQL code in your articles or documentation into
+[interactive examples](./examples.md).
 
 ### 📱 Mobile friendly
 
