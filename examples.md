@@ -1,6 +1,6 @@
-# Executable SQL Examples in JavaScript
+# Interactive SQL Examples in JavaScript
 
-Reading about SQL is fun, but trying out live examples is even better! With Sqlime JavaScript widgets, you can turn static SQL code in your articles or blog posts into executable examples.
+Reading about SQL is fun, but trying out live examples is even better! With Sqlime JavaScript widgets, you can turn static SQL code in your articles into interactive examples.
 
 It looks something like this:
 
@@ -25,7 +25,7 @@ It looks something like this:
 
 Here is a [working example](https://sqlime.org/employees.html). Give it a try.
 
-And here are the four steps to creating executable SQL examples in your own articles:
+And here are the four steps to creating executable SQL examples in your own articles or documentation:
 
 ## 1. Include Sqlime JS widgets
 
@@ -33,7 +33,7 @@ You'll need three JavaScript files:
 
 -   `sqlite3.js` — SQLite compiled for the browser.
 -   `sqlime-db.js` — the database web component.
--   `sqlime-examples.js` — the executable example web component.
+-   `sqlime-examples.js` — the interactive example web component.
 
 Include them from CDN or (better) download and host locally:
 
@@ -43,7 +43,7 @@ Include them from CDN or (better) download and host locally:
 <script src="https://unpkg.com/sqlime@0.1.2/dist/sqlime-examples.js"></script>
 ```
 
-**Note**. You'll also need to download and serve the SQLite WASM file if you're hosting locally:
+You'll also need to download and serve the SQLite WASM file if you're hosting locally:
 
 ```
 https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.wasm
@@ -114,7 +114,7 @@ Load the database using the `sqlime-db` web component:
 
 ## 4. Init the examples
 
-The only thing left is to convert your HTML `pre` code snippets into executable examples. Use the `sqlime-examples` web component to do this:
+The only thing left is to convert your HTML `pre` code snippets into interactive examples. Use the `sqlime-examples` web component to do this:
 
 ```
 <sqlime-examples db="employees" selector="pre.example" editable></sqlime-examples>

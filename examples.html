@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>Sqlime / Executable Examples</title>
+    <title>Sqlime / Interactive Examples</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:site_name" content="Sqlime" />
-    <meta property="og:title" content="Executable SQL Examples in JavaScript" />
+    <meta property="og:title" content="Interactive SQL Examples in JavaScript" />
     <meta name="description" content="Turn static SQL code in your articles into
     executable examples.">
     <meta property="og:description" content="Turn static SQL code in your articles into
@@ -39,11 +39,11 @@
     </header>
     <main>
         <article>
-            <h1>Executable SQL Examples in JavaScript</h1>
+            <h1>Interactive SQL Examples in JavaScript</h1>
             <p>
                 Reading about SQL is fun, but trying out live examples is even better!
                 With Sqlime JavaScript widgets, you can turn static SQL code in your articles
-                or blog posts into executable examples.
+                into interactive examples.
             </p>
 
             <p>Here is a working example. Give it a try:</p>
@@ -52,7 +52,7 @@ limit 5;</code></pre>
 
             <p>
                 And here are the four steps to creating executable SQL examples
-                in your own articles:
+                in your own articles or documentation:
             </p>
 
             <h3>1. Include Sqlime JS widgets</h3>
@@ -60,7 +60,7 @@ limit 5;</code></pre>
             <ol>
                 <li><code>sqlite3.js</code> — SQLite compiled for the browser.</li>
                 <li><code>sqlime-db.js</code> — the database web component.</li>
-                <li><code>sqlime-examples.js</code> — the executable examples web component.</li>
+                <li><code>sqlime-examples.js</code> — the interactive examples web component.</li>
             </ol>
 
             <p>Include them from CDN or (better) download and host locally:</p>
@@ -69,7 +69,7 @@ limit 5;</code></pre>
 &lt;script src="https://unpkg.com/sqlime@0.1.2/dist/sqlime-examples.js"&gt;&lt;/script&gt;</code></pre>
 
             <p>
-                <strong>Note</strong>. You'll also need to download and serve the SQLite WASM file
+                You'll also need to download and serve the SQLite WASM file
                 if you're hosting locally:
             </p>
             <pre><code>https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.wasm</code></pre>
@@ -141,7 +141,7 @@ order by "rank", id;</code></pre>
             <h3>4. Init the examples</h3>
             <p>
                 The only thing left is to convert your HTML <code>pre</code>
-                code snippets into executable examples. Use the <code>sqlime-examples</code>
+                code snippets into interactive examples. Use the <code>sqlime-examples</code>
                 web component to do this:
             </p>
             <pre><code>&lt;sqlime-examples db=&quot;employees&quot; selector=&quot;pre.example&quot; editable&gt;&lt;/sqlime-examples&gt;</code></pre>
