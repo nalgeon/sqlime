@@ -70,7 +70,7 @@ Suppose you are writing a short post about ranking data in SQL:
 
 ```
 <p>To rank data in SQL, we use the
-`rank()` window function:</p>
+<code>rank()</code> window function:</p>
 
 <pre class="example">select
   rank() over w as "rank",
@@ -130,7 +130,17 @@ And that's it!
 
 `sqlime-examples` converts all the snippets with the specified selector, so you only need to include it once (unless you have multiple databases to run your examples on).
 
-## Last but not least
+## Summary
+
+Executable SQL examples are an excellent fit for any kind of documentation:
+
+-   They are more informative than static snippets.
+-   They increase engagement and encourage experimentation.
+-   They are lightweight, easy to set up, and do not require a server.
+
+Try adding interactive SQL to your articles, or [ask a question](https://github.com/nalgeon/sqlime/issues/new) if you have one.
+
+Last but not least:
 
 **⭐️ Star the project** if you like it
 
