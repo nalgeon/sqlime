@@ -14,6 +14,7 @@ class SqlimeExamples extends HTMLElement {
     connectedCallback() {
         if (!this.rendered) {
             this.render();
+            this.listen();
             this.rendered = true;
         }
     }
@@ -27,6 +28,16 @@ class SqlimeExamples extends HTMLElement {
             const example = this.init(element);
             if (isEditable) {
                 this.makeEditable(element, example);
+            }
+        });
+    }
+
+    // listen updates the database when notified by sqlime-db.
+    listen() {
+        document.addEventListener("sqlime-ready", (e) => {
+            const name = this.getAttribute("db");
+            if (e.detail.name == name) {
+                this.database = e.detail.database;
             }
         });
     }
@@ -96,8 +107,7 @@ class SqlimeExamples extends HTMLElement {
             return;
         }
         try {
-            const database = this.getDatabase();
-            const result = database.execute(sql);
+            const result = this.getDatabase().execute(sql);
             this.showResult(targetEl, result);
         } catch (exc) {
             this.showMessage(targetEl, exc);
@@ -107,8 +117,7 @@ class SqlimeExamples extends HTMLElement {
     // getDatabase returns an SQLite database,
     // previously loaded using the 'sqlime-db' component
     getDatabase() {
-        if (this.database == null || !this.database.db) {
-            // the database is not initialized at all or is still loading
+        if (this.database == null) {
             this.database = this.loadDatabase();
         }
         return this.database;
@@ -121,16 +130,16 @@ class SqlimeExamples extends HTMLElement {
                 "Sqlime is not initialized. Use the 'sqlime-db' component to initialize it."
             );
         }
-        const dbName = this.getAttribute("db");
-        if (!dbName) {
+        const name = this.getAttribute("db");
+        if (!name) {
             throw new Error("Missing the 'db' attribute.");
         }
-        if (!(dbName in window.Sqlime.db)) {
+        if (!(name in window.Sqlime.db)) {
             throw new Error(
-                `Database '${dbName}' is not loaded. Use the 'sqlime-db' component to load it.`
+                `Database '${name}' is not loaded. Use the 'sqlime-db' component to load it.`
             );
         }
-        return window.Sqlime.db[dbName];
+        return window.Sqlime.db[name];
     }
 
     // showResult renders the results of the SQL query inside the target element.

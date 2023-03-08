@@ -47,18 +47,21 @@ class SqlimeDb extends HTMLElement {
     loading(name) {
         this.database = new LoadingDatabase(name);
         store(this.database);
+        notify(this.database);
     }
 
     // loading stores the loaded database.
     success(database) {
         this.database = database;
         store(this.database);
+        notify(this.database);
     }
 
     // loading stores the database as invalid.
     error(name, message) {
         this.database = new InvalidDatabase(name, message);
         store(this.database);
+        notify(this.database);
     }
 }
 
@@ -90,6 +93,17 @@ function store(database) {
     window.Sqlime = window.Sqlime || {};
     window.Sqlime.db = window.Sqlime.db || {};
     window.Sqlime.db[database.name] = database;
+}
+
+// notify emits an event with a database in its current state.
+function notify(database) {
+    const event = new CustomEvent("sqlime-ready", {
+        detail: {
+            name: database.name,
+            database: database,
+        },
+    });
+    document.dispatchEvent(event);
 }
 
 if (!window.customElements.get("sqlime-db")) {
