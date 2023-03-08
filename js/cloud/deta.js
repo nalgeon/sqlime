@@ -1,5 +1,7 @@
 // Deta Base API client.
 
+import http from "./http.js";
+
 const ID_PREFIX = "deta";
 
 const HEADERS = {
@@ -10,6 +12,7 @@ const HEADERS = {
 
 class Deta {
     constructor() {
+        this.name = "Deta";
         this.prefix = ID_PREFIX;
         this.url = "https://database.deta.sh/v1/c0106ixe/sqlime/items";
         this.headers = Object.assign({}, HEADERS);
@@ -40,7 +43,7 @@ class Deta {
             method: "get",
             headers: this.headers,
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => {
                 if (!response.query) {
                     return null;
@@ -60,7 +63,7 @@ class Deta {
             headers: this.headers,
             body: JSON.stringify(body),
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => buildGist(response));
         return promise;
     }
@@ -77,7 +80,7 @@ class Deta {
             headers: this.headers,
             body: JSON.stringify(body),
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => response.processed.items[0])
             .then((response) => buildGist(response));
         return promise;

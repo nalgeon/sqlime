@@ -18,6 +18,11 @@ class Gister {
         this._provider = null;
     }
 
+    // name is the name of the provider.
+    get name() {
+        return this.provider.name;
+    }
+
     // username is needed to decide whether
     // to call `create` or `update` on save.
     get username() {

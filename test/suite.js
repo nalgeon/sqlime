@@ -249,6 +249,7 @@ async function runTests() {
 
 async function loadApp(timeout = LONG_DELAY) {
     localStorage.removeItem("sqlime.query.new.db");
+    localStorage.removeItem("sqlime.query.demo.db");
     const app = {};
     app.frame = document.querySelector("#app");
     app.frame.src = "../index.html";

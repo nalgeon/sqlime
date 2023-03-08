@@ -162,12 +162,17 @@ async function save() {
     }
     ui.status.info("Saving...");
     ui.result.clear();
-    const savedDatabase = await manager.save(gister, database, query);
-    if (!savedDatabase) {
-        ui.status.error("Failed to save database");
+    try {
+        const savedDatabase = await manager.save(gister, database, query);
+        if (!savedDatabase) {
+            ui.status.error(`Failed to save database to ${gister.name}`);
+            return;
+        }
+        database = savedDatabase;
+    } catch (exc) {
+        showError(`Failed to save database to ${gister.name}: ${exc}`);
         return;
     }
-    database = savedDatabase;
     changeName(database.name);
     showSaved(database);
 }

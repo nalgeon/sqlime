@@ -1,5 +1,7 @@
 // Github Gist API client.
 
+import http from "./http.js";
+
 const ID_PREFIX = "gist";
 
 const HEADERS = {
@@ -9,6 +11,7 @@ const HEADERS = {
 
 class Github {
     constructor() {
+        this.name = "GitHub";
         this.prefix = ID_PREFIX;
         this.url = "https://api.github.com/gists";
         this.headers = Object.assign({}, HEADERS);
@@ -41,7 +44,7 @@ class Github {
             method: "get",
             headers: this.headers,
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => {
                 if (!response.files || !("query.sql" in response.files)) {
                     return null;
@@ -59,7 +62,7 @@ class Github {
             headers: this.headers,
             body: JSON.stringify(data),
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => buildGist(response));
         return promise;
     }
@@ -72,7 +75,7 @@ class Github {
             headers: this.headers,
             body: JSON.stringify(data),
         })
-            .then((response) => response.json())
+            .then((response) => http.toJson(response))
             .then((response) => buildGist(response));
         return promise;
     }
