@@ -243,7 +243,7 @@ function showTables() {
 }
 
 // showTable shows specific database table
-function showTable(table) {
+function showTable(btn, table) {
     const result = database.getTableInfo(table);
     const all = actionButton("showTables", "tables");
     ui.status.info(`${all} / ${table}:`);
