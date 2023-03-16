@@ -14,13 +14,19 @@ class SqlimeStatus extends HTMLElement {
         this.el = el;
     }
 
+    // loading shows the message with a spinner
+    loading(message) {
+        this.el.className = "";
+        this.value = `<span class="sqlime-spinner"></span> ${message}...`;
+    }
+
     // success shows the message and marks is as success
     success(message) {
         this.el.className = "sql-status--success";
         this.value = message;
     }
 
-    // success shows the message without styling it
+    // info shows the message without styling it
     info(message) {
         this.el.className = "";
         this.value = message;

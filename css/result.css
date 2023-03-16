@@ -26,6 +26,11 @@
     padding: 0.25rem 0.5rem;
 }
 
+.sqlime-result pre {
+    font-family: var(--sqlime-monospace);
+    white-space: pre-wrap;
+}
+
 .sqlime-link {
     display: inline;
     border: none;
@@ -35,6 +40,29 @@
     text-decoration: none;
     color: var(--sqlime-blue);
     font-size: 1em;
+}
+
+.sqlime-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+    border: 3px solid rgb(0, 139, 245, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--sqlime-blue);
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @media only screen and (min-width: 40rem) {
@@ -48,5 +76,9 @@
 
     .sqlime-result table {
         width: auto;
+    }
+
+    .sqlime-result pre {
+        max-width: 50rem;
     }
 }

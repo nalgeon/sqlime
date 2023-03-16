@@ -22,19 +22,28 @@
     </header>
     <main>
         <article>
+            <p>All settings are optional, you can use Sqlime without them.</p>
             <form id="settings">
-                <p>Provide your GitHub credentials to enable sharing.</p>
                 <fieldset>
-                    <legend>GitHub credentials</legend>
-                    <label for="username">Username</label>
-                    <input id="username" type="text">
-                    <label for="username">API token</label>
-                    <input id="token" type="text">
+                    <legend>GitHub credentials (to enable sharing)</legend>
+                    <label for="github-username">Username</label>
+                    <input id="github-username" type="text">
+                    <label for="github-token">API token</label>
+                    <input id="github-token" type="text">
                     <p>
                         This is <strong>not</strong> your GitHub password.
-                        Generate an API token in
+                        Create an API token with a 'gist' scope in the
                         <a href="https://github.com/settings/tokens" target="_blank">GitHub settings</a>
-                        with 'gist' scope.
+                    </p>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>OpenAI credentials (to enable 'Ask AI' feature)</legend>
+                    <label for="openai-apikey">API key</label>
+                    <input id="openai-apikey" type="text">
+                    <p>
+                        Create an API key in the
+                        <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI account</a>
                     </p>
                 </fieldset>
             </form>

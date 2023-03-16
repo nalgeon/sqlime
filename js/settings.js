@@ -1,22 +1,33 @@
 const ui = {
     settings: document.querySelector("#settings"),
-    username: document.querySelector("#username"),
-    token: document.querySelector("#token"),
+    github: {
+        username: document.querySelector("#github-username"),
+        token: document.querySelector("#github-token"),
+    },
+    openai: {
+        apikey: document.querySelector("#openai-apikey"),
+    },
 };
 
 ui.settings.addEventListener("submit", (event) => {
     event.preventDefault();
-    localStorage.setItem("github.username", ui.username.value);
-    localStorage.setItem("github.token", ui.token.value);
+    localStorage.setItem("github.username", ui.github.username.value);
+    localStorage.setItem("github.token", ui.github.token.value);
+    localStorage.setItem("openai.apikey", ui.openai.apikey.value);
 });
 
-ui.username.addEventListener("change", (event) => {
+ui.github.username.addEventListener("change", (event) => {
     localStorage.setItem("github.username", event.target.value);
 });
 
-ui.token.addEventListener("change", (event) => {
+ui.github.token.addEventListener("change", (event) => {
     localStorage.setItem("github.token", event.target.value);
 });
 
-ui.username.value = localStorage.getItem("github.username") || "";
-ui.token.value = localStorage.getItem("github.token") || "";
+ui.openai.apikey.addEventListener("change", (event) => {
+    localStorage.setItem("openai.apikey", event.target.value);
+});
+
+ui.github.username.value = localStorage.getItem("github.username") || "";
+ui.github.token.value = localStorage.getItem("github.token") || "";
+ui.openai.apikey.value = localStorage.getItem("openai.apikey") || "";

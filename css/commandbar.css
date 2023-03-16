@@ -20,10 +20,6 @@
     background: var(--sqlime-blue);
     color: var(--sqlime-white);
 }
-.sqlime-commandbar > button:nth-child(2),
-.sqlime-commandbar > button:nth-child(3) {
-    flex-grow: 1;
-}
 
 @media only screen and (min-width: 40rem) {
     .sqlime-commandbar {
@@ -44,9 +40,5 @@
         flex-grow: 0;
         background: transparent;
         color: var(--sqlime-blue);
-    }
-    .sqlime-commandbar > button:nth-child(2),
-    .sqlime-commandbar > button:nth-child(3) {
-        flex-grow: 0;
     }
 }

@@ -2,9 +2,13 @@
 
 **[Sqlime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
+🌟 **New!** [Ask AI](#-ask-ai) for help with your queries.
+
 🌟 **New!** Turn static SQL code in your articles into [interactive examples](./examples.md).
 
-[![Sqlime](./img/sqlime.jpg)](http://sqlime.org/)
+<a href="https://sqlime.org/">
+    <img src="./img/sqlime.jpg" alt="Sqlime" width="600">
+</a>
 
 Here are some notable features:
 
@@ -22,6 +26,12 @@ Sqlime saves both the database and the queries to GitHub so that you can revisit
 
 For example, here is the [gist](https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046) for the Employees database, and here is the [sharing link](https://sqlime.org/#gist:e012594111ce51f91590c4737e41a046) for it.
 
+### 🤖 Ask AI
+
+Connect an OpenAI account to get help with your queries from the state-of-the-art ChatGPT assistant. AI can explain, teach, and troubleshoot your SQL.
+
+<img src="./img/sqlime-ai.jpg" alt="Ask AI" width="600">
+
 ### ✨ Interactive examples
 
 With Sqlime JavaScript widgets, you can turn static SQL code in your articles or documentation into
@@ -31,11 +41,9 @@ With Sqlime JavaScript widgets, you can turn static SQL code in your articles or
 
 Most playgrounds are not meant for small screens. Sqlime was specifically designed and tested on mobile devices. No need to zoom or aim at tiny buttons — everything looks and works just fine.
 
-![Sqlime on mobile](./img/mobile.jpg)
-
 ### 🔒 Secure and private
 
-There is no server. Sqlime works completely in the browser. The GitHub API token is also stored locally. Queries are saved as private GitHub gists within your account. Your data is yours only.
+There is no server. Sqlime works completely in the browser. GitHub and OpenAI credentials are also stored locally. Queries are saved as private GitHub gists within your account. Your data is yours only.
 
 ### ⌨️ Dead simple
 

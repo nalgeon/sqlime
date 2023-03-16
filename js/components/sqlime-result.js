@@ -13,6 +13,11 @@ class SqlimeResult extends HTMLElement {
         this.applyPrinter(tables, printer.printTables);
     }
 
+    // printMarkdown prints markdown text
+    printMarkdown(text) {
+        this.applyPrinter(text, printer.printMarkdown);
+    }
+
     // applyPrinter prints data structure
     // with specified printer function
     applyPrinter(data, printFunc) {

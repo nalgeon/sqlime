@@ -10,6 +10,7 @@ import timeit from "./timeit.js";
 import { actionButton } from "./components/action-button.js";
 import { DatabasePath } from "./db-path.js";
 import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite/db.js";
+import { OpenAI } from "./cloud/openai.js";
 
 const ui = {
     buttons: {
@@ -28,6 +29,7 @@ const ui = {
 };
 
 const actions = {
+    askAi: askAi,
     executeCurrent: executeCurrent,
     loadDemo: loadDemo,
     save: save,
@@ -141,6 +143,33 @@ function execute(sql) {
     }
 }
 
+// askAi queries the AI assistant using the contents of the editor
+// as a query and prints the answer.
+function askAi(btn) {
+    const key = localStorage.getItem("openai.apikey");
+    if (!key) {
+        visit(btn, "settings");
+        return;
+    }
+    const ai = new OpenAI(key);
+    const question = ui.editor.query;
+    btn.classList.add("sqlime-disabled");
+    ui.status.loading("Waiting for AI response (can take up to 30 seconds)");
+    timeit.start();
+    ai.ask(question)
+        .then((answer) => {
+            const elapsed = timeit.finish() / 1000;
+            ui.status.success(`AI response, took ${elapsed} sec:`);
+            ui.result.printMarkdown(answer);
+            btn.classList.remove("sqlime-disabled");
+        })
+        .catch((err) => {
+            ui.status.error(err);
+            ui.result.clear();
+            btn.classList.remove("sqlime-disabled");
+        });
+}
+
 // openUrl loads database from local or remote url
 function openUrl() {
     const url = prompt("Enter database file URL:", "https://path/to/database");
@@ -157,7 +186,7 @@ async function save() {
     storage.set(database.name, query);
     gister.reload();
     if (!gister.hasCredentials()) {
-        visit("settings");
+        visit(btn, "settings");
         return;
     }
     ui.status.info("Saving...");
@@ -292,7 +321,7 @@ function enableCommandBar() {
     ui.commandbar.classList.remove("sqlime-disabled");
 }
 
-function visit(page) {
+function visit(btn, page) {
     window.location.assign(`${page}.html`);
 }
 
@@ -351,15 +380,15 @@ function onActionClick(event) {
     if (event.target.tagName != "BUTTON") {
         return;
     }
-    const action = actions[event.target.dataset.action];
+    const btn = event.target;
+    const action = actions[btn.dataset.action];
     if (!action) {
         return;
     }
-    const arg = event.target.dataset.arg;
-    if (arg) {
-        action(arg);
+    if (btn.dataset.arg) {
+        action(btn, btn.dataset.arg);
     } else {
-        action();
+        action(btn);
     }
 }
 
