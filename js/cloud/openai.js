@@ -5,7 +5,7 @@ const HEADERS = {
 };
 
 const PROMPT =
-    "Your primary goal is to answer my questions. This may involve writing code or providing helpful information. Be detailed and thorough in your responses.";
+    "Your primary goal is to help me understand, write and debug SQL queries in the SQLite dialect. Be detailed and thorough in your responses.";
 
 const PARAMS = {
     temperature: 0.7,
