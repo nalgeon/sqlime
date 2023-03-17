@@ -15,6 +15,7 @@
     cursor: default;
 }
 .button:disabled:hover {
+    pointer-events: none;
     background: transparent;
     color: var(--sqlime-blue);
 }

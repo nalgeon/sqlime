@@ -21,6 +21,12 @@
     color: var(--sqlime-white);
 }
 
+.sqlime-commandbar > button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: default;
+}
+
 @media only screen and (min-width: 40rem) {
     .sqlime-commandbar {
         position: absolute;

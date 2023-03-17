@@ -119,7 +119,7 @@ async function start(name, path) {
 
 // executeCurrent runs the current SQL query
 function executeCurrent() {
-    execute(ui.editor.query);
+    return execute(ui.editor.query);
 }
 
 // execute runs SQL query on the database
@@ -130,7 +130,7 @@ function execute(sql) {
     if (!sql) {
         ui.status.info(MESSAGES.invite);
         ui.result.clear();
-        return;
+        return Promise.resolve();
     }
     try {
         ui.status.info(MESSAGES.executing);
@@ -138,36 +138,36 @@ function execute(sql) {
         const result = database.execute(sql);
         const elapsed = timeit.finish();
         showResult(result, elapsed);
+        return Promise.resolve();
     } catch (exc) {
         showError(exc);
+        return Promise.reject(exc);
     }
 }
 
 // askAi queries the AI assistant using the contents of the editor
 // as a query and prints the answer.
-function askAi(btn) {
+function askAi() {
     const key = localStorage.getItem("openai.apikey");
     if (!key) {
-        visit(btn, "settings");
-        return;
+        return visit("settings");
     }
     const ai = new OpenAI(key);
     const question = ui.editor.query;
-    btn.classList.add("sqlime-disabled");
     ui.status.loading("Waiting for AI response (can take up to 30 seconds)");
     timeit.start();
-    ai.ask(question)
+    const promise = ai
+        .ask(question)
         .then((answer) => {
             const elapsed = timeit.finish() / 1000;
             ui.status.success(`AI response, took ${elapsed} sec:`);
             ui.result.printMarkdown(answer);
-            btn.classList.remove("sqlime-disabled");
         })
         .catch((err) => {
             ui.status.error(err);
             ui.result.clear();
-            btn.classList.remove("sqlime-disabled");
         });
+    return promise;
 }
 
 // openUrl loads database from local or remote url
@@ -186,8 +186,7 @@ async function save() {
     storage.set(database.name, query);
     gister.reload();
     if (!gister.hasCredentials()) {
-        visit(btn, "settings");
-        return;
+        return visit("settings");
     }
     ui.status.info("Saving...");
     ui.result.clear();
@@ -195,15 +194,16 @@ async function save() {
         const savedDatabase = await manager.save(gister, database, query);
         if (!savedDatabase) {
             ui.status.error(`Failed to save database to ${gister.name}`);
-            return;
+            return Promise.reject();
         }
         database = savedDatabase;
     } catch (exc) {
         showError(`Failed to save database to ${gister.name}: ${exc}`);
-        return;
+        return Promise.reject(exc);
     }
     changeName(database.name);
     showSaved(database);
+    return Promise.resolve();
 }
 
 // changeName changes database name
@@ -236,18 +236,20 @@ function showTables() {
     const tables = database.gatherTables();
     if (!tables.length) {
         ui.status.info("Database is empty");
-        return;
+        return Promise.reject();
     }
     ui.status.info(`${tables.length} tables:`);
     ui.result.printTables(tables);
+    return Promise.resolve();
 }
 
 // showTable shows specific database table
-function showTable(btn, table) {
+function showTable(table) {
     const result = database.getTableInfo(table);
     const all = actionButton("showTables", "tables");
     ui.status.info(`${all} / ${table}:`);
     ui.result.print(result);
+    return Promise.resolve();
 }
 
 // showTableContent select data from specified table
@@ -260,6 +262,7 @@ function showTableContent(table) {
 // loadDemo loads demo database
 function loadDemo() {
     window.location.assign(DEMO_URL);
+    return Promise.resolve();
 }
 
 // showWelcome show the welcome message
@@ -321,8 +324,9 @@ function enableCommandBar() {
     ui.commandbar.classList.remove("sqlime-disabled");
 }
 
-function visit(btn, page) {
+function visit(page) {
     window.location.assign(`${page}.html`);
+    return Promise.resolve();
 }
 
 // User changed database name
@@ -380,16 +384,21 @@ function onActionClick(event) {
     if (event.target.tagName != "BUTTON") {
         return;
     }
+
     const btn = event.target;
     const action = actions[btn.dataset.action];
     if (!action) {
         return;
     }
-    if (btn.dataset.arg) {
-        action(btn, btn.dataset.arg);
-    } else {
-        action(btn);
-    }
+
+    btn.setAttribute("disabled", "");
+    action(btn.dataset.arg)
+        .then(() => {
+            btn.removeAttribute("disabled");
+        })
+        .catch(() => {
+            btn.removeAttribute("disabled");
+        });
 }
 
 shortcuts.listen("o", () => {

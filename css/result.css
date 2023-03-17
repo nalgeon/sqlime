@@ -41,6 +41,11 @@
     color: var(--sqlime-blue);
     font-size: 1em;
 }
+.sqlime-link:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: default;
+}
 
 .sqlime-spinner {
     display: inline-block;
