@@ -286,7 +286,8 @@ function showResult(result, elapsed) {
         ui.status.success(`${result.values.length} rows, took ${elapsed} ms`);
         ui.result.print(result);
     } else {
-        ui.status.success(`Took ${elapsed} ms`);
+        ui.status.success(`0 rows, took ${elapsed} ms`);
+        ui.result.print("");
     }
 }
 
