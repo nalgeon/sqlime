@@ -14,10 +14,13 @@ class SqlimeDb extends HTMLElement {
     constructor() {
         super();
         this.database = null;
+        this.loaded = false;
     }
 
     connectedCallback() {
         if (!this.loaded) {
+            this.path = new DatabasePath(this.getAttribute("path"));
+            this.name = this.getAttribute("name") || path.extractName();
             this.tryLoad();
         }
     }
@@ -26,31 +29,31 @@ class SqlimeDb extends HTMLElement {
     // If the global SQLite object is currently being initialized
     // by another SqlimeDb instance - sleeps for a while and tries again.
     async tryLoad() {
-        let retries = 3;
+        let retries = 5;
         while (retries > 0) {
-            const loaded = await this.load();
-            if (loaded) {
-                this.loaded = true;
+            this.loaded = await this.load();
+            if (this.loaded) {
                 return;
             }
             await sleep(1000);
             retries--;
         }
+        const err = "Timeout waiting for SQLite to load";
+        this.error(this.name, err);
     }
 
     // load loads the database from the specified path
     // and stores it in the global Sqlime window object
     // under the specified name.
+    // Returns false if the global SQLite object is not yet loaded,
+    // true otherwise.
     async load() {
-        const path = new DatabasePath(this.getAttribute("path"));
-        const name = this.getAttribute("name") || path.extractName();
-        this.loading(name);
-
+        this.loading(this.name);
         try {
-            const database = await manager.init(gister, name, path);
+            const database = await manager.init(gister, this.name, this.path);
             if (!database) {
-                const err = `Failed to load database from ${path}`;
-                this.error(name, err);
+                const err = `Failed to load database from ${this.path}`;
+                this.error(this.name, err);
                 console.error(err);
                 return true;
             }
@@ -60,7 +63,7 @@ class SqlimeDb extends HTMLElement {
             if (exc.message === "loading") {
                 return false;
             }
-            this.error(name, exc);
+            this.error(this.name, exc);
             throw exc;
         }
     }
