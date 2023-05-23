@@ -1,6 +1,6 @@
 {
     "name": "sqlime",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Online SQLite playground",
     "author": "Anton Zhiyanov",
     "license": "MIT",
