@@ -2,6 +2,9 @@
 
 // printResult converts SQL query results to an HTML table.
 function printResult(result) {
+    if (result === null) {
+        return "(empty)";
+    }
     const [columns, values] = [result.columns, result.values];
     let html = "<thead>" + join(columns, "th") + "</thead>";
     const rows = values.map(function (v) {
