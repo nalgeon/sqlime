@@ -15,7 +15,11 @@ const CONFIG = {
 // init loads a database from the specified path
 // using the SQLite WASM API.
 async function init(gister, name, path) {
+    if (sqlite3 === "loading") {
+        return Promise.reject(Error("loading"));
+    }
     if (sqlite3 === undefined) {
+        sqlite3 = "loading";
         sqlite3 = await sqlite3InitModule(CONFIG);
         const version = sqlite3.capi.sqlite3_libversion();
         console.log(`Loaded SQLite ${version}`);

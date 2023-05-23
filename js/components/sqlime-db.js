@@ -7,6 +7,9 @@ import { DatabasePath } from "../db-path.js";
 // Do not support loading databases from the cloud.
 const gister = null;
 
+// sleep sleeps asynchronously for a specified number of ms.
+const sleep = (ms = 0) => new Promise((resolve) => setTimeout(resolve, ms));
+
 class SqlimeDb extends HTMLElement {
     constructor() {
         super();
@@ -15,8 +18,23 @@ class SqlimeDb extends HTMLElement {
 
     connectedCallback() {
         if (!this.loaded) {
-            this.load();
-            this.loaded = true;
+            this.tryLoad();
+        }
+    }
+
+    // tryLoad tries to load the database.
+    // If the global SQLite object is currently being initialized
+    // by another SqlimeDb instance - sleeps for a while and tries again.
+    async tryLoad() {
+        let retries = 3;
+        while (retries > 0) {
+            const loaded = await this.load();
+            if (loaded) {
+                this.loaded = true;
+                return;
+            }
+            await sleep(1000);
+            retries--;
         }
     }
 
@@ -34,10 +52,14 @@ class SqlimeDb extends HTMLElement {
                 const err = `Failed to load database from ${path}`;
                 this.error(name, err);
                 console.error(err);
-                return;
+                return true;
             }
             this.success(database);
+            return true;
         } catch (exc) {
+            if (exc.message === "loading") {
+                return false;
+            }
             this.error(name, exc);
             throw exc;
         }
