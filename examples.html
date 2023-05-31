@@ -63,15 +63,15 @@ limit 5;</code></pre>
             </ol>
 
             <p>Include them from CDN or (better) download and host locally:</p>
-            <pre><code>&lt;script src="https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.js"&gt;&lt;/script&gt;
-&lt;script src="https://unpkg.com/sqlime@0.1.4/dist/sqlime-db.js"&gt;&lt;/script&gt;
-&lt;script src="https://unpkg.com/sqlime@0.1.4/dist/sqlime-examples.js"&gt;&lt;/script&gt;</code></pre>
+            <pre><code>&lt;script src="https://unpkg.com/@sqlite.org/sqlite-wasm/sqlite-wasm/jswasm/sqlite3.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/sqlime/dist/sqlime-db.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/sqlime/dist/sqlime-examples.js"&gt;&lt;/script&gt;</code></pre>
 
             <p>
                 You'll also need to download and serve the SQLite WASM file
                 if you're hosting locally:
             </p>
-            <pre><code>https://unpkg.com/@antonz/sqlite@3.40.0/dist/sqlite3.wasm</code></pre>
+            <pre><code>https://unpkg.com/@sqlite.org/sqlite-wasm/sqlite-wasm/jswasm/sqlite3.wasm</code></pre>
             <p>
                 <code>sqlite3.wasm</code> is used internally by the <code>sqlite3.js</code> script,
                 so place them in the same folder.
@@ -83,15 +83,8 @@ limit 5;</code></pre>
             </p>
 
             <p>You can install all of these using <code>npm</code>:</p>
-            <pre><code>npm install @antonz/sqlite
+            <pre><code>npm install @sqlite.org/sqlite-wasm
 npm install sqlime</code></pre>
-
-            <p>
-                <strong>Note</strong>. <code>@antonz/sqlite</code> is a copy of the official
-                <a href="https://sqlite.org/wasm">SQLite WASM</a> build,
-                provided as an NPM package for convenience.
-                You can download and use the build from the SQLite website if you prefer.
-            </p>
 
             <h3>2. Write an article as usual</h3>
             <p>Suppose you are writing a short post about ranking data in SQL:</p>
