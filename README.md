@@ -14,7 +14,9 @@ Here are some notable features:
 
 ### 🔋 Full-blown database in the browser
 
-Sqlime is backed by the latest version of SQLite via the [WASM](https://sqlite.org/wasm) subproject. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
+Sqlime is backed by the latest version of SQLite via the [sqlean.js](https://github.com/nalgeon/sqlean.js) project. It provides a full-featured SQL implementation, including indexes, triggers, views, transactions, CTEs, window functions and execution plans.
+
+It also includes essential SQLite extensions, from math statistics and regular expressions to hash functions and dynamic SQL.
 
 ### 🔌 Connect any data source
 
