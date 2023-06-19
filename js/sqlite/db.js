@@ -9,7 +9,9 @@ const DEFAULT_NAME = "new.db";
 const QUERIES = {
     version: "select sqlite_version() as version",
     tables: `select name as "table" from sqlite_schema
-      where type = 'table' and name not like 'sqlite_%'`,
+      where type = 'table'
+        and name not like 'sqlite_%'
+        and name not like 'sqlean_%'`,
     tableContent: "select * from {} limit 10",
     tableInfo: `select
       iif(pk=1, '✓', '') as pk, name, type, iif("notnull"=0, '✓', '') as "null?"
