@@ -4,6 +4,12 @@ const LONG_DELAY = 1000;
 const MEDIUM_DELAY = 500;
 const SMALL_DELAY = 100;
 
+const EMPTY_SCHEMA = `BEGIN TRANSACTION;
+PRAGMA writable_schema=ON;
+CREATE TABLE IF NOT EXISTS sqlean_define(name text primary key, type text, body text);
+PRAGMA writable_schema=OFF;
+COMMIT;`;
+
 async function testNewDatabase() {
     log("New database...");
     const app = await loadApp();
@@ -151,7 +157,7 @@ async function testSave() {
 
     mock(app.gister, "create", (name, schema, query) => {
         assert("before save: database name is not set", name == "new.db");
-        assert("before save: database schema is empty", schema == "");
+        assert("before save: database schema is empty", schema == EMPTY_SCHEMA);
         assert("before save: database query equals query text", query == sql);
         const gist = buildGist(name, schema, query);
         return Promise.resolve(gist);

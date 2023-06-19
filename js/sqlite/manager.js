@@ -160,6 +160,9 @@ async function save(gister, database, query) {
     }
     const oldHashcode = database.hashcode;
     database.gatherTables();
+    if (!database.tables.length && !query) {
+        return Promise.resolve(null);
+    }
     database.calcHashcode();
     database.ensureName();
     let promise;
