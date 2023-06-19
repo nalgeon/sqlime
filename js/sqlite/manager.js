@@ -33,6 +33,9 @@ async function init(gister, name, path) {
     if (path.type == "binary") {
         return await loadArrayBuffer(name, path);
     }
+    if (path.type == "sql") {
+        return await loadSqlScript(name, path);
+    }
     if (path.type == "id") {
         return await loadGist(gister, path);
     }
@@ -54,6 +57,22 @@ async function loadArrayBuffer(name, path) {
     path.value = null;
     const database = new SQLite(name, path, sqlite3.capi, db);
     database.gatherTables();
+    return database;
+}
+
+// loadSqlScript loads a database from a plain text SQL script.
+async function loadSqlScript(name, path) {
+    console.debug(`Loading SQL from script...`);
+    const sql = path.value;
+    if (!sql) {
+        return null;
+    }
+
+    const db = new sqlite3.oo1.DB();
+    const database = new SQLite(name, path, sqlite3.capi, db);
+    database.execute(sql);
+    database.gatherTables();
+    database.query = "";
     return database;
 }
 
@@ -102,6 +121,7 @@ async function loadSql(name, path) {
     const db = new sqlite3.oo1.DB();
     const database = new SQLite(name, path, sqlite3.capi, db);
     database.execute(sql);
+    database.gatherTables();
     database.query = "";
     return database;
 }

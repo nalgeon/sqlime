@@ -75,9 +75,9 @@ async function startFromUrl(url) {
 }
 
 // startFromFile loads existing database
-// from binary file
-async function startFromFile(file, contents) {
-    const path = new DatabasePath(contents);
+// from binary or sql file
+async function startFromFile(file, contents, fileType) {
+    const path = new DatabasePath(contents, fileType);
     const name = file.name;
     const success = await start(name, path);
     if (!success) {
@@ -342,11 +342,16 @@ ui.buttons.openFile.addEventListener("change", (event) => {
     }
     const file = event.target.files[0];
     const reader = new FileReader();
+    const fileType = file.name.endsWith(".sql") ? "sql" : "binary";
     reader.onload = function () {
         event.target.value = "";
-        startFromFile(file, reader.result);
+        startFromFile(file, reader.result, fileType);
     };
-    reader.readAsArrayBuffer(file);
+    if (fileType == "sql") {
+        reader.readAsText(file);
+    } else {
+        reader.readAsArrayBuffer(file);
+    }
 });
 
 // Toolbar 'open url' button click

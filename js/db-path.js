@@ -4,6 +4,7 @@
 //   - local (../data.db),
 //   - remote (https://domain.com/data.db)
 //   - binary (binary database content)
+//   - sql (sql script)
 //   - id (gist:02994fe7f2de0611726d61dbf26f46e4)
 //        (deta:yuiqairmb558)
 //   - empty
@@ -33,7 +34,7 @@ class DatabasePath {
 
     // extractName extracts the database name from the path.
     extractName() {
-        if (["binary", "id", "empty"].includes(this.type)) {
+        if (["binary", "sql", "id", "empty"].includes(this.type)) {
             return "";
         }
         const parts = this.value.split("/");
@@ -59,6 +60,8 @@ class DatabasePath {
             return `URL ${this.value}`;
         } else if (this.type == "binary") {
             return "binary value";
+        } else if (this.type == "sql") {
+            return "sql script";
         } else if (this.type == "id") {
             return `ID ${this.value}`;
         } else {
