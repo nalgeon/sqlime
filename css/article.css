@@ -66,3 +66,13 @@ table th:last-child {
     border: 1px solid #aaa;
     padding: 1rem 2rem;
 }
+
+.columns-3 {
+    columns: 2;
+}
+
+@media only screen and (min-width: 40rem) {
+    .columns-3 {
+        columns: 3;
+    }
+}

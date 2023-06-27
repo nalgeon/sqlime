@@ -274,8 +274,9 @@ function showWelcome() {
         const settings = actionButton("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
-    const about = actionButton("visit", "About Sqlime", "about");
-    message += `<p>${about}</p>`;
+    const functions = actionButton("visit", "Functions", "functions");
+    const about = actionButton("visit", "About", "about");
+    message += `<p>${functions} • ${about}</p>`;
     ui.status.info(message);
 }
 

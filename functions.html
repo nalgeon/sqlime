@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sqlime / Functions</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:site_name" content="Sqlime" />
+    <meta property="og:title" content="Sqlime - Online SQLite playground" />
+    <meta name="description" content="Sqlime is an online SQLite playground for debugging and sharing SQL snippets.">
+    <meta property="og:description"
+        content="Sqlime is an online SQLite playground for debugging and sharing SQL snippets." />
+    <meta property="og:url" content="https://sqlime.org/functions.html" />
+    <meta property="og:image" content="https://sqlime.org/img/cover.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="/img/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="stylesheet" href="css/awsm.css">
+    <link rel="stylesheet" href="css/article.css">
+</head>
+
+<body>
+    <header>
+        <h3>
+            <a class="logo" href="/">
+                <img src="/img/favicon-64x64.png">
+                sqlime
+            </a>
+        </h3>
+        <p>an online SQL playground</p>
+    </header>
+    <main>
+        <article>
+            <h1>Available SQL Functions</h1>
+            <p>
+                Sqlime offers both standard SQLite functions and many more from the
+                <a href="https://github.com/nalgeon/sqlean">Sqlean</a> project:
+            </p>
+            <p class="columns-3">
+                <a href="#general">general-purpose</a><br>
+                <a href="#date">date and time</a><br>
+                <a href="#math">math</a><br>
+                <a href="#aggregate">aggregate</a><br>
+                <a href="#window">window</a><br>
+                <a href="#crypto">encode/decode</a><br>
+                <a href="#define">dynamic SQL</a><br>
+                <a href="#fuzzy">fuzzy matching</a><br>
+                <a href="#ipaddr">IP addresses</a><br>
+                <a href="#regexp">regular expressions</a><br>
+                <a href="#stats">statistics</a><br>
+                <a href="#text">text</a><br>
+                <a href="#uuid">UUIDs</a><br>
+            </p>
+
+            <h5 id="general">General-purpose functions</h5>
+            <p class="columns-3">
+                <a href="https://sqlite.org/lang_corefunc.html#abs">abs</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#changes">changes</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#char">char</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#coalesce">coalesce</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#format">format</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#glob">glob</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#hex">hex</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#ifnull">ifnull</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#iif">iif</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#instr">instr</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#last_insert_rowid">last_insert_rowid</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#length">length</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#like">like</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#lower">lower</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#ltrim">ltrim</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#max">max</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#min">min</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#nullif">nullif</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#quote">quote</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#random">random</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#randomblob">randomblob</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#replace">replace</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#round">round</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#rtrim">rtrim</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#sign">sign</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#soundex">soundex</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#sqlite_version">sqlite_version</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#substr">substring</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#total_changes">total_changes</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#trim">trim</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#typeof">typeof</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#unhex">unhex</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#unicode">unicode</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#upper">upper</a><br>
+                <a href="https://sqlite.org/lang_corefunc.html#zeroblob">zeroblob</a><br>
+            </p>
+
+            <h5 id="date">Date and time functions</h5>
+            <p class="columns-3">
+                <a href="https://sqlite.org/lang_datefunc.html">date</a><br>
+                <a href="https://sqlite.org/lang_datefunc.html">time</a><br>
+                <a href="https://sqlite.org/lang_datefunc.html">datetime</a><br>
+                <a href="https://sqlite.org/lang_datefunc.html">julianday</a><br>
+                <a href="https://sqlite.org/lang_datefunc.html">unixepoch</a><br>
+                <a href="https://sqlite.org/lang_datefunc.html">strftime</a><br>
+            </p>
+
+            <h5 id="math">Math functions</h5>
+            <p class="columns-3">
+                <a href="https://sqlite.org/lang_mathfunc.html#acos">acos</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#acosh">acosh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#asin">asin</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#asinh">asinh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#atan">atan</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#atan2">atan2</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#atanh">atanh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#ceil">ceil</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#cos">cos</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#cosh">cosh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#degrees">degrees</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#exp">exp</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#floor">floor</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#ln">ln</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#log">log</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#log10">log10</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#log2">log2</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#mod">mod</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#pi">pi</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#pow">pow</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#radians">radians</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#sin">sin</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#sinh">sinh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#sqrt">sqrt</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#tan">tan</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#tanh">tanh</a><br>
+                <a href="https://sqlite.org/lang_mathfunc.html#trunc">trunc</a><br>
+            </p>
+
+            <h5 id="aggregate">Aggregate functions</h5>
+            <p class="columns-3">
+                <a href="https://sqlite.org/lang_aggfunc.html#avg">avg</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#count">count</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#group_concat">group_concat</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#max_agg">max</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#min_agg">min</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#sumunc">sum</a><br>
+                <a href="https://sqlite.org/lang_aggfunc.html#sumunc">total</a><br>
+            </p>
+
+            <h5 id="window">Window functions</h5>
+            <p class="columns-3">
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">avg</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">count</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">cume_dist</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">dense_rank</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">first_value</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">group_concat</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">lag</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">last_value</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">lead</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">max</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">min</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">nth_value</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">ntile</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">percent_rank</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">rank</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#built_in_window_functions">row_number</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">sum</a><br>
+                <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">total</a><br>
+            </p>
+
+            <h5 id="crypto">Encode/decode functions</h5>
+            <p class="columns-3">
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#encoding-and-decoding-functions">decode</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#encoding-and-decoding-functions">encode</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">md5</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha1</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha256</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha384</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha512</a><br>
+            </p>
+
+            <h5 id="define">Dynamic SQL</h5>
+            <p>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/define.md#scalar-functions">define</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/define.md#arbitrary-sql-statements">eval</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/define.md#scalar-functions">undefine</a>
+            </p>
+
+            <h5 id="fuzzy">Fuzzy string matching</h5>
+            <p class="columns-3">
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">caverphone</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">phonetic_hash</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">rsoundex</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">soundex</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">dlevenshtein</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">edit_distance</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">hamming</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">jaro_winkler</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">levenshtein</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">osa_distance</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#transliteration">translit</a><br>
+            </p>
+
+            <h5 id="ipaddr">IP address manipulation</h5>
+            <p class="columns-3">
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/ipaddr.md#ipcontainssubnet-ip">ipcontains</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/ipaddr.md#ipfamilyip">ipfamilyip</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/ipaddr.md#iphostip">iphost</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/ipaddr.md#ipmasklenip">ipmasklen</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/ipaddr.md#ipnetworkip">ipnetwork</a><br>
+            </p>
+
+            <h5 id="regexp">Regular expressions</h5>
+            <p class="columns-3">
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/regexp.md#regexp_capturesource-pattern--n">regexp_capture</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/regexp.md#regexp_likesource-pattern">regexp_like</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/regexp.md#regexp_replacesource-pattern-replacement">regexp_replace</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/regexp.md#regexp_substrsource-pattern">regexp_substr</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/regexp.md#regexp-statement">regexp</a><br>
+            </p>
+
+            <h5 id="stats">Mathematical Statistics</h5>
+            <p class="columns-3">
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#generate_seriesstart-stop-step">generate_series</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">median</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_25</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_75</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_90</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_95</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_99</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stddev_pop</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stddev</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">var_pop</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">variance</a><br>
+            </p>
+
+            <h5 id="text">Text functions</h5>
+            <p class="columns-3">
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_bitsizestr">text_bitsize</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_concatstr-">text_concat</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_containsstr-other">text_contains</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_countstr-other">text_count</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_has_prefixstr-other">text_has_prefix</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_has_suffixstr-other">text_has_suffix</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_indexstr-other">text_index</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_joinsep-str-">text_join</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_last_indexstr-other">text_last_index</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_leftstr-length">text_left</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_lengthstr">text_length</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_lpadstr-length-fill">text_lpad</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_ltrimstr-chars">text_ltrim</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_repeatstr-count">text_repeat</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_replacestr-old-new-count">text_replace</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_reversestr">text_reverse</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_rightstr-length">text_right</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_rpadstr-length-fill">text_rpad</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_rtrimstr-chars">text_rtrim</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_sizestr">text_size</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_slicestr-start-end">text_slice</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_splitstr-sep-n">text_split</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_substringstr-start-length">text_substring</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_translatestr-from-to">text_translate</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_trimstr-chars">text_trim</a><br>
+            </p>
+
+            <h5 id="uuid">Universally Unique IDentifiers</h5>
+            <p class="columns-3">
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/uuid.md#uuid_blobx">uuid_blob</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/uuid.md#uuid_strx">uuid_str</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/uuid.md#uuid4">uuid4</a><br>
+            </p>
+
+            <p><a href="/">← back</a></p>
+        </article>
+    </main>
+    <footer>
+        SQL for the win!
+    </footer>
+</body>
+
+</html>
