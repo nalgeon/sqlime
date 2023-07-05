@@ -388,11 +388,14 @@ ui.editor.addEventListener("start", (event) => {
 // onActionClick executes an action
 // according to the button clicked
 function onActionClick(event) {
-    if (event.target.tagName != "BUTTON") {
+    const btn =
+        event.target.tagName == "BUTTON"
+            ? event.target
+            : event.target.parentElement;
+    if (btn.tagName != "BUTTON") {
         return;
     }
 
-    const btn = event.target;
     const action = actions[btn.dataset.action];
     if (!action) {
         return;

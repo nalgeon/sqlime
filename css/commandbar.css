@@ -27,6 +27,13 @@
     cursor: default;
 }
 
+.sqlime-commandbar img,
+.sqlime-commandbar svg {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1rem;
+}
+
 @media only screen and (min-width: 40rem) {
     .sqlime-commandbar {
         position: absolute;
