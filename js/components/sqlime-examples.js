@@ -4,6 +4,34 @@
 
 import printer from "../printer.js";
 
+// SqlimeOutput prints the output of an interactive SQL example.
+class SqlimeOutput extends HTMLElement {
+    // fadeOut slightly fades out the output.
+    fadeOut() {
+        this.style.opacity = 0.4;
+    }
+
+    // fadeIn fades the output back in.
+    fadeIn() {
+        setTimeout(() => {
+            this.style.opacity = "";
+        }, 100);
+    }
+
+    // showResult renders the results of the SQL query.
+    showResult(result) {
+        this.style.display = "block";
+        this.innerHTML = printer.printResult(result);
+    }
+
+    // showMessage shows the message.
+    showMessage(msg) {
+        this.style.display = "block";
+        this.innerHTML = msg;
+    }
+}
+
+// SqlimeExamples initializes interactive SQL examples.
 class SqlimeExamples extends HTMLElement {
     constructor() {
         super();
@@ -44,13 +72,13 @@ class SqlimeExamples extends HTMLElement {
 
     // init converts the specified element into an executable example.
     init(el) {
-        const resultsEl = document.createElement("div");
-        resultsEl.style.display = "none";
+        const outputEl = document.createElement("sqlime-output");
+        outputEl.style.display = "none";
 
         const runEl = document.createElement("button");
         runEl.innerHTML = "Run";
         runEl.addEventListener("click", (e) => {
-            this.execute(el.innerText, resultsEl);
+            this.execute(el.innerText, outputEl);
         });
 
         const commandsEl = document.createElement("div");
@@ -59,11 +87,11 @@ class SqlimeExamples extends HTMLElement {
         const exampleEl = document.createElement("div");
         exampleEl.className = "sqlime-example";
         exampleEl.appendChild(commandsEl);
-        exampleEl.appendChild(resultsEl);
+        exampleEl.appendChild(outputEl);
 
         el.insertAdjacentElement("afterend", exampleEl);
 
-        const example = { commandsEl, resultsEl };
+        const example = { commandsEl, outputEl };
         this.examples.push(example);
         return example;
     }
@@ -78,7 +106,7 @@ class SqlimeExamples extends HTMLElement {
                 return true;
             }
             if (event.keyCode == 10 || event.keyCode == 13) {
-                this.execute(el.innerText, example.resultsEl);
+                this.execute(el.innerText, example.outputEl);
                 return false;
             }
             return true;
@@ -98,19 +126,21 @@ class SqlimeExamples extends HTMLElement {
         });
     }
 
-    // execute runs SQL query on the database,
-    // showing results inside the target element.
-    execute(sql, targetEl) {
+    // execute runs SQL query on the database and shows the results.
+    execute(sql, outputEl) {
         sql = sql.trim();
         if (!sql) {
-            this.showMessage(targetEl, "");
+            outputEl.showMessage("");
             return;
         }
         try {
+            outputEl.fadeOut();
             const result = this.getDatabase().execute(sql);
-            this.showResult(targetEl, result);
+            outputEl.showResult(result);
         } catch (exc) {
-            this.showMessage(targetEl, exc);
+            outputEl.showMessage(exc);
+        } finally {
+            outputEl.fadeIn();
         }
     }
 
@@ -141,21 +171,10 @@ class SqlimeExamples extends HTMLElement {
         }
         return window.Sqlime.db[name];
     }
-
-    // showResult renders the results of the SQL query inside the target element.
-    showResult(targetEl, result) {
-        targetEl.style.display = "";
-        targetEl.innerHTML = printer.printResult(result);
-    }
-
-    // showMessage shows the message inside the target element.
-    showMessage(targetEl, msg) {
-        targetEl.style.display = "";
-        targetEl.innerHTML = msg;
-    }
 }
 
 if (!window.customElements.get("sqlime-examples")) {
     window.SqlimeExamples = SqlimeExamples;
     customElements.define("sqlime-examples", SqlimeExamples);
+    customElements.define("sqlime-output", SqlimeOutput);
 }

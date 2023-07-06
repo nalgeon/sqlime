@@ -142,6 +142,7 @@ function execute(sql) {
         return Promise.resolve();
     }
     try {
+        ui.status.fadeOut();
         ui.status.info(MESSAGES.executing);
         timeit.start();
         const result = database.execute(sql);
@@ -151,6 +152,8 @@ function execute(sql) {
     } catch (exc) {
         showError(exc);
         return Promise.reject(exc);
+    } finally {
+        ui.status.fadeIn();
     }
 }
 

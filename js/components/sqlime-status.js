@@ -38,6 +38,18 @@ class SqlimeStatus extends HTMLElement {
         this.value = message;
     }
 
+    // fadeOut slightly fades out the element.
+    fadeOut() {
+        this.style.opacity = 0.4;
+    }
+
+    // fadeIn fades the element back in.
+    fadeIn() {
+        setTimeout(() => {
+            this.style.opacity = "";
+        }, 100);
+    }
+
     get value() {
         return this.el.innerText;
     }
