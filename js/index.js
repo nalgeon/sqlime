@@ -2,12 +2,13 @@
 
 import gister from "./cloud.js";
 import locator from "./locator.js";
-import shortcuts from "./shortcuts.js";
 import manager from "./sqlite/manager.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
 
 import { actionButton } from "./components/action-button.js";
+import { ActionController } from "./controllers/actions.js";
+import { ShortcutController } from "./controllers/shortcuts.js";
 import { DatabasePath } from "./db-path.js";
 import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite/db.js";
 import { OpenAI } from "./cloud/openai.js";
@@ -36,6 +37,15 @@ const actions = {
     showTables: showTables,
     showTable: showTable,
     visit: visit,
+};
+
+const shortcuts = {
+    o: () => {
+        ui.buttons.openFile.click();
+    },
+    u: openUrl,
+    s: save,
+    "/": showTables,
 };
 
 const DEMO_URL = "#demo.db";
@@ -380,43 +390,9 @@ ui.editor.addEventListener("start", (event) => {
     enableCommandBar();
 });
 
-// User clicked an action button
-[ui.commandbar, ui.status, ui.result].forEach((el) => {
-    el.addEventListener("click", onActionClick);
-});
-
-// onActionClick executes an action
-// according to the button clicked
-function onActionClick(event) {
-    const btn =
-        event.target.tagName == "BUTTON"
-            ? event.target
-            : event.target.parentElement;
-    if (btn.tagName != "BUTTON") {
-        return;
-    }
-
-    const action = actions[btn.dataset.action];
-    if (!action) {
-        return;
-    }
-
-    btn.setAttribute("disabled", "");
-    action(btn.dataset.arg)
-        .then(() => {
-            btn.removeAttribute("disabled");
-        })
-        .catch(() => {
-            btn.removeAttribute("disabled");
-        });
-}
-
-shortcuts.listen("o", () => {
-    ui.buttons.openFile.click();
-});
-shortcuts.listen("u", openUrl);
-shortcuts.listen("s", save);
-shortcuts.listen("/", showTables);
+// Handle user actions
+new ActionController(actions).listen(ui.commandbar, ui.status, ui.result);
+new ShortcutController(shortcuts).listen(document);
 
 gister.loadCredentials();
 startFromCurrentUrl();
