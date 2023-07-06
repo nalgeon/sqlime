@@ -38,14 +38,7 @@
                 <span>SQLite Playground</span> &nbsp;//
                 <db-name id="db-name" class="db-name"></db-name>
             </h1>
-            <div class="toolbar hidden-mobile">
-                <label title="⌃O or ⌘O" class="button button--small">
-                    open file <input type="file" id="open-file">
-                </label>
-                <button id="open-url" title="⌃U or ⌘U" class="button button--small">open url</button>
-                <a href="settings.html" class="button button--small">✎ settings</a>
-                <a href="about.html" class="button button--small button-help">?</a>
-            </div>
+            <tool-bar id="toolbar" class="toolbar hidden-mobile"></tool-bar>
         </header>
 
         <link rel="stylesheet" href="css/editor.css">
@@ -66,6 +59,7 @@
     <script src="./js/sqlite/sqlite3.js"></script>
     <script type="module" src="js/components/copy-link.js"></script>
     <script type="module" src="js/components/db-name.js"></script>
+    <script type="module" src="js/components/toolbar.js"></script>
     <script type="module" src="js/components/command-bar.js"></script>
     <script type="module" src="js/components/sqlime-editor.js"></script>
     <script type="module" src="js/components/sqlime-result.js"></script>

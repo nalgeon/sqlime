@@ -15,14 +15,13 @@ import { OpenAI } from "./cloud/openai.js";
 
 const ui = {
     buttons: {
-        openFile: document.querySelector("#open-file"),
-        openUrl: document.querySelector("#open-url"),
         reset: document.querySelector("#reset"),
         execute: document.querySelector("#execute"),
         save: document.querySelector("#save"),
         showTables: document.querySelector("#show-tables"),
     },
     name: document.querySelector("#db-name"),
+    toolbar: document.querySelector("#toolbar"),
     commandbar: document.querySelector("#commandbar"),
     editor: document.querySelector("#editor"),
     status: document.querySelector("#status"),
@@ -41,7 +40,7 @@ const actions = {
 
 const shortcuts = {
     o: () => {
-        ui.buttons.openFile.click();
+        ui.toolbar.btnOpenFile.click();
     },
     u: openUrl,
     s: save,
@@ -347,11 +346,8 @@ ui.name.addEventListener("change", (event) => {
 });
 
 // Toolbar 'open file' button click
-ui.buttons.openFile.addEventListener("change", (event) => {
-    if (!event.target.files.length) {
-        return;
-    }
-    const file = event.target.files[0];
+ui.toolbar.addEventListener("open-file", (event) => {
+    const file = event.detail;
     const reader = new FileReader();
     const fileType = file.name.endsWith(".sql") ? "sql" : "binary";
     reader.onload = function () {
@@ -366,7 +362,7 @@ ui.buttons.openFile.addEventListener("change", (event) => {
 });
 
 // Toolbar 'open url' button click
-ui.buttons.openUrl.addEventListener("click", () => {
+ui.toolbar.addEventListener("open-url", () => {
     openUrl();
 });
 

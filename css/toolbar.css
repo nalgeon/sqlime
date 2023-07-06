@@ -18,6 +18,12 @@
     font-weight: bold;
 }
 
+.toolbar svg {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1rem;
+}
+
 .toolbar a,
 .toolbar label {
     display: inline-block;
