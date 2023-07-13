@@ -142,6 +142,6 @@ Last but not least:
 
 **⭐️ Star the project** if you like it
 
-[**🚀 Follow @ohmypy**](https://twitter.com/ohmypy) on Twitter to keep up with new features
+[**🚀 Subscribe**](https://antonz.org/subscribe/) to stay on top of new features
 
 [**🍋 Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets
