@@ -2,6 +2,8 @@
 
 **[Sqlime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
+🌟 **New!** Turn static SQL code in your articles into [interactive examples](https://codapi.org/sqlite/).
+
 <a href="https://sqlime.org/">
     <img src="./img/sqlime.jpg" alt="Sqlime" width="600">
 </a>
