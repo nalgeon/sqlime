@@ -1,5 +1,7 @@
 # Interactive SQL Examples in JavaScript
 
+_This was my early attempt to provide interactive SQL snippets in the browser. Later, I created [Codapi](https://codapi.org/) — an open-source tool for embedding interactive code examples into any kind of technical writing. Give it a try!_
+
 Reading about SQL is fun, but trying out live examples is even better! With Sqlime JavaScript widgets, you can turn static SQL code in your articles into interactive examples.
 
 Widgets are an independent part of the Sqlime project — they have zero dependencies on the Sqlime itself.
@@ -25,7 +27,7 @@ It looks something like this:
 └────┴───────┴────────┴────────────┴────────┘
 ```
 
-Here is a [working example](https://sqlime.org/employees.html). Give it a try.
+Here is a [working example](https://sqlime.org/employees.html).
 
 And here are the four steps to creating executable SQL examples in your own articles or documentation:
 
@@ -142,6 +144,6 @@ Last but not least:
 
 **⭐️ Star the project** if you like it
 
-[**🚀 Subscribe**](https://antonz.org/subscribe/) to stay on top of new features
+🚀 [**Subscribe**](https://antonz.org/subscribe/) to stay on top of new features
 
-[**🍋 Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets
+🍋 [**Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets

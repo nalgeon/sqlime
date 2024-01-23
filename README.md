@@ -2,10 +2,6 @@
 
 **[Sqlime](http://sqlime.org/)** is an online SQLite playground for debugging and sharing SQL snippets. Kinda like JSFiddle, but for SQL instead of JavaScript.
 
-🌟 **New!** [Ask AI](#-ask-ai) for help with your queries.
-
-🌟 **New!** Turn static SQL code in your articles into [interactive examples](./examples.md).
-
 <a href="https://sqlime.org/">
     <img src="./img/sqlime.jpg" alt="Sqlime" width="600">
 </a>
@@ -34,11 +30,6 @@ Connect an OpenAI account to get help with your queries from the state-of-the-ar
 
 <img src="./img/sqlime-ai.jpg" alt="Ask AI" width="600">
 
-### ✨ Interactive examples
-
-With Sqlime JavaScript widgets, you can turn static SQL code in your articles or documentation into
-[interactive examples](./examples.md).
-
 ### 📱 Mobile friendly
 
 Most playgrounds are not meant for small screens. Sqlime was specifically designed and tested on mobile devices. No need to zoom or aim at tiny buttons — everything looks and works just fine.
@@ -55,6 +46,6 @@ Sqlime has zero third-party dependencies other than SQLite. Good old HTML, CSS, 
 
 **⭐️ Star the project** if you like it
 
-[**🚀 Subscribe**](https://antonz.org/subscribe/) to stay on top of new features
+🚀 [**Subscribe**](https://antonz.org/subscribe/) to stay on top of new features
 
-[**🍋 Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets
+🍋 [**Use Sqlime**](https://sqlime.org/) to debug and share SQL snippets
