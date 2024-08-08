@@ -171,22 +171,18 @@
                 <a href="https://sqlite.org/windowfunctions.html#aggregate_window_functions">total</a><br>
             </p>
 
-            <h5 id="crypto">Encode/decode functions</h5>
+            <h5 id="crypto">Encode/decode/digest functions</h5>
             <p class="columns-3">
                 <a
                     href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#encoding-and-decoding-functions">decode</a><br>
                 <a
                     href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#encoding-and-decoding-functions">encode</a><br>
-                <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">md5</a><br>
-                <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha1</a><br>
-                <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha256</a><br>
-                <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha384</a><br>
-                <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#hashing-and-message-digest-functions">sha512</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_blake3">crypto_blake3</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_md5">crypto_md5</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_sha1">crypto_sha1</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_sha256">crypto_sha256</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_sha384">crypto_sha384</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/crypto.md#crypto_sha512">crypto_sha512</a><br>
             </p>
 
             <h5 id="define">Dynamic SQL</h5>
@@ -199,21 +195,21 @@
 
             <h5 id="fuzzy">Fuzzy string matching</h5>
             <p class="columns-3">
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">caverphone</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">phonetic_hash</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">rsoundex</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#phonetic-codes">soundex</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_caver">fuzzy_caver</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_damlev">fuzzy_damlev</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">dlevenshtein</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_editdist">fuzzy_editdist</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_hamming">fuzzy_hamming</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_jarowin">fuzzy_jarowin</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_leven">fuzzy_leven</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_osadist">fuzzy_osadist</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">edit_distance</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">hamming</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_phonetic">fuzzy_phonetic</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">jaro_winkler</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">levenshtein</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_rsoundex">fuzzy_rsoundex</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#fuzzy_soundex">fuzzy_soundex</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#string-distances">osa_distance</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#transliteration">translit</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/fuzzy.md#transliteration">fuzzy_translit</a><br>
             </p>
 
             <h5 id="ipaddr">IP address manipulation</h5>
@@ -239,25 +235,28 @@
             <h5 id="stats">Mathematical Statistics</h5>
             <p class="columns-3">
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#generate_series">generate_series</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">median</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_median</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_25</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_p25</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_75</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_p75</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_90</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_p90</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_95</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_p95</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile_99</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_p99</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">percentile</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_perc</a><br>
                 <a
-                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stddev_pop</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stddev</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">var_pop</a><br>
-                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">variance</a><br>
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_stddev_pop</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_stddev</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_var_pop</a><br>
+                <a
+                    href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#aggregate-functions">stats_var</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/stats.md#stats_seq">stats_seq</a><br>
             </p>
 
             <h5 id="text">Text functions</h5>
@@ -276,6 +275,8 @@
                     href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_last_index">text_last_index</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_left">text_left</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_length">text_length</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_like">text_like</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_lower">text_lower</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_lpad">text_lpad</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_ltrim">text_ltrim</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_repeat">text_repeat</a><br>
@@ -288,8 +289,10 @@
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_slice">text_slice</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_split">text_split</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_substring">text_substring</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_title">text_title</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_translate">text_translate</a><br>
                 <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_trim">text_trim</a><br>
+                <a href="https://github.com/nalgeon/sqlean/blob/main/docs/text.md#text_upper">text_upper</a><br>
             </p>
 
             <h5 id="uuid">Universally Unique IDentifiers</h5>
