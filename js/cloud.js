@@ -1,13 +1,10 @@
 // Cloud Storage API Facade.
 
-// Chooses Github Gist API for users with credentials,
-// otherwise falls back to Deta Base API.
+// Uses Github Gist API for users with credentials.
 
-import deta from "./cloud/deta.js";
 import github from "./cloud/github.js";
 
 const PROVIDERS = {
-    [deta.prefix]: deta,
     [github.prefix]: github,
 };
 
@@ -39,15 +36,10 @@ class Gister {
         return this._provider;
     }
 
-    // reload chooses GitHub as a provider
-    // if the credentials are available, otherwise chooses Deta.
+    // reload chooses GitHub as a provider.
     reload() {
         github.loadCredentials();
-        if (github.hasCredentials()) {
-            this._provider = github;
-        } else {
-            this._provider = deta;
-        }
+        this._provider = github;
     }
 
     // loadCredentials loads credentials from the local storage.
@@ -68,7 +60,7 @@ class Gister {
 
     // get returns a gist by its id.
     // Uses the provider specified in the path value,
-    // e.g. 'gist:12345' or 'deta:54321'.
+    // e.g. 'gist:12345'.
     get(pathValue) {
         const [prefix, id] = pathValue.split(":");
         const provider = PROVIDERS[prefix];

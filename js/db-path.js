@@ -6,7 +6,6 @@
 //   - binary (binary database content)
 //   - sql (sql script)
 //   - id (gist:02994fe7f2de0611726d61dbf26f46e4)
-//        (deta:yuiqairmb558)
 //   - empty
 
 class DatabasePath {
