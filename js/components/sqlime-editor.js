@@ -12,6 +12,7 @@ class SqlimeEditor extends HTMLElement {
 
     render() {
         this.contentEditable = "true";
+        this.spellcheck = false;
     }
 
     listen() {
