@@ -36,6 +36,7 @@ const actions = {
     showTables: showTables,
     showTable: showTable,
     visit: visit,
+    downloadSnippet: downloadSnippet,
 };
 
 const shortcuts = {
@@ -155,6 +156,19 @@ function execute(sql) {
     } finally {
         ui.status.fadeIn();
     }
+}
+
+// Downloads the current snippet as a .sql file, with DB name and
+// the current time
+function downloadSnippet(){
+		const anchorBlob = document.createElement('a');
+		const textBlob = new Blob([ui.editor.query], {type: 'text/plain'});
+		anchorBlob.href = window.URL.createObjectURL(textBlob);
+		//make filenames shell- and fs-friendly
+		anchorBlob.download = `${ui.name.value}_${(new Date()).toISOString().replaceAll(':', '_')}.sql`;
+		anchorBlob.click();
+		console.log(ui);
+		return Promise.resolve();
 }
 
 // askAi queries the AI assistant using the contents of the editor
