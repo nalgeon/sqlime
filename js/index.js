@@ -5,6 +5,7 @@ import locator from "./locator.js";
 import manager from "./sqlite/manager.js";
 import storage from "./storage.js";
 import timeit from "./timeit.js";
+import dumper from "./sqlite/dumper.js";
 
 import { actionButton } from "./components/action-button.js";
 import { ActionController } from "./controllers/actions.js";
@@ -162,7 +163,9 @@ function execute(sql) {
 // the current time
 function downloadSnippet(){
 		const anchorBlob = document.createElement('a');
-		const textBlob = new Blob([ui.editor.query], {type: 'text/plain'});
+		const dump = dumper.toSql(database, ui.editor.query);
+		const query = ui.editor.query;
+		const textBlob = new Blob([`${dump}\n${query}`], {type: 'text/plain'});
 		anchorBlob.href = window.URL.createObjectURL(textBlob);
 		//make filenames shell- and fs-friendly
 		anchorBlob.download = `${ui.name.value}_${(new Date()).toISOString().replaceAll(':', '_')}.sql`;
