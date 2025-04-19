@@ -16,14 +16,11 @@
     font-family: var(--sqlime-monospace);
 }
 
-.sqlime-result table th {
-    border-bottom: 1px solid var(--sqlime-gray);
+.sqlime-result table th,
+.sqlime-result table td {
+    border: 1px solid var(--sqlime-gray);
     padding: 0.25rem 0.5rem;
     text-align: left;
-}
-
-.sqlime-result table td {
-    padding: 0.25rem 0.5rem;
 }
 
 .sqlime-result pre {
