@@ -30,11 +30,6 @@ function printTables(tables) {
     return `<table>${html}</table>`;
 }
 
-// printMarkdown prints the specified markdown text.
-function printMarkdown(text) {
-    return `<pre>${text}</pre>`;
-}
-
 // join joins the values, wrapping each one into a tag.
 function join(values, tagName) {
     if (values.length === 0) {
@@ -52,5 +47,5 @@ function sanitize(text) {
     return div.innerHTML;
 }
 
-const printer = { printMarkdown, printResult, printTables };
+const printer = { printResult, printTables };
 export default printer;

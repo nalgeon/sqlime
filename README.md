@@ -22,19 +22,13 @@ Sqlime saves both the database and the queries to GitHub so that you can revisit
 
 For example, here is the [gist](https://gist.github.com/nalgeon/e012594111ce51f91590c4737e41a046) for the Employees database, and here is the [sharing link](https://sqlime.org/#gist:e012594111ce51f91590c4737e41a046) for it.
 
-### 🤖 Ask AI
-
-Connect an OpenAI account to get help with your queries from the state-of-the-art ChatGPT assistant. AI can explain, teach, and troubleshoot your SQL.
-
-<img src="./img/sqlime-ai.jpg" alt="Ask AI" width="600">
-
 ### 📱 Mobile friendly
 
 Most playgrounds are not meant for small screens. Sqlime was specifically designed and tested on mobile devices. No need to zoom or aim at tiny buttons — everything looks and works just fine.
 
 ### 🔒 Secure and private
 
-There is no server. Sqlime works completely in the browser. GitHub and OpenAI credentials are also stored locally. Queries are saved as private GitHub gists within your account. Your data is yours only.
+There is no server. Sqlime works completely in the browser. GitHub credentials are also stored locally. Queries are saved as private GitHub gists within your account. Your data is yours only.
 
 ### ⌨️ Dead simple
 

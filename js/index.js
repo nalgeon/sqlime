@@ -11,7 +11,6 @@ import { ActionController } from "./controllers/actions.js";
 import { ShortcutController } from "./controllers/shortcuts.js";
 import { DatabasePath } from "./db-path.js";
 import { DEFAULT_NAME, MESSAGES, QUERIES } from "./sqlite/db.js";
-import { OpenAI } from "./cloud/openai.js";
 
 const ui = {
     buttons: {
@@ -29,7 +28,6 @@ const ui = {
 };
 
 const actions = {
-    askAi: askAi,
     executeCurrent: executeCurrent,
     loadDemo: loadDemo,
     save: save,
@@ -155,31 +153,6 @@ function execute(sql) {
     } finally {
         ui.status.fadeIn();
     }
-}
-
-// askAi queries the AI assistant using the contents of the editor
-// as a query and prints the answer.
-function askAi() {
-    const key = localStorage.getItem("openai.apikey");
-    if (!key) {
-        return visit("settings");
-    }
-    const ai = new OpenAI(key);
-    const question = ui.editor.query;
-    ui.status.loading("Waiting for AI response (can take up to 30 seconds)");
-    timeit.start();
-    const promise = ai
-        .ask(question)
-        .then((answer) => {
-            const elapsed = timeit.finish() / 1000;
-            ui.status.success(`AI response, took ${elapsed} sec:`);
-            ui.result.printMarkdown(answer);
-        })
-        .catch((err) => {
-            ui.status.error(err);
-            ui.result.clear();
-        });
-    return promise;
 }
 
 // openUrl loads database from local or remote url
