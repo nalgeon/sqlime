@@ -1,7 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background: var(--sqlime-light-gray);
+    background: var(--sqlime-background);
+    color: var(--sqlime-text);
     font-family: var(--sqlime-sans);
 }
 

@@ -11,7 +11,7 @@
     width: 100%;
     min-height: 5rem;
     border-top: 1px solid var(--sqlime-gray);
-    background: var(--sqlime-white);
+    background: var(--sqlime-surface);
     padding: 0.5rem 1rem;
     white-space: pre-wrap;
     font-family: var(--sqlime-monospace);

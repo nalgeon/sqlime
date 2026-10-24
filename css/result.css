@@ -12,7 +12,7 @@
     width: 100%;
     border: 1px solid var(--sqlime-gray);
     border-collapse: collapse;
-    background: var(--sqlime-white);
+    background: var(--sqlime-surface);
     font-family: var(--sqlime-monospace);
 }
 

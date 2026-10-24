@@ -863,3 +863,80 @@ noscript {
 ::selection {
     background: rgba(0, 100, 193, 0.25);
 }
+
+/* Sqlime: dark mode */
+:root {
+    color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+    html,
+    table caption,
+    button,
+    select,
+    input[type],
+    textarea {
+        background-color: #181818;
+        color: #e6e6e6;
+    }
+    a,
+    nav a:visited {
+        color: #4da3ff;
+    }
+    a:visited {
+        color: #b98cf0;
+    }
+    a:hover,
+    nav a:hover,
+    article header h2 a:visited:hover {
+        color: #ff5c5c;
+    }
+    article header h2 a,
+    h1 > a[href^="#"][id]:empty:target,
+    h1 > a[href^="#"][id]:empty:hover,
+    h1 > a[href^="#"][id]:empty:focus,
+    h2 > a[href^="#"][id]:empty:target,
+    h2 > a[href^="#"][id]:empty:hover,
+    h2 > a[href^="#"][id]:empty:focus,
+    h3 > a[href^="#"][id]:empty:target,
+    h3 > a[href^="#"][id]:empty:hover,
+    h3 > a[href^="#"][id]:empty:focus {
+        color: #e6e6e6;
+    }
+    table th,
+    aside,
+    details[open] {
+        border-color: #333;
+    }
+    table th {
+        background-image: none;
+    }
+    pre > code {
+        border-color: #181818;
+    }
+    hr,
+    button:hover,
+    select:hover,
+    input[type="submit"]:not([disabled]):hover,
+    input[type="button"]:not([disabled]):hover,
+    input[type="reset"]:not([disabled]):hover,
+    input[type="file"]:not([disabled]):hover {
+        background-color: #2a2a2a;
+        color: #e6e6e6;
+    }
+    button:focus,
+    button:not([disabled]):hover,
+    select:focus,
+    select:not([disabled]):hover,
+    input[type]:focus,
+    input[type]:not([disabled]):hover,
+    textarea:focus {
+        border-color: #e6e6e6;
+    }
+    select,
+    select:not([disabled]):hover {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Cpath fill='rgb(170, 170, 170)' fill-rule='nonzero' d='M1.5 2L3 0H0z'/%3E%3C/svg%3E");
+    }
+    ::selection {
+        background: rgba(77, 163, 255, 0.35);
+    }
+}

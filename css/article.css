@@ -76,3 +76,15 @@ table th:last-child {
         columns: 3;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    pre {
+        background: #222;
+    }
+    table {
+        border-color: #333;
+    }
+    .bordered {
+        border-color: #555;
+    }
+}

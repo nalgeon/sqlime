@@ -5,11 +5,25 @@
     --sqlime-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo,
         Courier, monospace;
     --sqlime-blue: #008bf5;
-    --sqlime-light-gray: #fafafa;
     --sqlime-dark-gray: #aaa;
     --sqlime-gray: #ccc;
     --sqlime-red: red;
     --sqlime-white: #fff;
+    --sqlime-text: #000;
+    --sqlime-background: #fafafa;
+    --sqlime-surface: #fff;
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --sqlime-dark-gray: #888;
+        --sqlime-gray: #444;
+        --sqlime-red: #ff5c5c;
+        --sqlime-text: #e6e6e6;
+        --sqlime-background: #181818;
+        --sqlime-surface: #222;
+    }
 }
 *,
 *::before,
