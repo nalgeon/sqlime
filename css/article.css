@@ -1,54 +1,185 @@
+/* Styles for the static pages (about, settings). */
+
+:root {
+    --article-text: #000;
+    --article-background: #fff;
+    --article-muted: #aaa;
+    --article-border: #f2f2f2;
+    --article-link: #0064c1;
+    --article-visited: #8d39d0;
+    --article-hover: #f00000;
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --article-text: #e6e6e6;
+        --article-background: #181818;
+        --article-border: #333;
+        --article-link: #4da3ff;
+        --article-visited: #b98cf0;
+        --article-hover: #ff5c5c;
+    }
+}
+
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif;
+    line-height: 1.4;
+    background: var(--article-background);
+    color: var(--article-text);
+}
+
 body {
+    margin: 1.2em;
+    font-size: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+@media (min-width: 20rem) {
+    body {
+        font-size: calc(1rem + 0.00625 * (100vw - 20rem));
+    }
+}
+
+@media (min-width: 40rem) {
+    body {
+        font-size: 1.125rem;
+    }
+}
+
+body > header,
+body > main,
+body > footer {
+    max-width: 40rem;
+    margin: 0 auto;
+}
+
+body > header {
+    margin-bottom: 3.5em;
+}
+
+body > header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+body > header p {
+    margin: 0;
+    font-size: 0.85em;
+}
+
+body > footer {
+    margin-top: 6em;
+    padding-bottom: 1.5em;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--article-muted);
+}
+
 h1 {
     margin-bottom: 1rem;
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+p {
+    margin: 1em 0;
 }
 
 a {
+    color: var(--article-link);
     text-decoration: none;
 }
 
-pre {
-    padding: 0.5rem 1rem;
-    font-size: 1em;
-    background: #f5f5f5;
+a:visited {
+    color: var(--article-visited);
 }
 
-pre > code {
-    display: inline;
-    border-left: none;
-    border-right: none;
+a:hover {
+    color: var(--article-hover);
 }
 
-code {
-    font-size: 0.85em;
+img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+figure {
+    margin: 1em 0 0.5em;
+    padding: 0;
 }
 
 figcaption {
     text-align: center;
+    opacity: 0.65;
+    font-size: 0.85em;
+}
+
+code {
+    font-family: Consolas, "Lucida Console", Monaco, monospace;
+    font-size: 0.85em;
 }
 
 table {
-    background: none !important;
-    border-top: 1px solid #f2f2f2;
-    border-right: 1px solid #f2f2f2;
-    border-left: 1px solid #f2f2f2;
-}
-table td,
-table th {
-    background: none !important;
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    text-align: left;
+    border: 1px solid var(--article-border);
+    border-bottom: 0;
 }
 
-table td:first-child,
-table th:first-child {
-    padding-left: 0.75em;
+table td,
+table th {
+    padding: 0.35em 0.75em;
+    vertical-align: top;
+    font-size: 0.9em;
+    line-height: 1.2;
+    border-bottom: 1px solid var(--article-border);
 }
-table td:last-child,
-table th:last-child {
-    padding-right: 0.75em;
+
+fieldset {
+    margin: 0;
+    padding: 0.5em 1em;
+    border: 1px solid var(--article-muted);
+}
+
+legend {
+    color: var(--article-muted);
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+input[type="text"] {
+    display: block;
+    width: 100%;
+    height: 2em;
+    padding: 0 0.5em;
+    font: inherit;
+    color: inherit;
+    background: var(--article-background);
+    border: 1px solid var(--article-muted);
+    border-radius: 2px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    border-color: var(--article-text);
 }
 
 .logo {
@@ -60,31 +191,4 @@ table th:last-child {
     vertical-align: middle;
     width: 1.5rem;
     height: auto;
-}
-
-.bordered {
-    border: 1px solid #aaa;
-    padding: 1rem 2rem;
-}
-
-.columns-3 {
-    columns: 2;
-}
-
-@media only screen and (min-width: 40rem) {
-    .columns-3 {
-        columns: 3;
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    pre {
-        background: #222;
-    }
-    table {
-        border-color: #333;
-    }
-    .bordered {
-        border-color: #555;
-    }
 }

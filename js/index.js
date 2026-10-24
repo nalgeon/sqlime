@@ -256,7 +256,7 @@ function showWelcome() {
         const settings = actionButton("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
-    const functions = actionButton("visit", "Functions", "functions");
+    const functions = `<a href="https://sqlite.org/lang_corefunc.html" class="sqlime-link" target="_blank">Functions</a>`;
     const about = actionButton("visit", "About", "about");
     message += `<p>${functions} • ${about}</p>`;
     ui.status.info(message);

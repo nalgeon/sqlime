@@ -3,7 +3,7 @@ SQLITE_VERSION := 3540100
 SQLITE_URL := https://sqlite.org/$(SQLITE_YEAR)/sqlite-wasm-$(SQLITE_VERSION).zip
 SQLITE_DIR := js/sqlite
 
-SITE := CNAME *.html *.db site.webmanifest css img js
+SITE := CNAME *.html *.db css img js
 PORT ?= 8000
 
 .PHONY: sqlite build serve clean
