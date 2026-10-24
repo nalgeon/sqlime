@@ -6,6 +6,12 @@ const SMALL_DELAY = 100;
 
 const EMPTY_SCHEMA = "";
 
+// fake GitHub credentials, so that save doesn't redirect to settings
+const CREDENTIALS = {
+    "github.username": "test",
+    "github.token": "test",
+};
+
 async function testNewDatabase() {
     log("New database...");
     const app = await loadApp();
@@ -242,11 +248,38 @@ async function runTests() {
     await testLoadGist();
     await testLoadGistInvalid();
     await testShowTables();
-    await testSaveEmpty();
-    await testSave();
-    await testUpdate();
+    await withCredentials(testSaveEmpty);
+    await withCredentials(testSave);
+    await withCredentials(testUpdate);
     await testChangeName();
     summary();
+}
+
+// withCredentials runs the test with fake GitHub credentials,
+// restoring the original ones afterwards. Only for tests
+// that mock the cloud calls, since GitHub rejects the fake token.
+async function withCredentials(test) {
+    const saved = setCredentials(CREDENTIALS);
+    try {
+        await test();
+    } finally {
+        setCredentials(saved);
+    }
+}
+
+// setCredentials sets GitHub credentials in the local storage
+// and returns the previous ones. Null values remove the keys.
+function setCredentials(creds) {
+    const prev = {};
+    for (const [key, value] of Object.entries(creds)) {
+        prev[key] = localStorage.getItem(key);
+        if (value === null) {
+            localStorage.removeItem(key);
+        } else {
+            localStorage.setItem(key, value);
+        }
+    }
+    return prev;
 }
 
 async function loadApp(timeout = LONG_DELAY) {
