@@ -1,7 +1,5 @@
 // SQLite database wrapper and metadata.
 
-import hasher from "./hasher.js";
-
 // default database name
 const DEFAULT_NAME = "new.db";
 
@@ -110,12 +108,11 @@ class SQLite {
         // sqlite api fails when trying to export an empty database
         if (this.tables.length) {
             const dbArr = this.capi.sqlite3_js_db_export(this.db.pointer);
-            dbHash = hasher.uint8Array(dbArr);
+            dbHash = hash(dbArr);
         }
-        const queryHash = hasher.string(this.query);
-        const hash = (Math.imul(dbHash, 31) + queryHash) | 0;
-        this.hashcode = hash;
-        return hash;
+        const queryHash = hash(new TextEncoder().encode(this.query));
+        this.hashcode = (Math.imul(dbHash, 31) + queryHash) | 0;
+        return this.hashcode;
     }
 
     // meaningfulName returns the database name
@@ -142,6 +139,15 @@ class SQLite {
         }
         return this.name;
     }
+}
+
+// hash calculates a simple 32-bit hashcode for the byte array.
+function hash(bytes) {
+    let h = 0;
+    for (const b of bytes) {
+        h = ((h << 5) - h + b) | 0;
+    }
+    return h;
 }
 
 export { DEFAULT_NAME, MESSAGES, QUERIES, SQLite };

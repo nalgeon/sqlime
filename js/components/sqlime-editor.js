@@ -48,9 +48,7 @@ class SqlimeEditor extends HTMLElement {
     onPaste(event) {
         event.preventDefault();
         // get text representation of clipboard
-        const text = (event.originalEvent || event).clipboardData.getData(
-            "text/plain"
-        );
+        const text = event.clipboardData.getData("text/plain");
         // insert text manually
         document.execCommand("insertHTML", false, text);
     }

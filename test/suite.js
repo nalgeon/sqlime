@@ -157,7 +157,7 @@ async function testSave() {
     log("Save snippet...");
     const app = await loadApp();
 
-    mock(app.gister, "create", (name, schema, query) => {
+    mock(app.github, "create", (name, schema, query) => {
         assert("before save: database name is not set", name == "new.db");
         assert("before save: database schema is empty", schema == EMPTY_SCHEMA);
         assert("before save: database query equals query text", query == sql);
@@ -180,7 +180,7 @@ async function testSave() {
         app.ui.status.value.includes("✓ Saved")
     );
 
-    unmock(app.gister, "create");
+    unmock(app.github, "create");
 }
 
 async function testUpdate() {
@@ -190,12 +190,12 @@ async function testUpdate() {
     const sql1 = "select 'created' as message";
     const sql2 = "select 'updated' as message";
 
-    mock(app.gister, "create", (name, schema, query) => {
+    mock(app.github, "create", (name, schema, query) => {
         const gist = buildGist(name, schema, query);
         return Promise.resolve(gist);
     });
 
-    mock(app.gister, "update", (id, name, schema, query) => {
+    mock(app.github, "update", (id, name, schema, query) => {
         assert("before save: database name is set", name == "424242.db");
         assert("before save: database schema is empty", schema == "");
         assert(
@@ -224,8 +224,8 @@ async function testUpdate() {
         app.ui.status.value.includes("✓ Saved")
     );
 
-    unmock(app.gister, "create");
-    unmock(app.gister, "update");
+    unmock(app.github, "create");
+    unmock(app.github, "update");
 }
 
 async function testChangeName() {
@@ -293,7 +293,7 @@ async function loadApp(timeout = LONG_DELAY) {
     app.window = app.frame.contentWindow;
     app.document = app.window.document;
     app.actions = app.window.app.actions;
-    app.gister = app.window.app.gister;
+    app.github = app.window.app.github;
     app.ui = app.window.app.ui;
     return app;
 }

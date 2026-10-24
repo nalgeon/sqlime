@@ -1,10 +1,8 @@
 // SQL Playground page
 
-import gister from "./cloud.js";
-import locator from "./locator.js";
+import github from "./github.js";
 import manager from "./sqlite/manager.js";
 import storage from "./storage.js";
-import timeit from "./timeit.js";
 
 import { actionButton } from "./components/action-button.js";
 import { ActionController } from "./controllers/actions.js";
@@ -52,14 +50,14 @@ let database;
 // for testing purposes
 window.app = {
     actions: actions,
-    gister: gister,
+    github: github,
     ui: ui,
 };
 
 // startFromCurrentUrl loads existing database or creates a new one
 // using current window location as database path
 async function startFromCurrentUrl() {
-    const path = locator.path();
+    const path = new DatabasePath(window.location.hash.slice(1));
     const name = path.extractName();
     const success = await start(name, path);
     if (!success) {
@@ -101,7 +99,7 @@ async function start(name, path) {
     ui.status.info(MESSAGES.loading);
 
     try {
-        const loadedDatabase = await manager.init(gister, name, path);
+        const loadedDatabase = await manager.init(name, path);
         console.debug(loadedDatabase);
         database = loadedDatabase;
         if (!loadedDatabase) {
@@ -142,9 +140,9 @@ function execute(sql) {
     try {
         ui.status.fadeOut();
         ui.status.info(MESSAGES.executing);
-        timeit.start();
+        const started = performance.now();
         const result = database.execute(sql);
-        const elapsed = timeit.finish();
+        const elapsed = Math.round(performance.now() - started);
         showResult(result, elapsed);
         return Promise.resolve();
     } catch (exc) {
@@ -169,21 +167,20 @@ function openUrl() {
 async function save() {
     const query = ui.editor.value.trim();
     storage.set(database.name, query);
-    gister.reload();
-    if (!gister.hasCredentials()) {
+    if (!github.hasCredentials()) {
         return visit("settings");
     }
     ui.status.info("Saving...");
     ui.result.clear();
     try {
-        const savedDatabase = await manager.save(gister, database, query);
+        const savedDatabase = await manager.save(database, query);
         if (!savedDatabase) {
-            ui.status.error(`Failed to save database to ${gister.name}`);
+            ui.status.error(`Failed to save database to ${github.name}`);
             return Promise.reject();
         }
         database = savedDatabase;
     } catch (exc) {
-        showError(`Failed to save database to ${gister.name}: ${exc}`);
+        showError(`Failed to save database to ${github.name}: ${exc}`);
         return Promise.reject(exc);
     }
     changeName(database.name);
@@ -255,7 +252,7 @@ function showWelcome() {
     const demo = actionButton("loadDemo", "demo database");
     let message = `<p>${MESSAGES.invite}<br>or load the ${demo}.</p>`;
     message += `<p>Click the logo anytime to start from scratch.</p>`;
-    if (!gister.hasCredentials()) {
+    if (!github.hasCredentials()) {
         const settings = actionButton("visit", "settings", "settings");
         message += `<p>Visit ${settings} to enable sharing.</p>`;
     }
@@ -291,7 +288,7 @@ function showSaved(database) {
     const shareUrl = `<copy-on-click href="${window.location}" class="button">
         copy share link</copy-on-click>`;
 
-    const gistUrl = `<a href="${gister.getUrl(database.id)}" target="_blank">gist</a>`;
+    const gistUrl = `<a href="${github.getUrl(database.id)}" target="_blank">gist</a>`;
     let message = `<p>✓ Saved as ${gistUrl}</p>`;
     message += `<p>${shareUrl}</p>`;
     ui.status.info(message);
@@ -358,5 +355,4 @@ ui.editor.addEventListener("start", (event) => {
 new ActionController(actions).listen(ui.commandbar, ui.status, ui.result);
 new ShortcutController(shortcuts).listen(document);
 
-gister.loadCredentials();
 startFromCurrentUrl();
