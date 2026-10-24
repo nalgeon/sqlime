@@ -4,11 +4,7 @@ const LONG_DELAY = 1000;
 const MEDIUM_DELAY = 500;
 const SMALL_DELAY = 100;
 
-const EMPTY_SCHEMA = `BEGIN TRANSACTION;
-PRAGMA writable_schema=ON;
-CREATE TABLE IF NOT EXISTS sqlean_define(name text primary key, type text, body text);
-PRAGMA writable_schema=OFF;
-COMMIT;`;
+const EMPTY_SCHEMA = "";
 
 async function testNewDatabase() {
     log("New database...");

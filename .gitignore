@@ -1,0 +1,3 @@
+build/
+js/sqlite/sqlite3.js
+js/sqlite/sqlite3.wasm
