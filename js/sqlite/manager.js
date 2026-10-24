@@ -194,6 +194,10 @@ function afterSave(database, gist) {
 // loadDbFromArrayBuffer loads an SQLite database from the array buffer.
 function loadDbFromArrayBuffer(buf) {
     const bytes = new Uint8Array(buf);
+    // in-memory databases do not support WAL,
+    // so switch the header to legacy rollback mode.
+    if (bytes[18] === 2) bytes[18] = 1;
+    if (bytes[19] === 2) bytes[19] = 1;
     const p = sqlite3.wasm.allocFromTypedArray(bytes);
     const db = new sqlite3.oo1.DB();
     sqlite3.capi.sqlite3_deserialize(
@@ -202,7 +206,7 @@ function loadDbFromArrayBuffer(buf) {
         p,
         bytes.length,
         bytes.length,
-        sqlite3.capi.SQLITE_DESERIALIZE_FREEONCLOSE | sqlite3.capi.SQLITE_DESERIALIZE_RESIZEABLE
+        sqlite3.capi.SQLITE_DESERIALIZE_FREEONCLOSE | sqlite3.capi.SQLITE_DESERIALIZE_RESIZEABLE,
     );
     return db;
 }
