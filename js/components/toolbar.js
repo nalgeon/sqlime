@@ -32,8 +32,6 @@ class Toolbar extends HTMLElement {
         this.btnOpenFile = this.querySelector(":nth-child(1)");
         this.file = this.btnOpenFile.querySelector("input");
         this.btnOpenUrl = this.querySelector(":nth-child(2)");
-        this.btnSettings = this.querySelector(":nth-child(3)");
-        this.btnAbout = this.querySelector(":nth-child(4)");
     }
 
     listen() {

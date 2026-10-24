@@ -29,7 +29,4 @@ class SqlimeResult extends HTMLElement {
     }
 }
 
-if (!window.customElements.get("sqlime-result")) {
-    window.SqlimeResult = SqlimeResult;
-    customElements.define("sqlime-result", SqlimeResult);
-}
+customElements.define("sqlime-result", SqlimeResult);

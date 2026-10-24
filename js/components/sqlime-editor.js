@@ -94,7 +94,4 @@ function handleExecute(elem, event) {
     return true;
 }
 
-if (!window.customElements.get("sqlime-editor")) {
-    window.SqlimeEditor = SqlimeEditor;
-    customElements.define("sqlime-editor", SqlimeEditor);
-}
+customElements.define("sqlime-editor", SqlimeEditor);

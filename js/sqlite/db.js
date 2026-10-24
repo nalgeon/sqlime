@@ -7,7 +7,6 @@ const DEFAULT_NAME = "new.db";
 
 // system queries
 const QUERIES = {
-    version: "select sqlite_version() as version",
     tables: `select name as "table" from sqlite_schema
       where type = 'table'
         and name not like 'sqlite_%'`,
@@ -19,7 +18,6 @@ const QUERIES = {
 
 // database messages
 const MESSAGES = {
-    empty: "The query returned nothing",
     executing: "Executing query...",
     invite: "Run SQL query to see the results",
     loading: "Loading database...",

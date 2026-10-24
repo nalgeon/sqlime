@@ -58,7 +58,4 @@ class SqlimeStatus extends HTMLElement {
     }
 }
 
-if (!window.customElements.get("sqlime-status")) {
-    window.SqlimeStatus = SqlimeStatus;
-    customElements.define("sqlime-status", SqlimeStatus);
-}
+customElements.define("sqlime-status", SqlimeStatus);

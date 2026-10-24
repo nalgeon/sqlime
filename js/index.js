@@ -291,18 +291,10 @@ function showSaved(database) {
     const shareUrl = `<copy-on-click href="${window.location}" class="button">
         copy share link</copy-on-click>`;
 
-    const url = gister.getUrl(database.id);
-    if (url) {
-        const gistUrl = `<a href="${url}" target="_blank">gist</a>`;
-        let message = `<p>✓ Saved as ${gistUrl}</p>`;
-        message += `<p>${shareUrl}</p>`;
-        ui.status.info(message);
-    } else {
-        const settings = actionButton("visit", "settings", "settings");
-        let message = `<p>✓ Saved to the public cloud. Visit ${settings} for private sharing.</p>`;
-        message += `<p> ${shareUrl}</p>`;
-        ui.status.info(message);
-    }
+    const gistUrl = `<a href="${gister.getUrl(database.id)}" target="_blank">gist</a>`;
+    let message = `<p>✓ Saved as ${gistUrl}</p>`;
+    message += `<p>${shareUrl}</p>`;
+    ui.status.info(message);
 }
 
 // enableCommandBar enables all buttons

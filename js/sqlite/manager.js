@@ -128,9 +128,6 @@ async function loadSql(name, path) {
 
 // loadGist loads a database from the cloud with the specified id.
 async function loadGist(gister, path) {
-    if (!gister) {
-        return Promise.reject("Saving to the cloud is not supported");
-    }
     console.debug(`Loading database from gist ${path.value}...`);
     const gist = await gister.get(path.value);
     if (!gist) {
@@ -149,11 +146,8 @@ async function loadGist(gister, path) {
 
 // save saves the database to the cloud.
 async function save(gister, database, query) {
-    if (!gister) {
-        return Promise.reject("Saving to the cloud is not supported");
-    }
     console.debug(`Saving database to gist...`);
-    const schema = dumper.toSql(database, query);
+    const schema = dumper.toSql(database);
     database.query = query;
     if (!schema && !query) {
         return Promise.resolve(null);
