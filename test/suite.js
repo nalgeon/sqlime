@@ -225,6 +225,7 @@ async function testUpdate() {
     );
 
     unmock(app.gister, "create");
+    unmock(app.gister, "update");
 }
 
 async function testChangeName() {

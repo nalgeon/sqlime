@@ -106,15 +106,14 @@ class SQLite {
     // calcHashcode fills the `.hashcode` attribute
     // with the database hashcode and returns it.
     calcHashcode() {
-        if (!this.tables.length) {
-            // sqlite api fails when trying to export an empty database
-            this.hashcode = 0;
-            return 0;
+        let dbHash = 0;
+        // sqlite api fails when trying to export an empty database
+        if (this.tables.length) {
+            const dbArr = this.capi.sqlite3_js_db_export(this.db.pointer);
+            dbHash = hasher.uint8Array(dbArr);
         }
-        const dbArr = this.capi.sqlite3_js_db_export(this.db.pointer);
-        const dbHash = hasher.uint8Array(dbArr);
         const queryHash = hasher.string(this.query);
-        const hash = dbHash & queryHash || dbHash || queryHash;
+        const hash = (Math.imul(dbHash, 31) + queryHash) | 0;
         this.hashcode = hash;
         return hash;
     }
